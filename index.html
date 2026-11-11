@@ -1370,7 +1370,7 @@ function wrapData(Y){
 const W={Y:0,i:0,slides:[],timer:null,dur:6500,paused:false,D:null};
 const wi=(s,i)=>`style="--i:${i}"`;
 function wrapSlides(D){
-  const S=[],name=DISPLAY,cv=a=>a&&a.covX?`<img src="${esc(a.covX)}" alt="" crossorigin="anonymous">`:"";
+  const S=[],name=DISPLAY,cv=a=>a&&a.covX?`<img src="${esc(a.covX)}" alt="" onerror="this.style.visibility='hidden'">`:"";
   S.push({t:"dark",h:`<div class="wbg rain">${D.top.concat(D.fin.slice(0,10)).slice(0,12).map((a,i)=>a.covX?`<img src="${esc(a.covX)}" alt="" style="--x:${(i*37)%100}%;--d:${(i*.37)%3}s;--r:${(i%5-2)*7}deg">`:"").join("")}</div>
     <div class="wc"><p class="wk wi" ${wi(0,0)}>${esc(name)}'s</p><div class="wyear wi" ${wi(0,1)}>${D.Y}</div><p class="wk wi" ${wi(0,2)}>Wrapped</p><p class="ws wi" ${wi(0,3)}>Your year in anime, manga and manhwa. Tap to start.</p></div>`});
   S.push({t:"light",h:`<div class="wbg blobs"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>In ${D.Y} you finished</p><div class="wnum num wi" ${wi(0,1)} data-count="${D.fin.length}">0</div><p class="wh wi" ${wi(0,2)}>titles</p>
@@ -1432,7 +1432,8 @@ async function saveWrapImage(){
   x.fillStyle="#fff";x.font=`700 150px ${serif}`;x.fillText(String(D.Y),540,265);x.font=`italic 500 64px ${serif}`;x.fillText("Wrapped",540,345);
   const stats=[[D.fin.length,"titles finished"],[fmtN(D.eps),"episodes"],[fmtN(D.ch),"chapters"],[D.G[0]?D.G[0][0]:"—","top genre"]];
   stats.forEach(([v,l],i)=>{const cx=150+i*260;x.fillStyle="#fff";x.font=`600 ${String(v).length>8?40:56}px ${serif}`;x.fillText(String(v),cx,470);x.fillStyle="#9a9a9a";x.font=`500 24px ${sans}`;x.fillText(l,cx,510)});
-  const load=u=>new Promise(r=>{if(!u)return r(null);const im=new Image();im.crossOrigin="anonymous";im.onload=()=>r(im);im.onerror=()=>r(null);im.src=u});
+  const load=u=>new Promise(r=>{if(!u)return r(null);const im=new Image(),blob=u.startsWith("blob:")||u.startsWith("data:");
+    if(!blob)im.crossOrigin="anonymous";im.onload=()=>r(im);im.onerror=()=>r(null);im.src=blob?u:u+(u.includes("?")?"&":"?")+"wrap=1"});
   const ims=await Promise.all(D.top.slice(0,5).map(a=>load(a.covX)));
   const cw=176,ch=250,gap=22,sx=(1080-(cw*5+gap*4))/2;
   ims.forEach((im,i)=>{const X0=sx+i*(cw+gap),Y0=590;x.save();x.beginPath();x.roundRect?x.roundRect(X0,Y0,cw,ch,14):x.rect(X0,Y0,cw,ch);x.clip();
@@ -1443,6 +1444,7 @@ async function saveWrapImage(){
   x.fillStyle="#9a9a9a";x.font=`600 24px ${sans}`;x.fillText("ANIME PERSONALITY",540,1070);x.fillStyle="#fff";x.font=`italic 600 62px ${serif}`;x.fillText(D.pers[0],540,1150);
   x.fillStyle="#777";x.font=`500 24px ${sans}`;x.fillText(`Presented by Ananth · ${LIVE.replace(/^https:\/\/|\/$/g,"")}`,540,1290);
   let blob;try{blob=await new Promise(r=>c.toBlob(r,"image/png"))}catch(e){blob=null}
+  if(!blob&&!W.noCovers){W.noCovers=true;const bk=D.top;D.top=D.top.map(a=>({...a,covX:null}));try{return await saveWrapImage()}finally{D.top=bk;W.noCovers=false}}
   if(!blob){toast("Couldn't make the image here");return}
   const name=`${DISPLAY}-${D.Y}-wrapped.png`;
   if(SNAP)return snapSave(name,blob);
