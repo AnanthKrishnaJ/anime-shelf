@@ -1,0 +1,45 @@
+name: Refresh saved AniList copy
+
+# The site always reads AniList live. This keeps data/snapshot.json fresh so
+# first-time visitors see the list instantly, even before AniList answers.
+on:
+  schedule:
+    - cron: "17 21 * * *"   # daily, 02:47 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch AnanthKrishna's lists from AniList
+        run: |
+          python3 - <<'PY'
+          import json, time, urllib.request
+          Q = """query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name}lists{entries{
+           status score(format:POINT_10_DECIMAL) progress progressVolumes updatedAt
+           media{id siteUrl title{romaji english} genres averageScore episodes chapters volumes seasonYear startDate{year}
+            format countryOfOrigin coverImage{extraLarge large color} bannerImage}}}}}"""
+          out = {}
+          for t in ("ANIME", "MANGA"):
+              req = urllib.request.Request("https://graphql.anilist.co",
+                  data=json.dumps({"query": Q, "variables": {"u": "AnanthKrishna", "t": t}}).encode(),
+                  headers={"Content-Type": "application/json", "Accept": "application/json"})
+              out[t] = json.load(urllib.request.urlopen(req, timeout=60))["data"]["MediaListCollection"]
+              time.sleep(2)
+          out["t"] = int(time.time() * 1000)
+          json.dump(out, open("data/snapshot.json", "w"), ensure_ascii=False, separators=(",", ":"))
+          PY
+      - name: Commit if the list changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          python3 -c "import json;d=json.load(open('data/snapshot.json'));d.pop('t');json.dump(d,open('/tmp/new.json','w'),sort_keys=True)"
+          git show HEAD:data/snapshot.json | python3 -c "import json,sys;d=json.load(sys.stdin);d.pop('t',None);json.dump(d,open('/tmp/old.json','w'),sort_keys=True)" || true
+          if cmp -s /tmp/new.json /tmp/old.json; then echo "No changes"; exit 0; fi
+          git add data/snapshot.json
+          git commit -m "Refresh saved AniList copy"
+          git push
