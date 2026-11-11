@@ -12,7 +12,7 @@ It reads AniList live in the visitor's browser, so the page updates whenever my 
 - Genre radar, my-score-vs-AniList bars, a card per genre, release years, score spread, formats and hot takes
 - **Compare with a friend**: type any AniList username to see what you both have, what only you have and what only they have, plus a taste-match score
 - **Export**: save any part of the list (or everything) as a PDF, CSV or JSON
-- View anyone's shelf with `?user=<AniList name>`, and share a comparison with `?compare=<name>`
+- **Switch account**: anyone can tap Switch and enter their own AniList username to make the whole site theirs (remembered on that device), or view anyone's shelf with `?user=<AniList name>`, and share a comparison with `?compare=<name>`
 
 ## Run it
 

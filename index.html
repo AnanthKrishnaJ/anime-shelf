@@ -657,6 +657,28 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 .wch{grid-template-columns:auto 1fr;column-gap:12px;align-items:center}
 .wch img{grid-row:span 2;width:52px;height:52px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #fff}
 
+/* account */
+.acct{padding:5px 12px 5px 5px}
+.aav{width:28px;height:28px;border-radius:50%;background:var(--btn);color:var(--btn-ink);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:13px;overflow:hidden;flex:none}
+.aav img{width:100%;height:100%;object-fit:cover;display:block}
+.acur{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;padding:12px;animation:rise .5s var(--ease) both}
+.acur .aav{width:52px;height:52px;font-size:22px}
+.acur div{min-width:0}.acur small{display:block;color:var(--muted);font-size:12px}
+.acur b{display:block;font-family:var(--serif);font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aerr{color:var(--ink);background:var(--soft);border-left:3px solid var(--ink);padding:8px 12px;border-radius:6px;margin:0!important;font-size:14px}
+#arecent .people{margin-top:8px}
+#arecent .pchip .pn{border:0;background:none;font-weight:600;font-size:14px;padding:0 2px;cursor:pointer;overflow:visible;max-width:none;width:auto;height:auto;border-radius:0;color:inherit}
+#arecent .pchip .pn:hover{transform:none;background:none;text-decoration:underline}
+#arecent .pchip{max-width:100%;flex:none}
+.ahint{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,0);z-index:55;width:min(520px,calc(100vw - 32px));display:flex;align-items:center;gap:12px;
+  background:var(--btn);color:var(--btn-ink);border-radius:16px;padding:12px 12px 12px 14px;box-shadow:0 20px 40px -14px rgba(0,0,0,.6);animation:hintIn .7s cubic-bezier(.2,1.3,.3,1) both}
+@keyframes hintIn{from{opacity:0;transform:translate(-50%,40px) scale(.95)}}
+.ahint div{flex:1;min-width:0}.ahint b{display:block;font-size:14px}.ahint small{display:block;font-size:12px;opacity:.75}
+.ahint .dark{background:var(--btn-ink);color:var(--btn);padding:8px 14px}
+.ahint .ahx{border:0;background:none;color:inherit;font-size:20px;width:30px;height:30px;opacity:.7}
+.ahint .aav.big{width:36px;height:36px;background:var(--btn-ink);color:var(--btn)}
+@media (max-width:460px){.acct{padding:5px}.acct span:last-child{display:none}}
+
 /* extra motion */
 .sechead h2{background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 2px no-repeat;padding-bottom:4px;transition:background-size 1.1s .25s var(--ease)}
 body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
@@ -750,6 +772,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   <div class="wrap">
     <a class="brand" href="#" id="brand"><i>A</i><h1 id="siteName">Ananth's Anime Shelf</h1></a>
     <span class="sync" id="sync"><b></b><span>Connecting…</span></span>
+    <button class="ghost hbtn acct" type="button" id="acctBtn" aria-label="Switch AniList account"><span class="aav" id="acctAv"></span><span>Switch</span></button>
     <button class="ghost hbtn" type="button" id="wNav" aria-label="Open Wrapped"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.6L20 9.5l-4.5 3.9L17 19l-5-3-5 3 1.5-5.6L4 9.5l5.8-.9z"/></svg><span>Wrapped</span></button>
     <a class="ghost hbtn" href="#compare" id="cmpNav" aria-label="Compare with a friend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6M16 12l3 3 3-3M19 15V4"/></svg><span>Compare</span></a>
     <button class="ghost hbtn" id="exportBtn" aria-label="Export list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Export</span></button>
@@ -852,7 +875,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
 
   <footer class="page">
     <span id="footNote">Live data from AniList.</span>
-    <form id="friend"><input id="friendIn" placeholder="Any AniList username" aria-label="AniList username" autocomplete="off"><button class="ghost" type="submit">View their shelf</button></form>
+    <button class="ghost" id="footAcct" type="button">See your own shelf</button>
     <button class="ghost" id="shareBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
   </footer>
 </main>
@@ -879,6 +902,23 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
     <p style="font-size:13px">The PDF is built right here and saved to your downloads. Big lists with covers can take a few seconds.</p>
   </div>
 </div>
+<div class="sheet xsheet asheet" id="asheet" role="dialog" aria-modal="true" aria-labelledby="aTitle">
+  <button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="xin">
+    <div><div class="eyebrow">Account</div><h2 id="aTitle">Whose shelf?</h2><p>Type your AniList username to turn this whole site into your own: anime, manga, manhwa, stats, rankings and Wrapped. Your AniList profile needs to be public.</p></div>
+    <div class="acur" id="acur"></div>
+    <form id="aForm" class="cmpform">
+      <label class="field" for="aIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <input id="aIn" placeholder="Your AniList username or profile link" autocomplete="username" autocapitalize="off" spellcheck="false"></label>
+      <button class="dark" type="submit" id="aGo">Open shelf</button>
+    </form>
+    <label class="check"><input type="checkbox" id="aRem" checked> Remember me on this device</label>
+    <p class="aerr" id="aErr" role="alert" hidden></p>
+    <div id="arecent"></div>
+    <div class="xbtns"><button class="ghost" id="aHome" type="button">Back to Ananth's shelf</button></div>
+  </div>
+</div>
+<div class="ahint" id="ahint" hidden><span class="aav big"></span><div><b>Got an AniList account?</b><small>See your own anime, stats and Wrapped here.</small></div><button class="dark" type="button" id="ahintGo">Try it</button><button class="ahx" type="button" id="ahintX" aria-label="Dismiss">×</button></div>
 <div class="done" id="done" role="dialog" aria-modal="true" aria-labelledby="doneT"></div>
 <div id="report"></div>
 <button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
@@ -893,9 +933,12 @@ const LIVE = "https://anime-shelf-seven.vercel.app/";
 const DEFAULT_USER = "AnanthKrishna";
 const OWNER_NAME = "Ananth";
 const params = new URLSearchParams(location.search);
-const USER = (params.get("user") || DEFAULT_USER).trim();
+const lsGet = k => {try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet = (k,v) => {try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+const SAVED_ME = SNAP ? null : lsGet("shelf:me");
+const USER = (params.get("user") || SAVED_ME || DEFAULT_USER).trim();
 const IS_OWNER = USER.toLowerCase() === DEFAULT_USER.toLowerCase();
-const DISPLAY = IS_OWNER ? OWNER_NAME : USER;
+let DISPLAY = IS_OWNER ? OWNER_NAME : USER;
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -912,6 +955,7 @@ const MODES = [
 ];
 const stLabel = (st,m) => ({W:m.verb,C:"Completed",P:"Planning",D:"Dropped",H:"Paused",X:"Not on my list"})[st];
 
+function applyName(){document.title=`${DISPLAY}'s Anime Shelf`;$("#siteName").textContent=`${DISPLAY}'s Anime Shelf`;if(!IS_OWNER)$("#heroEyebrow").textContent=`AniList · ${DISPLAY}`}
 document.title = `${DISPLAY}'s Anime Shelf`;
 $("#siteName").textContent = `${DISPLAY}'s Anime Shelf`;
 $("#heroEyebrow").textContent = IS_OWNER ? "Presented by Ananth" : `AniList · ${USER}`;
@@ -977,7 +1021,7 @@ async function load(){
     introMsg(ALL.length?"Checking AniList for updates":"Fetching your anime");introBar(.18);let got=0;
     const step=(c,label)=>{const n=(c.lists||[]).reduce((s,l)=>s+l.entries.length,0);got+=n;introCount(got);introMsg(label.replace("#",fmtN(n)));introBar(got&&IT.count?.35+.3*(++IT.steps||(IT.steps=1)):.5);return c};
     const [a,m]=await Promise.all([gql("ANIME").then(c=>step(c,"# anime loaded")),gql("MANGA").then(c=>step(c,"# manga & manhwa loaded"))]);
-    if(a.user){OWN.name=a.user.name||USER;OWN.avatar=pickAv(a.user);paintOwner()}
+    if(a.user){OWN.name=a.user.name||USER;OWN.avatar=pickAv(a.user);if(!IS_OWNER&&a.user.name&&a.user.name!==DISPLAY){DISPLAY=a.user.name;applyName()}addRecent(OWN.name,OWN.avatar,true);paintOwner()}
     const rows=[...normalize(a,"ANIME"),...normalize(m,"MANGA")];introWall(rows);
     ALL=rows;synced=Date.now();live=true;store.set(CK,{t:synced,rows});setSync("live");
     return true;
@@ -1196,8 +1240,8 @@ const SEAS_L={WINTER:"Winter",SPRING:"Spring",SUMMER:"Summer",FALL:"Fall"},SEAS_
 const P_COL=["var(--ink)","#8a8a8a","#c2c2c2","#555555"],P_DASH=["","7 5","2 4","12 4 3 4"];
 const OWN={name:USER,avatar:null};
 function pickAv(u){if(SNAP||!u||!u.avatar)return null;return u.avatar.large||u.avatar.medium||null}
-function paintOwner(){if(!OWN.avatar)return;const u=esc(OWN.avatar);
-  const bi=$(".brand i"),ini=esc(initial(DISPLAY));if(bi&&bi.dataset.av!==OWN.avatar){bi.dataset.av=OWN.avatar;bi.innerHTML=`<img src="${u}" alt="" onerror="this.parentNode.textContent='${ini}'">`}
+function paintOwner(){paintAcct();if(!OWN.avatar)return;const u=esc(OWN.avatar);
+  const bi=$(".brand i"),ini=esc(initial(DISPLAY));if(bi&&bi.dataset.av!==OWN.avatar){bi.dataset.av=OWN.avatar;bi.innerHTML=`<img src="${u}" alt="" onerror="this.parentNode&&(this.parentNode.textContent='${ini}')">`}
   const ht=$("#heroAv");if(ht&&ht.dataset.av!==OWN.avatar){ht.dataset.av=OWN.avatar;ht.innerHTML=`<img src="${u}" alt="" onerror="this.remove()">`}
   if(started)renderPeople()}
 const CMP={people:[],view:"all",sort:"diff",limit:40,f:{fmt:"",genre:"",year:"",season:""},group:"none",busy:""};
@@ -1436,7 +1480,7 @@ function showSlide(i){
   else W.timer=setTimeout(()=>{if(!W.paused)showSlide(W.i+1)},W.dur);
 }
 function wireCard(){$("#wSave").onclick=saveWrapImage;$("#wReplay").onclick=()=>showSlide(0);
-  $("#wShare").onclick=async()=>{const u=new URL(SNAP?LIVE:location.href);u.searchParams.set("wrapped",W.Y);if(!IS_OWNER)u.searchParams.set("user",USER);const url=u.toString();
+  $("#wShare").onclick=async()=>{const u=new URL(shelfURL(OWN.name||USER));u.searchParams.set("wrapped",W.Y);const url=u.toString();
     try{if(navigator.share){await navigator.share({title:`${DISPLAY}'s ${W.Y} Wrapped`,url});return}}catch(e){return}try{await navigator.clipboard.writeText(url);toast("Wrapped link copied")}catch(e){toast(url)}}}
 async function saveWrapImage(){
   const D=W.D,c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
@@ -1471,6 +1515,40 @@ async function saveWrapImage(){
   try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:`${DISPLAY}'s ${D.Y} Wrapped`});return}}catch(e){if(e.name==="AbortError")return}
   download(name,blob,"image/png");toast("Image saved");
 }
+
+/* ================= account ================= */
+function recents(){return store.get("shelf:recent",[])}
+function addRecent(name,avatar,quiet){if(!name||SNAP)return;const r=recents().filter(x=>x.name.toLowerCase()!==name.toLowerCase());r.unshift({name,avatar:avatar||null});store.set("shelf:recent",r.slice(0,6));if(!quiet)renderAccount()}
+const avHTML=(u,label)=>u?`<img src="${esc(u)}" alt="" onerror="this.parentNode&&(this.parentNode.textContent='${esc(initial(label))}')">`:esc(initial(label));
+function paintAcct(){const a=$("#acctAv");if(a)a.innerHTML=avHTML(OWN.avatar,DISPLAY);const hv=document.querySelector(".ahint .aav");if(hv)hv.innerHTML=avHTML(OWN.avatar,DISPLAY)}
+function renderAccount(){
+  const saved=lsGet("shelf:me");
+  $("#acur").innerHTML=`<span class="aav">${avHTML(OWN.avatar,DISPLAY)}</span><div><small>Showing now</small><b>${esc(DISPLAY)}'s shelf</b><small>AniList user ${esc(OWN.name||USER)}${saved&&saved.toLowerCase()===USER.toLowerCase()?" · remembered on this device":""}</small></div>`;
+  const R=recents().filter(x=>x.name.toLowerCase()!==USER.toLowerCase());
+  $("#arecent").innerHTML=R.length?`<div class="eyebrow">Recent accounts</div><div class="people">${R.map((x,i)=>`<span class="pchip" style="--d:${i*50}ms"><span class="aav">${avHTML(x.avatar,x.name)}</span><button type="button" class="pn" data-acct="${esc(x.name)}">${esc(x.name)}</button><button type="button" data-acctrm="${esc(x.name)}" aria-label="Forget ${esc(x.name)}">×</button></span>`).join("")}</div>`:"";
+  $("#aHome").hidden=IS_OWNER&&!saved;
+}
+function openAccount(){lastFocus=document.activeElement;$("#aErr").hidden=true;renderAccount();show("#asheet");setTimeout(()=>$("#aIn").focus({preventScroll:true}),120);hideHint(true)}
+function shelfURL(name){const base=SNAP?LIVE:location.origin+location.pathname;return base+"?user="+encodeURIComponent(name)}
+async function switchAccount(raw){
+  const name=String(raw||"").trim().replace(/^https?:\/\/(www\.)?anilist\.co\/user\//i,"").replace(/[/?#].*$/,"").replace(/^@/,"");if(!name)return;
+  const go=$("#aGo");$("#aErr").hidden=true;go.disabled=true;go.textContent="Checking…";
+  try{
+    const r=await fetch("https://graphql.anilist.co",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({query:"query($n:String){User(name:$n){name avatar{large medium}}}",variables:{n:name}})});
+    const j=await r.json();if(!j.data||!j.data.User)throw new Error((j.errors&&j.errors[0]&&j.errors[0].message)||"User not found");
+    const u=j.data.User;addRecent(u.name,u.avatar&&(u.avatar.large||u.avatar.medium),true);
+    if(SNAP){const a=document.createElement("a");a.href=shelfURL(u.name);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}
+    const own=u.name.toLowerCase()===DEFAULT_USER.toLowerCase();
+    if($("#aRem").checked)lsSet("shelf:me",own?null:u.name);
+    toast(`Opening ${u.name}'s shelf`);setTimeout(()=>location.href=own?location.pathname:shelfURL(u.name),250);
+  }catch(e){
+    if(SNAP){const a=document.createElement("a");a.href=shelfURL(name);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}
+    $("#aErr").textContent=/not found/i.test(e.message)?`No AniList user called “${name}”. Check the spelling, or make sure the profile is public.`:`AniList didn't answer (${e.message}). Try again in a moment.`;$("#aErr").hidden=false;
+  }finally{go.disabled=false;go.textContent="Open shelf"}
+}
+function goHome(){lsSet("shelf:me",null);if(SNAP){closeAll();return}location.href=location.pathname+"?user="+encodeURIComponent(DEFAULT_USER)}
+function maybeHint(){if(SNAP||!IS_OWNER||lsGet("shelf:me")||lsGet("shelf:hint")||params.get("compare")||params.get("wrapped"))return;setTimeout(()=>{if(!$("#asheet").classList.contains("on")){$("#ahint").hidden=false;paintAcct()}},6000)}
+function hideHint(perm){$("#ahint").hidden=true;if(perm)lsSet("shelf:hint","1")}
 
 /* ================= reveal ================= */
 let io=null;
@@ -1523,7 +1601,7 @@ function fly(src,url){
     f.animate([{left:s.left+"px",top:s.top+"px",width:s.width+"px",height:s.height+"px",borderRadius:"10px"},{left:d.left+"px",top:d.top+"px",width:d.width+"px",height:d.height+"px",borderRadius:"12px"}],{duration:620,easing:"cubic-bezier(.2,.8,.2,1)",fill:"forwards"})
       .onfinish=()=>{t.style.visibility="";f.remove()}})}
 function show(sel){$("#scrim").classList.add("on");$(sel).classList.add("on");document.body.style.overflow="hidden"}
-function closeAll(keep){["#sheet","#xsheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
+function closeAll(keep){["#sheet","#xsheet","#asheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
   if(keep!==true){$("#scrim").classList.remove("on");document.body.style.overflow="";lastFocus?.focus?.()}}
 
 /* ================= pick ================= */
@@ -1695,6 +1773,8 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#cfClear")){CMP.f={fmt:"",genre:"",year:"",season:""};CMP.limit=40;renderCompare();return}
   if(e.target.closest("#cmpShare")){syncURL();const url=SNAP?LIVE:location.href;
     (async()=>{try{if(navigator.share){await navigator.share({title:`AniList compare: ${CMP.people.map(p=>p.label).join(" vs ")}`,url});return}}catch(err){return}try{await navigator.clipboard.writeText(url);toast("Comparison link copied")}catch(err){toast(url)}})();return}
+  const ac=e.target.closest("[data-acct]");if(ac){$("#aIn").value=ac.dataset.acct;switchAccount(ac.dataset.acct);return}
+  const ar=e.target.closest("[data-acctrm]");if(ar){store.set("shelf:recent",recents().filter(x=>x.name!==ar.dataset.acctrm));renderAccount();return}
   const wy=e.target.closest("[data-wy]");if(wy){openWrapped(+wy.dataset.wy);return}
   const xs=e.target.closest("[data-xscope]");if(xs){X.scope=xs.dataset.xscope;renderExport();return}
   const xt=e.target.closest("[data-xstat]");if(xt){X.st=xt.dataset.xstat;renderExport();return}
@@ -1722,9 +1802,12 @@ $("#xjson").addEventListener("click",()=>{const L=exportRows();if(!L.length)retu
 $("#scrim").addEventListener("click",()=>closeAll());
 $("#totop").addEventListener("click",()=>scrollTo({top:0,behavior:reduce?"auto":"smooth"}));
 $("#brand").addEventListener("click",e=>{e.preventDefault();scrollTo({top:0,behavior:reduce?"auto":"smooth"})});
-$("#friend").addEventListener("submit",e=>{e.preventDefault();const v=$("#friendIn").value.trim();if(!v)return;const url="?user="+encodeURIComponent(v);
-  if(SNAP){toast("Opening on the live site");const a=document.createElement("a");a.href=LIVE+url;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}location.href=url});
-$("#shareBtn").addEventListener("click",async()=>{const url=SNAP?LIVE:location.href;try{if(navigator.share){await navigator.share({title:document.title,url});return}}catch(e){return}
+$("#footAcct").addEventListener("click",openAccount);
+$("#acctBtn").addEventListener("click",openAccount);
+$("#aForm").addEventListener("submit",e=>{e.preventDefault();switchAccount($("#aIn").value)});
+$("#aHome").addEventListener("click",goHome);
+$("#ahintGo").addEventListener("click",openAccount);$("#ahintX").addEventListener("click",()=>hideHint(true));
+$("#shareBtn").addEventListener("click",async()=>{const url=shelfURL(OWN.name||USER);try{if(navigator.share){await navigator.share({title:document.title,url});return}}catch(e){return}
   try{await navigator.clipboard.writeText(url);toast("Link copied")}catch(e){toast(url)}});
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
 addEventListener("resize",()=>{moveModeSlide();moveTab()});
@@ -1758,6 +1841,7 @@ if(matchMedia("(pointer:fine)").matches&&!reduce){
   if(!ok)return;
   if(!started){start();introFinish()}
   else if(sig(ALL)!==before){renderModes();renderAll();if(introGone)toast("Updated from AniList")}
+  maybeHint();paintAcct();
   setInterval(()=>{if(live)setSync("live")},60000);
   setInterval(()=>{if(!document.hidden)refresh()},5*60*1000);
   document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-synced>90000)refresh()});
