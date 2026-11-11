@@ -408,65 +408,235 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 .err h2{font-size:28px;margin-bottom:8px}
 
 /* compare */
+.ppl{padding:16px;display:grid;gap:14px}
+.people{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;align-items:center}
+.pchip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 6px 4px 4px;font-weight:600;font-size:14px;max-width:100%;
+  animation:chipIn .55s var(--d,0ms) cubic-bezier(.2,1.4,.3,1) both;box-shadow:inset 0 -3px 0 var(--pc,transparent)}
+.pchip .pn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pchip small{font-weight:500;color:var(--muted);font-size:11px;white-space:nowrap}
+.pchip button{border:0;background:var(--soft);width:26px;height:26px;border-radius:50%;font-size:16px;line-height:1;flex:none;transition:transform .25s,background .25s}
+.pchip button:hover{transform:rotate(90deg);background:var(--line)}
+.pchip.busy{padding:6px 14px;color:var(--muted);box-shadow:none}
+.pchip.addme{border-style:dashed;padding:8px 14px;color:var(--muted);box-shadow:none}
+.pchip.addme:hover{color:var(--ink);border-color:var(--ink)}
+@keyframes chipIn{from{opacity:0;transform:scale(.4) translateY(10px)}}
+.pav,.vav{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:15px;color:var(--btn-ink);background:var(--btn);box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--pc,transparent)}
+.vav{width:56px;height:56px;font-size:24px}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ink);animation:sp .7s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
 .cmpform{display:flex;gap:10px;flex-wrap:wrap}
 .cmpform .field{flex:1 1 240px}
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:20px;margin-top:16px}
-.vs .who{min-width:0}
+.cempty{padding:28px 20px;text-align:center;margin-top:16px}
+.cempty h3{font-size:22px;margin:14px 0 6px}
+.cempty p{color:var(--muted);margin:0 auto;max-width:52ch}
+.ghosts{display:flex;justify-content:center}
+.ghosts span{width:52px;height:52px;border-radius:50%;border:2px dashed var(--line);margin:0 -8px;background:var(--card);animation:bob 2.4s calc(var(--i)*.25s) ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:20px;margin-top:16px;overflow:hidden}
+.vs .who{min-width:0;display:flex;align-items:center;gap:12px}
+.vs .who > div{min-width:0}
+.vs .who.l{animation:slideL .8s var(--ease) both}.vs .who.r{animation:slideR .8s var(--ease) both;justify-content:flex-end;text-align:right}
+@keyframes slideL{from{opacity:0;transform:translateX(-60px)}}@keyframes slideR{from{opacity:0;transform:translateX(60px)}}
 .vs .who b{font-family:var(--serif);font-size:22px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vs .who small{color:var(--muted)}
-.vs .who.r{text-align:right}
-.vs .mid{display:grid;justify-items:center;gap:4px;text-align:center}
+.vs .who small{color:var(--muted);display:block}
+.vs .mid{display:grid;justify-items:center;gap:4px;text-align:center;position:relative}
 .vs .mid small{color:var(--muted);font-size:12px;max-width:18ch}
 .vs .ring text{font-size:16px}
-.ctabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 12px}
-.ctab{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px;text-align:left;font-weight:600;font-size:14px;transition:all .25s var(--ease);min-width:150px}
-.ctab small{display:block;font-weight:500;color:var(--muted);font-size:12px}
-.ctab strong{font-family:var(--serif);font-size:22px;display:block;line-height:1.1}
-.ctab[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.vsb{position:absolute;top:30px;font-family:var(--serif);font-style:italic;font-weight:700;font-size:13px;opacity:0;animation:vsflash 1.1s .5s var(--ease) both}
+@keyframes vsflash{0%{opacity:0;transform:scale(3)}40%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translateY(-34px)}}
+.vsn{padding:18px;margin-top:16px;display:grid;gap:16px}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pcard{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;justify-items:center;text-align:center;gap:6px;min-width:0;box-shadow:inset 0 -4px 0 var(--pc);animation:rise .6s var(--d) var(--ease) both}
+.pcard b{font-family:var(--serif);font-size:18px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard small{color:var(--muted);font-size:12px}
+.pairs{display:flex;flex-wrap:wrap;gap:10px}
+.pair{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px 8px 8px;font-size:13px;min-width:0;animation:rise .6s var(--ease) both}
+.pair span{min-width:0}.pair b{font-weight:600}
+.pair small{display:block;color:var(--muted);font-size:11px}
+.ctabs{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:8px;margin:16px 0 12px}
+.ctab{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px;text-align:left;font-weight:600;font-size:14px;transition:all .3s var(--ease);min-width:0;
+  animation:rise .5s var(--d) var(--ease) both;box-shadow:inset 0 -3px 0 var(--pc,transparent)}
+.ctab:hover{transform:translateY(-3px)}
+.ctab small{display:block;font-weight:500;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctab strong{font-family:var(--serif);font-size:24px;display:block;line-height:1.1}
+.ctab .lbl{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctab[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn);transform:translateY(-2px)}
 .ctab[aria-pressed="true"] small{color:inherit;opacity:.75}
-.crow{display:grid;grid-template-columns:46px minmax(0,1fr) 92px 92px 64px;gap:12px;align-items:center;padding:10px 12px;background:var(--card);border-radius:12px;border:0;width:100%;text-align:left;
+.cfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-bottom:10px}
+.fsel{display:grid;gap:3px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:0;flex:1 1 130px}
+.fsel select{text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:var(--ink);width:100%;min-width:0}
+.cfilters .ghost{flex:none;padding:10px 12px}
+.ccount{font-size:13px;color:var(--muted);margin:4px 0 10px}
+.crow{display:grid;grid-template-columns:46px minmax(0,1fr) repeat(var(--n),88px) 52px;gap:10px;align-items:center;padding:10px 12px;background:var(--card);border-radius:12px;border:0;width:100%;text-align:left;
   animation:rise .5s var(--ease) both;transition:transform .25s var(--ease),box-shadow .25s}
 .crow:hover{transform:translateX(4px);box-shadow:var(--shadow)}
 .crow .mini{width:46px;height:64px}
+.crow .ct{min-width:0}
 .crow b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow small{color:var(--muted);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .scs{display:contents}
-.crow .sc{text-align:center;border:1px solid var(--line);border-radius:8px;padding:4px 4px;font-size:12px;min-width:0}
+.crow .sc{text-align:center;border:1px solid var(--line);border-radius:8px;padding:4px;font-size:12px;min-width:0;box-shadow:inset 0 3px 0 var(--pc);animation:pop2 .5s calc(var(--k)*70ms + 200ms) cubic-bezier(.2,1.3,.3,1) both}
+.crow .sc.none{opacity:.55}
 .crow .sc .nm{display:none}
-.crow .sc em{font-style:normal;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ctab .lbl{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chead span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vs .ring{flex:none}
 .crow .sc strong{display:block;font-size:16px;font-family:var(--serif)}
-.crow .sc.me{background:var(--sel);border-color:var(--sel-line)}
+.crow .sc em{font-style:normal;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .df{text-align:right;font-weight:700;font-size:13px}
-.chead{display:grid;grid-template-columns:46px minmax(0,1fr) 92px 92px 64px;gap:12px;padding:0 12px 6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.chead span{text-align:center}.chead span:last-child{text-align:right}
+.chead{display:grid;grid-template-columns:46px minmax(0,1fr) repeat(var(--n),88px) 52px;gap:10px;padding:0 12px 6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chead span{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chead span:last-child{text-align:right}
 .clist{display:grid;gap:8px}
+.cgroup{display:flex;justify-content:space-between;align-items:baseline;padding:14px 4px 2px;font-family:var(--serif);font-size:20px;font-weight:600;border-bottom:2px solid var(--ink);animation:rise .5s var(--ease) both;position:sticky;top:calc(env(safe-area-inset-top,0px) + 64px);background:var(--ground);z-index:2}
+.cgroup small{font-family:var(--sans);font-size:12px;color:var(--muted);font-weight:500}
+.ccharts{margin-top:18px;padding:0;overflow:hidden}
+.ccharts summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ccharts summary::-webkit-details-marker{display:none}
+.ccharts summary span{font-family:var(--serif);font-size:20px;font-weight:600}
+.ccharts summary span::after{content:" +";color:var(--muted)}
+.ccharts[open] summary span::after{content:" −"}
+.ccharts summary small{color:var(--muted)}
+.ccin{padding:0 20px 20px;display:grid;gap:18px}
+.clegend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;font-weight:600}
+.clegend i{display:inline-block;width:18px;height:8px;border-radius:4px;background:var(--pc);margin-right:6px;vertical-align:middle}
+.cgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.cchart h4{font-family:var(--serif);font-size:17px;margin:0}
+.cchart p{color:var(--muted);font-size:12.5px;margin:2px 0 10px}
+.gmix{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;padding:4px 0;font-size:13px}
+.gmix > div{display:grid;gap:3px}
+.gmix i{display:block;height:9px;border-radius:5px;background:var(--pc);transform-origin:left;animation:grow 1.2s var(--ease) both;position:relative;min-width:2px}
+.gmix em{position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);font-style:normal;font-size:10px;color:var(--muted);white-space:nowrap}
+.seas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;height:170px}
+.sgrp{display:grid;grid-template-rows:1fr auto;gap:6px;text-align:center;font-size:12px;color:var(--muted);font-weight:600}
+.sbars{display:flex;align-items:flex-end;justify-content:center;gap:3px}
+.sbars i{flex:1;max-width:20px;background:var(--pc);border-radius:4px 4px 0 0;transform-origin:bottom;animation:growY 1.1s var(--ease) both;position:relative;min-height:2px}
+.sbars em{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-style:normal;font-size:10px;margin-bottom:2px}
 @media (max-width:700px){
   .vs{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:16px;gap:12px}.vs .mid{grid-column:1/-1;order:-1}
-  .vs .who b{font-size:18px}
-  .ctabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .ctab{min-width:0;padding:10px;font-size:13px}
-  .ctab strong{font-size:20px}
-  .ctab small{display:none}
+  .vs .who{flex-direction:column;align-items:flex-start;gap:6px}.vs .who.r{align-items:flex-end;flex-direction:column-reverse}
+  .vs .who b{font-size:18px}.vav{width:44px;height:44px;font-size:19px}
+  .ctabs{grid-template-columns:repeat(min(var(--cols),3),minmax(0,1fr))}
+  .ctab{padding:10px;font-size:13px}.ctab strong{font-size:20px}.ctab small{display:none}
   .ctab .lbl{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere;line-height:1.25}
-  .ctools{flex-wrap:nowrap}
-  .ctools select{flex:1;min-width:0}
-  .ctools .ghost{flex:none;padding:10px 12px}
-  .ctools .ghost span{display:none}
+  .fsel{flex:1 1 calc(50% - 8px)}
+  .cfilters .ghost span{display:none}
   .chead{display:none}
   .crow{grid-template-columns:44px minmax(0,1fr);grid-template-areas:"img t" "img s";gap:8px 12px;align-items:start;padding:10px}
   .crow .mini{grid-area:img;width:44px;height:62px}
-  .crow .ct{grid-area:t;min-width:0}
-  .crow .scs{grid-area:s;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px;align-items:center;min-width:0}
-  .crow .sc{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:6px;text-align:left;padding:5px 8px;min-width:0}
+  .crow .ct{grid-area:t}
+  .crow .scs{grid-area:s;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr)) auto;gap:6px;align-items:center;min-width:0}
+  .crow .sc{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:6px;text-align:left;padding:5px 7px;min-width:0}
   .crow .sc .nm{display:block;grid-column:1/-1;font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .crow .sc strong{font-size:16px}
   .crow .sc em{font-size:11px;color:var(--muted);min-width:0}
-  .crow .df{display:block;font-size:12px;min-width:0}
+  .crow[style*="--n:3"] .sc em,.crow[style*="--n:4"] .sc em{display:none}
+  .crow .df{font-size:12px}
   .crow:hover{transform:none}
+  .cgrid{grid-template-columns:1fr}
+  .gmix{grid-template-columns:78px 1fr}
+  .cgroup{top:calc(env(safe-area-inset-top,0px) + 112px)}
 }
+
+/* rankings */
+.rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.rpanel h3{font-size:20px}
+.rlist{display:grid;gap:6px}
+.rrow{display:grid;grid-template-columns:62px 38px minmax(0,1fr) auto;gap:10px;align-items:center;border:0;background:none;padding:6px 4px;border-radius:10px;text-align:left;width:100%;
+  animation:rise .5s var(--d) var(--ease) both;transition:background .25s,transform .25s var(--ease)}
+.rrow:hover{background:var(--soft);transform:translateX(4px)}
+.rnum{font-family:var(--serif);font-weight:700;font-size:20px;text-align:right;white-space:nowrap}
+.rrow .mini{width:38px;height:54px}
+.rt{min-width:0}.rt b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rt small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rme{font-size:12px;font-weight:700}
+.rank{position:absolute;right:10px;bottom:9px;z-index:3;font-size:10.5px;font-weight:700;color:#111;background:rgba(255,255,255,.92);border-radius:6px;padding:2px 6px;letter-spacing:.02em}
+.rks{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rks span{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--btn);color:var(--btn-ink);animation:rise .5s var(--ease) both}
+.rks span.o{background:none;color:var(--ink);border:1px solid var(--line)}
+@media (max-width:700px){.rgrid{grid-template-columns:1fr}.rrow{grid-template-columns:54px 38px minmax(0,1fr) auto}.rank{right:7px;bottom:26px;font-size:9.5px}}
+
+/* wrapped */
+.wpromo{display:inline-flex;align-items:center;gap:10px;margin-top:6px;align-self:flex-start;background:#fff;color:#111;border:0;border-radius:999px;padding:9px 16px 9px 10px;font-weight:700;font-size:14px;position:relative;overflow:hidden}
+.wpromo i{width:26px;height:26px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px;animation:sp 6s linear infinite}
+.wpromo::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(0,0,0,.12) 50%,transparent 65%);transform:translateX(-100%);animation:gleam 3s 1s ease-in-out infinite}
+#wrap{position:fixed;inset:0;z-index:180;background:#000;display:grid;place-items:center;opacity:0;transition:opacity .45s}
+#wrap.on{opacity:1}
+#wrap .wbox{position:relative;width:min(100vw,calc(100dvh * .5625));height:100dvh;max-height:100dvh;overflow:hidden;background:#0a0a0a}
+@media (min-width:700px){#wrap .wbox{height:min(92dvh,860px);border-radius:22px;width:min(100vw,calc(min(92dvh,860px) * .5625))}}
+#wstage{position:absolute;inset:0;z-index:4;pointer-events:none}
+#wstage button,#wstage a{pointer-events:auto}
+.wslide{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;animation:wIn .7s cubic-bezier(.2,.8,.2,1) both}
+.wslide.out{animation:wOut .6s cubic-bezier(.7,0,.2,1) both;z-index:0}
+@keyframes wIn{from{clip-path:circle(0% at 50% 60%)}to{clip-path:circle(150% at 50% 60%)}}
+@keyframes wOut{to{transform:scale(.92);opacity:0}}
+.t-dark,.t-card{background:#0b0b0b;color:#fff}.t-light{background:#f2f2f2;color:#0b0b0b}
+.wtop-ui{position:absolute;left:0;right:0;top:0;z-index:5;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 0;display:grid;gap:10px}
+#wprog{display:flex;gap:4px}
+#wprog span{flex:1;height:3px;border-radius:2px;background:rgba(127,127,127,.35);overflow:hidden}
+#wprog i{display:block;height:100%;background:currentColor;transform:scaleX(0);transform-origin:left}
+#wprog .done i{transform:scaleX(1)}
+#wprog .now i{animation:wp linear forwards}
+@keyframes wp{to{transform:scaleX(1)}}
+#wrap[data-theme="light"] .wtop-ui{color:#111}#wrap .wtop-ui{color:#fff}
+.wbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#wyears{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+#wyears button{border:1px solid currentColor;background:none;color:inherit;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;opacity:.6}
+#wyears button[aria-pressed="true"]{opacity:1;background:currentColor}
+#wyears button[aria-pressed="true"]{color:inherit}
+#wrap[data-theme="light"] #wyears button[aria-pressed="true"]{color:#fff;background:#111;border-color:#111}
+#wrap:not([data-theme="light"]) #wyears button[aria-pressed="true"]{color:#111;background:#fff;border-color:#fff}
+#wclose{border:0;background:rgba(127,127,127,.25);color:inherit;width:36px;height:36px;border-radius:50%;font-size:18px;flex:none}
+.wtap{position:absolute;inset:80px 0 0;z-index:3;display:grid;grid-template-columns:30% 70%}
+.wtap button{border:0;background:none}
+.wc{position:relative;z-index:4;display:grid;justify-items:center;text-align:center;gap:10px;padding:90px 26px 40px;width:100%;pointer-events:none}
+.wc button,.wc a{pointer-events:auto}
+.wc.wide{padding-inline:18px}
+.wi{animation:wiIn .8s calc(.25s + var(--i)*.14s) cubic-bezier(.2,.9,.25,1.15) both}
+@keyframes wiIn{from{opacity:0;transform:translateY(40px) scale(.96);filter:blur(8px)}}
+.wk{margin:0;font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.7;font-weight:700}
+.wyear{font-family:var(--serif);font-weight:700;font-size:clamp(96px,30vw,150px);line-height:.9;letter-spacing:-.04em}
+.wnum{font-family:var(--serif);font-weight:700;font-size:clamp(96px,30vw,140px);line-height:.9}
+.wh{font-family:var(--serif);font-size:32px;font-style:italic;margin:0}
+.wh2{font-family:var(--serif);font-weight:700;font-size:clamp(44px,13vw,64px);line-height:1;text-wrap:balance}
+.wh3{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.15;text-wrap:balance}
+.ws{margin:4px 0 0;font-size:15px;opacity:.85;max-width:30ch;text-wrap:balance}
+.wrow{display:flex;gap:26px;margin-top:6px}
+.wrow span{display:grid;font-size:13px;opacity:.85}.wrow b{font-family:var(--serif);font-size:38px;line-height:1}
+.wmonths{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;width:100%;height:150px;margin-top:10px}
+.wmonths div{display:grid;grid-template-rows:1fr auto;gap:4px;font-size:10px;opacity:.55}
+.wmonths div.on{opacity:1}
+.wmonths i{align-self:end;background:currentColor;border-radius:3px 3px 0 0;transform-origin:bottom;animation:growY 1s cubic-bezier(.2,.9,.25,1.2) both;min-height:2px}
+.wbars{display:grid;gap:8px;width:100%;margin-top:10px}
+.wbars > div{display:grid;grid-template-columns:120px 1fr 30px;gap:10px;align-items:center;font-size:14px;font-weight:600;text-align:left}
+.wbars i{height:12px;border-radius:6px;background:currentColor;width:var(--w);transform-origin:left;animation:grow 1.1s calc(.6s + var(--i)*.12s) var(--ease) both}
+.wtop{display:grid;gap:10px;width:100%}
+.wtop > div{display:grid;grid-template-columns:30px 56px minmax(0,1fr);gap:12px;align-items:center;text-align:left}
+.wtop b{font-family:var(--serif);font-size:30px}
+.wtop img{width:56px;height:80px;object-fit:cover;border-radius:8px;box-shadow:0 10px 20px -8px rgba(0,0,0,.8)}
+.wtop strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.wtop small{opacity:.7;font-size:12px}
+.wcover img{width:min(48vw,190px);aspect-ratio:2/3;object-fit:cover;border-radius:14px;box-shadow:0 30px 50px -18px rgba(0,0,0,.8);animation:float 3s ease-in-out infinite}
+.wvs{display:flex;align-items:center;gap:20px}
+.wvs span{display:grid;font-size:12px;opacity:.85}.wvs b{font-family:var(--serif);font-size:44px;line-height:1}
+.wvs em{font-family:var(--serif);font-style:italic;font-size:20px;opacity:.6}
+.wfan{position:relative;height:200px;width:100%}
+.wfan span{position:absolute;left:50%;top:10px;transform:translateX(-50%) translateX(calc(var(--k)*70px)) rotate(calc(var(--k)*9deg));transform-origin:50% 120%}
+.wfan img{width:110px;aspect-ratio:2/3;object-fit:cover;border-radius:10px;box-shadow:0 20px 30px -12px rgba(0,0,0,.6)}
+.pers{font-style:italic}
+.wsum{width:100%;border:1px solid #333;border-radius:18px;padding:18px;display:grid;gap:14px;background:linear-gradient(#151515,#060606)}
+.wch{display:grid;text-align:left}.wch small{opacity:.7;font-size:12px;letter-spacing:.2em;text-transform:uppercase}.wch b{font-family:var(--serif);font-size:32px}
+.wcg{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+.wcg div{border:1px solid #2c2c2c;border-radius:10px;padding:8px 10px;min-width:0}.wcg b{display:block;font-family:var(--serif);font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.wcg small{opacity:.65;font-size:11px}
+.wcc{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.wcc img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px}
+.wcp{font-family:var(--serif);font-style:italic;font-size:20px}
+.wbtns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.t-card .ghost{background:#1b1b1b;border-color:#333;color:#fff}.t-card .dark{background:#fff;color:#111}
+.wbg{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.wbg.blobs i{position:absolute;width:70%;aspect-ratio:1;border-radius:50%;filter:blur(50px);opacity:.35;background:currentColor;animation:blob 9s ease-in-out infinite}
+.t-dark .wbg.blobs i,.t-card .wbg.blobs i{background:#fff;opacity:.12}
+.wbg.blobs i:nth-child(1){left:-20%;top:-10%}.wbg.blobs i:nth-child(2){right:-25%;top:30%;animation-delay:-3s}.wbg.blobs i:nth-child(3){left:10%;bottom:-25%;animation-delay:-6s}
+.t-light .wbg.blobs i{background:#000;opacity:.08}
+@keyframes blob{50%{transform:translate(12%,10%) scale(1.25)}}
+.wbg.rings i{position:absolute;left:50%;top:55%;border:1.5px solid currentColor;border-radius:50%;opacity:.12;transform:translate(-50%,-50%);animation:ring 6s linear infinite}
+.wbg.rings i:nth-child(1){width:60%;aspect-ratio:1}.wbg.rings i:nth-child(2){width:95%;aspect-ratio:1;animation-delay:-2s}.wbg.rings i:nth-child(3){width:130%;aspect-ratio:1;animation-delay:-4s}
+@keyframes ring{0%{transform:translate(-50%,-50%) scale(.7);opacity:0}30%{opacity:.18}100%{transform:translate(-50%,-50%) scale(1.3);opacity:0}}
+.wbg.rain img{position:absolute;left:var(--x);top:-40%;width:24%;aspect-ratio:2/3;object-fit:cover;border-radius:8px;opacity:.35;transform:rotate(var(--r));animation:rain 7s var(--d) linear infinite}
+@keyframes rain{to{top:110%}}
+.wbg.rain::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,0,0,.55),#0b0b0b 75%)}
 
 #compare.flash .cmpform .field{animation:flashb 1.2s ease 2}
 @keyframes flashb{50%{border-color:var(--ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--ink) 12%,transparent)}}
@@ -568,6 +738,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   <div class="wrap">
     <a class="brand" href="#" id="brand"><i>A</i><h1 id="siteName">Ananth's Anime Shelf</h1></a>
     <span class="sync" id="sync"><b></b><span>Connecting…</span></span>
+    <button class="ghost hbtn" type="button" id="wNav" aria-label="Open Wrapped"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.6L20 9.5l-4.5 3.9L17 19l-5-3-5 3 1.5-5.6L4 9.5l5.8-.9z"/></svg><span>Wrapped</span></button>
     <a class="ghost hbtn" href="#compare" id="cmpNav" aria-label="Compare with a friend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6M16 12l3 3 3-3M19 15V4"/></svg><span>Compare</span></a>
     <button class="ghost hbtn" id="exportBtn" aria-label="Export list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Export</span></button>
     <div class="modes" id="modes" role="group" aria-label="Library"><span class="mslide" id="mslide"></span></div>
@@ -583,6 +754,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
         <div class="eyebrow" id="heroEyebrow">Presented by Ananth</div>
         <h2 id="heroH"></h2>
         <p id="heroLine"></p>
+        <button class="wpromo" type="button" id="wPromo"><i>▶</i><span id="wPromoT">Wrapped</span></button>
       </div>
       <div class="flow" id="flow" aria-hidden="true"></div>
     </div>
@@ -607,12 +779,15 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   </section>
 
   <section id="compare">
-    <div class="sechead" data-r><div><div class="eyebrow">Compare</div><h2>Compare lists with a friend</h2><p>Type any AniList username to see what you both have, what only you have, and what only they have.</p></div></div>
-    <form class="cmpform" id="cmpForm" data-r>
-      <label class="field" for="cmpIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11l2 2 4-4"/></svg>
-        <input id="cmpIn" placeholder="Friend's AniList username" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
-      <button class="dark" type="submit" id="cmpGo">Compare</button>
-    </form>
+    <div class="sechead" data-r><div><div class="eyebrow">Compare</div><h2>Compare lists</h2><p>Add up to 4 AniList users, remove anyone (even me), then filter and sort by year, season, format and genre.</p></div></div>
+    <div class="ppl panel" data-r>
+      <div class="people" id="people"></div>
+      <form class="cmpform" id="cmpForm">
+        <label class="field" for="cmpIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M19 8v6M16 11h6"/></svg>
+          <input id="cmpIn" placeholder="Friend's AniList username" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+        <button class="dark" type="submit" id="cmpGo">+ Add</button>
+      </form>
+    </div>
     <div id="cmpOut"></div>
   </section>
 
@@ -627,6 +802,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
       <select id="sort" aria-label="Sort by">
         <option value="score">My score</option><option value="avg">AniList score</option><option value="recent">Recently updated</option>
         <option value="new">Newest release</option><option value="old">Oldest release</option><option value="prog">Most progress</option>
+        <option value="rank">AniList rank</option><option value="pop">Most popular</option><option value="gem">Hidden gems first</option>
         <option value="az">Title A–Z</option><option value="hot">Biggest hot take</option>
       </select>
       <select id="fmt" aria-label="Format"></select>
@@ -644,6 +820,11 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
       <div class="panel box c7 anim" data-r><h3>My score vs AniList</h3><p><span class="key"><i style="background:var(--ink)"></i>Me</span><span class="key"><i style="background:color-mix(in srgb,var(--ink) 28%,transparent)"></i>AniList</span>Average out of 10, per genre.</p><div id="gcmp"></div></div>
     </div>
     <div class="gcards" id="gcards"></div>
+  </section>
+
+  <section id="ranks">
+    <div class="sechead" data-r><div><div class="eyebrow">Rankings</div><h2>Ranked, hidden and underrated</h2><p>From AniList's own all-time rankings and member counts.</p></div></div>
+    <div class="rgrid" id="rankGrid"></div>
   </section>
 
   <section id="taste">
@@ -664,6 +845,11 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   </footer>
 </main>
 
+<div id="wrap" hidden role="dialog" aria-modal="true" aria-label="Wrapped"><div class="wbox">
+  <div id="wstage"></div>
+  <div class="wtap"><button type="button" id="wPrev" aria-label="Previous"></button><button type="button" id="wNext" aria-label="Next"></button></div>
+  <div class="wtop-ui"><div id="wprog"></div><div class="wbar"><div id="wyears"></div><button type="button" id="wclose" aria-label="Close Wrapped">✕</button></div></div>
+</div></div>
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sTitle"></div>
 <div class="sheet xsheet" id="xsheet" role="dialog" aria-modal="true" aria-labelledby="xTitle">
@@ -719,10 +905,10 @@ $("#siteName").textContent = `${DISPLAY}'s Anime Shelf`;
 $("#heroEyebrow").textContent = IS_OWNER ? "Presented by Ananth" : `AniList · ${USER}`;
 
 /* ================= data ================= */
-const QUERY = `query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name}lists{entries{
- status score(format:POINT_10_DECIMAL) progress progressVolumes updatedAt
- media{id siteUrl title{romaji english} genres averageScore episodes chapters volumes seasonYear startDate{year}
-  format countryOfOrigin coverImage{extraLarge large color} bannerImage}}}}}`;
+const QUERY = `query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name avatar{medium}}lists{entries{
+ status score(format:POINT_10_DECIMAL) progress progressVolumes updatedAt completedAt{year month day}
+ media{id siteUrl title{romaji english} genres averageScore popularity season episodes chapters volumes seasonYear startDate{year}
+  format countryOfOrigin coverImage{extraLarge large color} bannerImage rankings{rank type allTime year season context}}}}}}`;
 
 async function gql(type,user=USER){
   for(let i=0;i<3;i++){
@@ -737,6 +923,8 @@ async function gql(type,user=USER){
   }
   throw new Error("AniList is busy, try again in a minute");
 }
+function rankInfo(rk){if(!rk||!rk.length)return{};const o={rk:rk.slice(0,6).map(r=>({r:r.rank,t:r.type,a:r.allTime,y:r.year,s:r.season,c:r.context}))};
+  const ar=rk.find(r=>r.type==="RATED"&&r.allTime),ap=rk.find(r=>r.type==="POPULAR"&&r.allTime);if(ar)o.rr=ar.rank;if(ap)o.prk=ap.rank;return o}
 function normalize(col,type){
   const seen=new Set(),out=[];
   for(const L of col.lists||[])for(const e of L.entries){
@@ -746,7 +934,9 @@ function normalize(col,type){
     out.push({id:m.id,kind,t:m.title.english||m.title.romaji,ro:m.title.romaji,g:m.genres||[],s:e.score||0,st:STC[e.status]||"W",
       p:e.progress||0,pv:e.progressVolumes||0,ep:(type==="ANIME"?m.episodes:m.chapters)||0,vol:m.volumes||0,avg:m.averageScore||0,
       y:m.seasonYear||(m.startDate&&m.startDate.year)||0,f:FMT[m.format]||m.format||"?",c,u:e.updatedAt||0,
-      cov:m.coverImage&&m.coverImage.large,covX:m.coverImage&&(m.coverImage.extraLarge||m.coverImage.large),col:m.coverImage&&m.coverImage.color,ban:m.bannerImage,url:m.siteUrl||`https://anilist.co/${type.toLowerCase()}/${m.id}`});
+      cov:m.coverImage&&m.coverImage.large,covX:m.coverImage&&(m.coverImage.extraLarge||m.coverImage.large),col:m.coverImage&&m.coverImage.color,ban:m.bannerImage,url:m.siteUrl||`https://anilist.co/${type.toLowerCase()}/${m.id}`,
+      sea:m.season||null,pop:m.popularity||0,ca:e.completedAt&&e.completedAt.year?e.completedAt.year*10000+(e.completedAt.month||0)*100+(e.completedAt.day||0):0,
+      ...rankInfo(m.rankings)});
   }
   return out;
 }
@@ -766,7 +956,7 @@ async function quickStart(){
   if(!IS_OWNER)return null;
   try{const ctl=new AbortController();setTimeout(()=>ctl.abort(),5000);
     const s=await fetch("data/snapshot.json",{signal:ctl.signal}).then(r=>r.json());
-    ALL=[...normalize(s.ANIME,"ANIME"),...normalize(s.MANGA,"MANGA")];synced=s.t;return "snapshot"}catch(e){return null}
+    ALL=[...normalize(s.ANIME,"ANIME"),...normalize(s.MANGA,"MANGA")];synced=s.t;if(s.ANIME.user){OWN.name=s.ANIME.user.name||USER;OWN.avatar=s.ANIME.user.avatar&&s.ANIME.user.avatar.medium||null}return "snapshot"}catch(e){return null}
 }
 async function load(){
   if(SNAP)return loadSnap();
@@ -775,6 +965,7 @@ async function load(){
     introMsg(ALL.length?"Checking AniList for updates":"Fetching your anime");introBar(.18);let got=0;
     const step=(c,label)=>{const n=(c.lists||[]).reduce((s,l)=>s+l.entries.length,0);got+=n;introCount(got);introMsg(label.replace("#",fmtN(n)));introBar(got&&IT.count?.35+.3*(++IT.steps||(IT.steps=1)):.5);return c};
     const [a,m]=await Promise.all([gql("ANIME").then(c=>step(c,"# anime loaded")),gql("MANGA").then(c=>step(c,"# manga & manhwa loaded"))]);
+    if(a.user){OWN.name=a.user.name||USER;OWN.avatar=a.user.avatar&&a.user.avatar.medium||null}
     const rows=[...normalize(a,"ANIME"),...normalize(m,"MANGA")];introWall(rows);
     ALL=rows;synced=Date.now();live=true;store.set(CK,{t:synced,rows});setSync("live");
     return true;
@@ -913,7 +1104,7 @@ function renderFilters(){
 function filtered(){
   const q=state.q.trim().toLowerCase();
   const L=A.filter(a=>(state.tab==="all"||a.st===state.tab)&&(!state.genre||a.g.includes(state.genre))&&(!state.fmt||a.f===state.fmt)&&(!q||a.t.toLowerCase().includes(q)||a.ro.toLowerCase().includes(q)));
-  const S={score:(a,b)=>b.s-a.s||b.avg-a.avg,avg:(a,b)=>b.avg-a.avg,recent:(a,b)=>b.u-a.u,new:(a,b)=>b.y-a.y,old:(a,b)=>(a.y||9999)-(b.y||9999),prog:(a,b)=>done(b)-done(a),
+  const S={rank:(a,b)=>(a.rr||1e9)-(b.rr||1e9),pop:(a,b)=>(b.pop||0)-(a.pop||0),gem:(a,b)=>((a.avg>=72?0:1)-(b.avg>=72?0:1))||((a.pop||1e9)-(b.pop||1e9)),score:(a,b)=>b.s-a.s||b.avg-a.avg,avg:(a,b)=>b.avg-a.avg,recent:(a,b)=>b.u-a.u,new:(a,b)=>b.y-a.y,old:(a,b)=>(a.y||9999)-(b.y||9999),prog:(a,b)=>done(b)-done(a),
     az:(a,b)=>a.t.localeCompare(b.t),hot:(a,b)=>Math.abs(b.s?b.s*10-b.avg:0)-Math.abs(a.s?a.s*10-a.avg:0)};
   return L.sort(S[state.sort]);
 }
@@ -921,7 +1112,7 @@ function card(a,i){
   const m=modeObj(),tot=a.ep||"?",w=done(a),pct=a.ep?Math.min(100,w/a.ep*100):(a.st==="C"?100:35);
   return `<article class="card" style="animation-delay:${Math.min(i%36,18)*40}ms">
   <button class="cover" data-open="${a.id}" style="--cc:${esc(a.col||"#1a1a1a")}" aria-label="${esc(a.t)}"><span class="mono">${esc(initial(a.t))}</span>${a.covX?`<img src="${esc(a.covX)}" alt="" loading="lazy" decoding="async">`:""}
-   <span class="glare"></span>${a.st!=="C"?`<span class="stt">${stLabel(a.st,m)}</span>`:""}<span class="badge ${a.s?"":"none"}">${a.s?"★ "+a.s:"—"}</span><span class="fmt">${esc(a.f)} · ${a.y||"?"}</span></button>
+   <span class="glare"></span>${a.st!=="C"?`<span class="stt">${stLabel(a.st,m)}</span>`:""}<span class="badge ${a.s?"":"none"}">${a.s?"★ "+a.s:"—"}</span><span class="fmt">${esc(a.f)} · ${a.sea?SEAS_L[a.sea]+" ":""}${a.y||"?"}</span>${a.rr&&a.rr<=2000?`<span class="rank num">#${fmtN(a.rr)} all-time</span>`:""}</button>
   <div class="body"><h3>${esc(a.t)}</h3><p class="sub">${esc(a.ro)}</p>
    <p class="meta"><b class="num">★ ${(a.avg/10).toFixed(1)}</b><span>AniList · ${esc(a.g.slice(0,2).join(", ")||"—")}</span></p>
    <span class="compact num">Me ${a.s||"—"} · AniList ${(a.avg/10).toFixed(1)}</span>
@@ -989,70 +1180,275 @@ function insights(){
 function drawDonut(){if(reduce)return;$("#donut").querySelectorAll("[data-len]").forEach(el=>el.setAttribute("stroke-dasharray",`${el.dataset.len} ${2*Math.PI*58}`))}
 
 /* ================= compare ================= */
-const CMP={user:"",rows:null,view:"both",sort:"diff",limit:40};
-async function runCompare(name){
-  name=name.trim();if(!name)return;
-  if(name.toLowerCase()===USER.toLowerCase()){toast("Pick someone other than this shelf's owner");return}
-  if(SNAP){const url=`${LIVE}?compare=${encodeURIComponent(name)}`;$("#cmpOut").innerHTML=`<div class="panel box" style="margin-top:16px"><h3>Compare with ${esc(name)} on the live site</h3><p style="margin:6px 0 14px;color:var(--muted)">This snapshot can't reach AniList, so comparisons run on the live site. Your friend's list loads there in a second.</p><a class="dark" href="${esc(url)}" target="_blank" rel="noopener">Compare with ${esc(name)} ↗</a></div>`;return}
-  const out=$("#cmpOut");out.innerHTML=`<div class="vs panel"><div class="skel" style="aspect-ratio:auto;height:60px;grid-column:1/-1"></div></div>`;
-  $("#cmpGo").disabled=true;
-  try{
-    const ck="shelf:v2:"+name.toLowerCase();let rows;
-    const c=store.get(ck,null);
-    if(c&&Date.now()-c.t<10*60*1000)rows=c.rows;
-    else{const [a,m]=await Promise.all([gql("ANIME",name),gql("MANGA",name)]);rows=[...normalize(a,"ANIME"),...normalize(m,"MANGA")];store.set(ck,{t:Date.now(),rows})}
-    CMP.user=name;CMP.rows=rows;CMP.view="both";CMP.limit=40;
-    const u=new URL(location.href);u.searchParams.set("compare",name);history.replaceState(null,"",u);
-    renderCompare();$("#compare").scrollIntoView({behavior:reduce?"auto":"smooth"});
-  }catch(err){
-    const nf=/not found/i.test(err.message)||err.status===404;
-    out.innerHTML=`<div class="panel box" style="margin-top:16px"><h3>${nf?`No AniList user called “${esc(name)}”`:"AniList didn't answer"}</h3><p style="margin:6px 0 0;color:var(--muted)">${nf?"Check the spelling, or the profile may be private.":esc(err.message)}</p></div>`;
-  }finally{$("#cmpGo").disabled=false}
+const SEAS_L={WINTER:"Winter",SPRING:"Spring",SUMMER:"Summer",FALL:"Fall"},SEAS_O={WINTER:0,SPRING:1,SUMMER:2,FALL:3};
+const P_COL=["var(--ink)","#8a8a8a","#c2c2c2","#555555"],P_DASH=["","7 5","2 4","12 4 3 4"];
+const OWN={name:USER,avatar:null};
+const CMP={people:[],view:"all",sort:"diff",limit:40,f:{fmt:"",genre:"",year:"",season:""},group:"none",busy:""};
+const pkey=n=>String(n).toLowerCase();
+const ownerPerson=()=>({name:OWN.name||USER,label:DISPLAY,avatar:OWN.avatar,rows:ALL,own:true});
+function initCompare(){if(!CMP.people.length)CMP.people=[ownerPerson()];CMP.people.forEach(p=>{if(p.own){p.rows=ALL;p.avatar=OWN.avatar}})}
+async function fetchPerson(name){
+  if(pkey(name)===pkey(USER))return ownerPerson();
+  const ck="shelf:p1:"+pkey(name),c=store.get(ck,null);
+  if(c&&Date.now()-c.t<10*60*1000)return c.p;
+  const [a,m]=await Promise.all([gql("ANIME",name),gql("MANGA",name)]);
+  const p={name:(a.user&&a.user.name)||name,label:(a.user&&a.user.name)||name,avatar:a.user&&a.user.avatar&&a.user.avatar.medium||null,rows:[...normalize(a,"ANIME"),...normalize(m,"MANGA")]};
+  store.set(ck,{t:Date.now(),p});return p;
 }
-function compareData(){
-  const mine=new Map(A.map(a=>[a.id,a])),theirs=new Map(CMP.rows.filter(a=>a.kind===mode).map(a=>[a.id,a]));
-  const seen=a=>a&&a.st!=="P";
-  const both=[],onlyMe=[],onlyThem=[];
-  for(const [id,a] of mine){const b=theirs.get(id);if(seen(a)&&seen(b))both.push({a,b});else if(seen(a))onlyMe.push({a,b})}
-  for(const [id,b] of theirs){const a=mine.get(id);if(seen(b)&&!seen(a))onlyThem.push({a,b})}
-  const rated=both.filter(x=>x.a.s&&x.b.s),diff=rated.length?rated.reduce((s,x)=>s+Math.abs(x.a.s-x.b.s),0)/rated.length:null;
-  const compat=diff==null?null:Math.max(0,Math.round(100-diff*12.5));
-  return{both,onlyMe,onlyThem,rated,diff,compat,theirCount:[...theirs.values()].filter(seen).length};
+function syncURL(){const u=new URL(location.href),names=CMP.people.map(p=>p.name);
+  const own=CMP.people.length&&CMP.people[0].own;const list=own?names.slice(1):names;
+  if(list.length)u.searchParams.set("compare",list.join(","));else u.searchParams.delete("compare");
+  if(!own&&CMP.people.length)u.searchParams.set("me","0");else u.searchParams.delete("me");
+  history.replaceState(null,"",u)}
+async function addPerson(name,quiet){
+  name=String(name||"").trim().replace(/^@/,"");if(!name)return;
+  initCompare();
+  if(CMP.people.length>=4){toast("Compare up to 4 people at a time");return}
+  if(CMP.people.some(p=>pkey(p.name)===pkey(name))){toast(`${name} is already in the comparison`);return}
+  if(SNAP){const names=[...CMP.people.filter(p=>!p.own).map(p=>p.name),name];const url=`${LIVE}?compare=${encodeURIComponent(names.join(","))}`;
+    $("#cmpOut").innerHTML=`<div class="panel box" style="margin-top:16px"><h3>Compare on the live site</h3><p style="margin:6px 0 14px;color:var(--muted)">This snapshot can't reach AniList, so comparisons run on the live site.</p><a class="dark" href="${esc(url)}" target="_blank" rel="noopener">Compare with ${esc(name)} ↗</a></div>`;return}
+  CMP.busy=name;renderPeople();
+  try{const p=await fetchPerson(name);CMP.people.push(p);CMP.view="all";CMP.limit=40;syncURL();renderCompare(true);
+    if(!quiet&&CMP.people.length===2)$("#compare").scrollIntoView({behavior:reduce?"auto":"smooth"});
+    if(!quiet&&CMP.people.length>=2)confettiSmall()}
+  catch(err){const nf=/not found/i.test(err.message)||err.status===404;toast(nf?`No AniList user called “${name}”`:err.message)}
+  finally{CMP.busy="";renderPeople();const i=$("#cmpIn");if(i&&!quiet){i.value="";i.focus({preventScroll:true})}}
 }
-function renderCompare(){
-  if(!CMP.rows)return;
-  const m=modeObj(),D=compareData(),me=DISPLAY,them=CMP.user;
-  const verb=mode==="anime"?"watched":"read";
-  const lists={both:D.both,me:D.onlyMe,them:D.onlyThem};
-  const dd=x=>x.a&&x.b&&x.a.s&&x.b.s?Math.abs(x.a.s-x.b.s):-1;
-  const S={diff:(x,y)=>dd(y)-dd(x),mine:(x,y)=>(y.a?.s||0)-(x.a?.s||0),theirs:(x,y)=>(y.b?.s||0)-(x.b?.s||0),
-    avg:(x,y)=>((y.a||y.b).avg)-((x.a||x.b).avg),az:(x,y)=>(x.a||x.b).t.localeCompare((y.a||y.b).t),recent:(x,y)=>((y.b||y.a).u)-((x.b||x.a).u)};
-  if(CMP.view!=="both"&&CMP.sort==="diff")CMP.sort=CMP.view==="me"?"mine":"theirs";
-  const L=[...lists[CMP.view]].sort(S[CMP.sort]);
-  const cell=(x,who)=>{const nm=`<span class="nm">${esc(who==="me"?me:them)}</span>`;if(!x)return`<div class="sc">${nm}<strong>—</strong><em>Not on list</em></div>`;return`<div class="sc ${who==="me"?"me":""}">${nm}<strong class="num">${x.s||"—"}</strong><em>${esc(stLabel(x.st,m))}</em></div>`};
-  const rowH=({a,b},i)=>{const x=a||b,d=a&&b&&a.s&&b.s?a.s-b.s:null;
-    return `<button class="crow" data-open-any="${x.id}" style="animation-delay:${Math.min(i,20)*30}ms">${img(x,"mini")}<div class="ct"><b>${esc(x.t)}</b><small>${esc(x.f)} · ${x.y||"?"} · AniList ${(x.avg/10).toFixed(1)}</small></div><div class="scs">${cell(a,"me")}${cell(b,"them")}<span class="df num">${d==null?"":d>0?"+"+d:d}</span></div></button>`};
-  $("#cmpOut").innerHTML=`<div class="vs panel"><div class="who"><small>This shelf</small><b>${esc(me)}</b><small class="num">${A.filter(a=>a.st!=="P").length} ${m.label.toLowerCase()} ${verb}</small></div>
-    <div class="mid">${D.compat==null?ring(0,84,"—"):ring(D.compat/100,84,D.compat+"%")}<small>${D.compat==null?"No shared scores yet":`Taste match across ${D.rated.length} titles you both scored`}</small></div>
-    <div class="who r"><small>Compared with</small><b>${esc(them)}</b><small class="num">${D.theirCount} ${m.label.toLowerCase()} ${verb}</small></div></div>
-   <div class="ctabs">
-    <button class="ctab" data-cview="both" aria-pressed="${CMP.view==="both"}"><strong class="num">${D.both.length}</strong><span class="lbl">Both ${verb}</span><small>Shared titles, with both scores</small></button>
-    <button class="ctab" data-cview="them" aria-pressed="${CMP.view==="them"}"><strong class="num">${D.onlyThem.length}</strong><span class="lbl" title="Only ${esc(them)}">Only ${esc(them)}</span><small>${esc(me)} hasn't ${verb} these</small></button>
-    <button class="ctab" data-cview="me" aria-pressed="${CMP.view==="me"}"><strong class="num">${D.onlyMe.length}</strong><span class="lbl">Only ${esc(me)}</span><small>${esc(them)} hasn't ${verb} these</small></button>
+function removePerson(i){CMP.people.splice(i,1);CMP.view="all";CMP.limit=40;syncURL();renderCompare(true)}
+function avatar(p,i,cls="pav"){return p.avatar?`<img class="${cls}" src="${esc(p.avatar)}" alt="" style="--pc:${P_COL[i]}">`:`<b class="${cls}" style="--pc:${P_COL[i]}">${esc(initial(p.label))}</b>`}
+function renderPeople(){
+  initCompare();const P=CMP.people,hasOwn=P.some(p=>p.own);
+  $("#people").innerHTML=P.map((p,i)=>`<span class="pchip" style="--d:${i*70}ms;--pc:${P_COL[i]}">${avatar(p,i)}<span class="pn">${esc(p.label)}</span>${p.own?`<small>this shelf</small>`:""}<button type="button" data-rm="${i}" aria-label="Remove ${esc(p.label)}">×</button></span>`).join("")+
+    (CMP.busy?`<span class="pchip busy"><i class="spin"></i><span class="pn">Loading ${esc(CMP.busy)}…</span></span>`:"")+
+    (!hasOwn&&!CMP.busy?`<button type="button" class="pchip addme" data-addme>+ Add ${esc(DISPLAY)} back</button>`:"");
+  $("#cmpForm").hidden=P.length>=4;$("#cmpGo").disabled=!!CMP.busy;
+  $("#cmpIn").placeholder=P.length<2?"Friend's AniList username":"Add another AniList user";
+}
+function itemsFor(){
+  const P=CMP.people,maps=P.map(p=>new Map(p.rows.filter(r=>r.kind===mode).map(r=>[r.id,r])));
+  const seen=r=>r&&r.st!=="P",ids=new Set();maps.forEach(m=>m.forEach((r,id)=>{if(seen(r))ids.add(id)}));
+  return{maps,items:[...ids].map(id=>{const e=maps.map(m=>m.get(id)||null),x=e.find(Boolean);return{id,x,e,sb:e.map(seen)}})};
+}
+function passF(it){const f=CMP.f,x=it.x;
+  if(f.fmt&&x.f!==f.fmt)return false;if(f.genre&&!x.g.includes(f.genre))return false;if(f.season&&x.sea!==f.season)return false;
+  if(f.year){if(f.year[0]==="d"){const d=+f.year.slice(1);if(!(x.y>=d&&x.y<d+10))return false}else if(x.y!==+f.year)return false}
+  return true}
+const tkey=x=>(x.y||0)*10+(x.sea?SEAS_O[x.sea]:0);
+function cmpSort(L){const s=CMP.sort,sc=it=>it.e.filter(r=>r&&r.s).map(r=>r.s);
+  const S={diff:(a,b)=>{const d=it=>{const v=sc(it);return v.length>1?Math.max(...v)-Math.min(...v):-1};return d(b)-d(a)},
+    group:(a,b)=>{const m=it=>{const v=sc(it);return v.length?v.reduce((x,y)=>x+y,0)/v.length:0};return m(b)-m(a)},
+    avg:(a,b)=>b.x.avg-a.x.avg,new:(a,b)=>tkey(b.x)-tkey(a.x),old:(a,b)=>(tkey(a.x)||9e9)-(tkey(b.x)||9e9),az:(a,b)=>a.x.t.localeCompare(b.x.t),
+    recent:(a,b)=>Math.max(...b.e.map(r=>r?r.u:0))-Math.max(...a.e.map(r=>r?r.u:0))};
+  const fn=S[s]||(s[0]==="p"?((i)=>(a,b)=>((b.e[i]&&b.e[i].s)||0)-((a.e[i]&&a.e[i].s)||0))(+s.slice(1)):S.diff);
+  return L.sort(fn)}
+function renderCompare(fresh){
+  initCompare();renderPeople();
+  const out=$("#cmpOut"),P=CMP.people,N=P.length,m=modeObj(),verb=mode==="anime"?"watched":"read";
+  if(N<2){out.innerHTML=`<div class="cempty panel"><div class="ghosts">${[0,1,2].map(i=>`<span style="--i:${i}"></span>`).join("")}</div><h3>Add someone to compare</h3><p>Type any AniList username above. Add up to 4 people, remove anyone (even ${esc(DISPLAY)}), and filter by year, season, format and genre.</p></div>`;return}
+  const {items}=itemsFor(),F=items.filter(passF);
+  // views
+  const views=[{k:"all",n:F.filter(it=>it.sb.every(Boolean)).length,l:N===2?`Both ${verb}`:`Everyone ${verb}`}];
+  P.forEach((p,i)=>views.push({k:"m"+i,n:F.filter(it=>!it.sb[i]).length,l:N===2?`Only ${P[1-i].label}`:`${p.label} hasn't ${verb}`,sub:N===2?`${p.label} hasn't ${verb} these`:`Others have, ${p.label} hasn't`,i}));
+  if(!views.find(v=>v.k===CMP.view))CMP.view="all";
+  const inView=it=>CMP.view==="all"?it.sb.every(Boolean):!it.sb[+CMP.view.slice(1)];
+  if(CMP.view!=="all"&&CMP.sort==="diff")CMP.sort="group";
+  const L=cmpSort(F.filter(inView));
+  // pair matches (unfiltered)
+  const pairs=[];for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const sh=items.filter(it=>it.sb[i]&&it.sb[j]&&it.e[i].s&&it.e[j].s);
+    const d=sh.length?sh.reduce((s,it)=>s+Math.abs(it.e[i].s-it.e[j].s),0)/sh.length:null;pairs.push({i,j,n:sh.length,c:d==null?null:Math.max(0,Math.round(100-d*12.5))})}
+  // stats per person
+  const pst=P.map((p,i)=>{const R=p.rows.filter(r=>r.kind===mode&&r.st!=="P"),rt=R.filter(r=>r.s);return{n:R.length,mean:rt.length?rt.reduce((s,r)=>s+r.s,0)/rt.length:0,u:R.reduce((s,r)=>s+done(r),0)}});
+  // filter options
+  const yrs=[...new Set(items.map(it=>it.x.y).filter(Boolean))].sort((a,b)=>b-a),decs=[...new Set(yrs.map(y=>Math.floor(y/10)*10))];
+  const fmts=[...new Set(items.map(it=>it.x.f))],gens=genreCounts(items.map(it=>it.x)).map(g=>g[0]);
+  const isAnime=mode==="anime";if(!isAnime){CMP.f.season="";if(CMP.group==="season")CMP.group="year"}
+  const cell=(r,i)=>{const nm=`<span class="nm">${esc(P[i].label)}</span>`;
+    if(!r)return`<div class="sc none" style="--pc:${P_COL[i]};--k:${i}">${nm}<strong>—</strong><em>Not on list</em></div>`;
+    return`<div class="sc" style="--pc:${P_COL[i]};--k:${i}">${nm}<strong class="num">${r.s||"—"}</strong><em>${esc(stLabel(r.st,m))}</em></div>`};
+  const meta=x=>`${esc(x.f)} · ${x.sea?SEAS_L[x.sea]+" ":""}${x.y||"?"} · AniList ${(x.avg/10).toFixed(1)}`;
+  const rowH=(it,i)=>{const v=it.e.filter(r=>r&&r.s).map(r=>r.s),d=v.length>1?Math.max(...v)-Math.min(...v):null;
+    return `<button class="crow" data-open-any="${it.id}" style="--n:${N};animation-delay:${Math.min(i,20)*28}ms">${img(it.x,"mini")}<div class="ct"><b>${esc(it.x.t)}</b><small>${meta(it.x)}</small></div><div class="scs">${it.e.map(cell).join("")}<span class="df num" title="Score spread">${d==null?"":d===0?"=":"±"+(Math.round(d*10)/10)}</span></div></button>`};
+  let listH="";const shown=L.slice(0,CMP.limit);
+  if(CMP.group==="none")listH=shown.map(rowH).join("");
+  else{let last=null,k=0;const gk=x=>CMP.group==="year"?(x.y||"Unknown year"):(x.sea?`${SEAS_L[x.sea]} ${x.y}`:`${x.y||"Unknown"}`);
+    const gs=[...shown].sort((a,b)=>(CMP.sort==="old"?1:-1)*((CMP.group==="year"?(a.x.y||0)-(b.x.y||0):tkey(a.x)-tkey(b.x))));
+    const cnt={};gs.forEach(it=>{const g=gk(it.x);cnt[g]=(cnt[g]||0)+1});
+    gs.forEach(it=>{const g=gk(it.x);if(g!==last){listH+=`<div class="cgroup" style="animation-delay:${Math.min(k,20)*28}ms"><span>${esc(g)}</span><small>${cnt[g]} ${cnt[g]===1?"title":"titles"}</small></div>`;last=g}listH+=rowH(it,k++)})}
+  const vsH=N===2?`<div class="vs panel"><div class="who l">${avatar(P[0],0,"vav")}<div><small>${P[0].own?"This shelf":"Player 1"}</small><b>${esc(P[0].label)}</b><small class="num">${pst[0].n} ${m.label.toLowerCase()} · mean ${pst[0].mean.toFixed(1)}</small></div></div>
+      <div class="mid">${pairs[0].c==null?ring(0,88,"—"):ring(pairs[0].c/100,88,pairs[0].c+"%")}<span class="vsb">VS</span><small>${pairs[0].c==null?"No shared scores yet":`Taste match across ${pairs[0].n} titles you both scored`}</small></div>
+      <div class="who r"><div><small>Player 2</small><b>${esc(P[1].label)}</b><small class="num">${pst[1].n} ${m.label.toLowerCase()} · mean ${pst[1].mean.toFixed(1)}</small></div>${avatar(P[1],1,"vav")}</div></div>`
+    :`<div class="vsn panel"><div class="pcards">${P.map((p,i)=>`<div class="pcard" style="--pc:${P_COL[i]};--d:${i*80}ms">${avatar(p,i,"vav")}<b>${esc(p.label)}</b><small class="num">${pst[i].n} ${m.label.toLowerCase()} · mean ${pst[i].mean.toFixed(1)}</small></div>`).join("")}</div>
+      <div class="pairs">${pairs.map(pr=>`<div class="pair">${pr.c==null?ring(0,52,"—"):ring(pr.c/100,52,pr.c+"%")}<span><b>${esc(P[pr.i].label)}</b> & <b>${esc(P[pr.j].label)}</b><small>${pr.n} shared scores</small></span></div>`).join("")}</div></div>`;
+  const sel=(id,cur,opts,lab)=>`<label class="fsel"><span>${lab}</span><select id="${id}">${opts.map(([v,l])=>`<option value="${esc(v)}"${String(cur)===String(v)?" selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
+  out.innerHTML=vsH+
+   `<div class="ctabs" style="--cols:${Math.min(views.length,5)}">${views.map((v,i)=>`<button class="ctab" data-cview="${v.k}" aria-pressed="${CMP.view===v.k}" style="--d:${i*50}ms${v.i!=null?`;--pc:${P_COL[v.i]}`:""}"><strong class="num" data-to="${v.n}">${fmtN(v.n)}</strong><span class="lbl">${esc(v.l)}</span>${v.sub?`<small>${esc(v.sub)}</small>`:`<small>Titles every person has ${verb}</small>`}</button>`).join("")}</div>
+   <div class="cfilters">
+     ${sel("cfYear",CMP.f.year,[["","Every year"],...decs.map(d=>["d"+d,d+"s"]),...yrs.map(y=>[y,y])],"Year")}
+     ${isAnime?sel("cfSeason",CMP.f.season,[["","Every season"],["WINTER","Winter"],["SPRING","Spring"],["SUMMER","Summer"],["FALL","Fall"]],"Season"):""}
+     ${sel("cfFmt",CMP.f.fmt,[["","Every format"],...fmts.map(f=>[f,f])],"Format")}
+     ${sel("cfGenre",CMP.f.genre,[["","Every genre"],...gens.map(g=>[g,g])],"Genre")}
+     ${sel("cmpSort",CMP.sort,[...(CMP.view==="all"?[["diff","Biggest disagreement"]]:[]),["group","Highest group score"],...P.map((p,i)=>["p"+i,`${p.label}'s score`]),["avg","AniList score"],["new",isAnime?"Newest season":"Newest year"],["old",isAnime?"Oldest season":"Oldest year"],["recent","Recently updated"],["az","Title A–Z"]],"Sort")}
+     ${sel("cfGroup",CMP.group,[["none","No grouping"],["year","Group by year"],...(isAnime?[["season","Group by season"]]:[])],"Group")}
+     ${(CMP.f.year||CMP.f.season||CMP.f.fmt||CMP.f.genre)?`<button class="ghost cclear" type="button" id="cfClear">Clear filters</button>`:""}
+     <button class="ghost" type="button" id="cmpShare" aria-label="Share comparison"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Share</span></button>
    </div>
-   <div class="tools ctools"><select id="cmpSort" aria-label="Sort comparison">
-     ${CMP.view==="both"?`<option value="diff">Biggest disagreement</option>`:""}<option value="mine">${esc(me)}'s score</option><option value="theirs">${esc(them)}'s score</option>
-     <option value="avg">AniList score</option><option value="recent">Recently updated</option><option value="az">Title A–Z</option></select>
-     <button class="ghost" type="button" id="cmpShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Share comparison</span></button></div>
-   <div class="chead"><span></span><span style="text-align:left">Title</span><span>${esc(me)}</span><span>${esc(them)}</span><span>Diff</span></div>
-   <div class="clist">${L.length?L.slice(0,CMP.limit).map(rowH).join(""):`<div class="empty"><h3>Nothing here</h3>No titles in this group for ${m.label.toLowerCase()}.</div>`}</div>
-   ${L.length>CMP.limit?`<div class="more"><button class="ghost" id="cmpMore">Show more (${L.length-CMP.limit} left)</button></div>`:""}`;
-  $("#cmpSort").value=CMP.sort;spin($("#cmpOut"));
+   <div class="ccount num">${fmtN(L.length)} ${L.length===1?"title":"titles"}${CMP.f.year?` · ${CMP.f.year[0]==="d"?CMP.f.year.slice(1)+"s":CMP.f.year}`:""}${CMP.f.season?` · ${SEAS_L[CMP.f.season]}`:""}${CMP.f.fmt?` · ${esc(CMP.f.fmt)}`:""}${CMP.f.genre?` · ${esc(CMP.f.genre)}`:""}</div>
+   <div class="chead" style="--n:${N}"><span></span><span style="text-align:left">Title</span>${P.map((p,i)=>`<span style="--pc:${P_COL[i]}">${esc(p.label)}</span>`).join("")}<span>Spread</span></div>
+   <div class="clist" id="clist">${L.length?listH:`<div class="empty"><h3>Nothing here</h3>No ${m.label.toLowerCase()} match these filters.</div>`}</div>
+   ${L.length>CMP.limit?`<div class="more"><button class="ghost" id="cmpMore">Show more (${fmtN(L.length-CMP.limit)} left)</button></div>`:""}
+   <details class="ccharts panel" ${fresh?"open":""} id="ccharts"><summary><span>Charts</span><small>Genres and years for each person</small></summary><div class="ccin">${compareCharts(items)}</div></details>`;
+  spin(out);if(!reduce){out.querySelectorAll(".ccharts path[data-len]").forEach(p=>{p.style.strokeDashoffset=p.dataset.len;requestAnimationFrame(()=>requestAnimationFrame(()=>p.style.strokeDashoffset=0))})}
 }
+function compareCharts(items){
+  const P=CMP.people,N=P.length,R=P.map((p,i)=>items.filter(it=>it.sb[i]).map(it=>it.x));
+  const legend=`<div class="clegend">${P.map((p,i)=>`<span><i style="--pc:${P_COL[i]}"></i>${esc(p.label)}</span>`).join("")}</div>`;
+  const tot={};R.flat().forEach(x=>x.g.forEach(g=>tot[g]=(tot[g]||0)+1));
+  const G=Object.entries(tot).sort((a,b)=>b[1]-a[1]).slice(0,8).map(g=>g[0]);
+  const share=G.map(g=>R.map(L=>L.length?L.filter(x=>x.g.includes(g)).length/L.length:0)),mx=Math.max(.01,...share.flat());
+  const gH=`<div class="cchart"><h4>Genre mix</h4><p>Share of each person's list in their top genres.</p>${G.map((g,gi)=>`<div class="gmix"><span>${esc(g)}</span><div>${share[gi].map((v,i)=>`<i style="--pc:${P_COL[i]};width:${v/mx*100}%;animation-delay:${gi*60+i*40}ms" title="${esc(P[i].label)}: ${Math.round(v*100)}%"><em>${Math.round(v*100)}%</em></i>`).join("")}</div></div>`).join("")}</div>`;
+  const ys=R.flat().map(x=>x.y).filter(Boolean);
+  if(!ys.length)return legend+gH;
+  const y0=Math.max(Math.min(...ys),1960),y1=Math.max(...ys),W=640,H=200,pad=28;
+  const cnt=R.map(L=>{const c={};L.forEach(x=>{if(x.y>=y0)c[x.y]=(c[x.y]||0)+1});return c}),ym=Math.max(1,...cnt.flatMap(c=>Object.values(c)));
+  const X=y=>pad+(y-y0)/Math.max(1,y1-y0)*(W-pad*2),Y=v=>H-22-(v/ym)*(H-40);
+  let ax="";for(let y=Math.ceil(y0/5)*5;y<=y1;y+=5)ax+=`<text x="${X(y)}" y="${H-6}" text-anchor="middle" font-size="10" style="fill:var(--muted)">${y}</text><line x1="${X(y)}" x2="${X(y)}" y1="14" y2="${H-22}" stroke="var(--line)"/>`;
+  const lines=cnt.map((c,i)=>{let d="";for(let y=y0;y<=y1;y++)d+=(y===y0?"M":"L")+X(y).toFixed(1)+" "+Y(c[y]||0).toFixed(1);const len=Math.round((W+H)*3);
+    return `<path d="${d}" fill="none" stroke="${P_COL[i]}" stroke-width="2.2" stroke-linejoin="round" ${P_DASH[i]?`stroke-dasharray="${P_DASH[i]}"`:`stroke-dasharray="${len}" data-len="${len}"`} style="transition:stroke-dashoffset 1.6s ${i*.2}s cubic-bezier(.2,.7,.2,1)"/>`}).join("");
+  const yH=`<div class="cchart"><h4>By release year</h4><p>How many titles each person has ${mode==="anime"?"watched":"read"} from each year.</p><div class="cscroll"><svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:480px" role="img" aria-label="Titles per year for each person">${ax}<text x="4" y="12" font-size="10" style="fill:var(--muted)">${ym}</text>${lines}</svg></div></div>`;
+  let sH="";
+  if(mode==="anime"){const ss=["WINTER","SPRING","SUMMER","FALL"],sc=R.map(L=>ss.map(s=>L.filter(x=>x.sea===s).length)),sm=Math.max(1,...sc.flat());
+    sH=`<div class="cchart"><h4>Seasons</h4><p>Which anime season each person's titles started in.</p><div class="seas">${ss.map((s,si)=>`<div class="sgrp"><div class="sbars">${sc.map((c,i)=>`<i style="--pc:${P_COL[i]};height:${c[si]/sm*100}%;animation-delay:${si*80+i*50}ms" title="${esc(P[i].label)}: ${c[si]}"><em>${c[si]}</em></i>`).join("")}</div><span>${SEAS_L[s]}</span></div>`).join("")}</div></div>`}
+  return legend+`<div class="cgrid">${gH}${sH}</div>${yH}`;
+}
+function confettiSmall(){if(reduce)return;sizeFx();const r=$("#people").getBoundingClientRect();spawn(40,r.left+r.width/2,r.top+20,2.4,.6);runFx()}
 async function openAny(id){
   if(ALL.find(x=>x.id===+id))return openSheet(id);
-  const x=CMP.rows&&CMP.rows.find(r=>r.id===+id);if(!x)return;
+  let x=null;for(const p of CMP.people){x=p.rows.find(r=>r.id===+id);if(x)break}if(!x)return;
   ALL.push({...x,s:0,st:"X",p:0,pv:0,_temp:true});openSheet(id);ALL=ALL.filter(r=>!r._temp);
+}
+
+/* ================= rankings ================= */
+const rkLabel=r=>`#${fmtN(r.r)} ${r.c}${r.s?` ${SEAS_L[r.s]}`:""}${r.y?` ${r.y}`:""}`;
+const kfmt=n=>n>=1e6?(n/1e6).toFixed(1)+"M":n>=1e3?Math.round(n/1e3)+"k":String(n);
+function rankSection(){
+  const seen=A.filter(a=>a.st!=="P"),box=$("#rankGrid");if(!box)return;
+  const has=seen.some(a=>a.pop||a.rr);$("#ranks").hidden=!has;if(!has)return;
+  const L1=seen.filter(a=>a.rr).sort((a,b)=>a.rr-b.rr).slice(0,8);
+  const L2=seen.filter(a=>a.pop&&a.avg>=72).sort((a,b)=>a.pop-b.pop).slice(0,8);
+  const L3=seen.filter(a=>a.s>=7&&a.avg).map(a=>({a,d:a.s*10-a.avg})).filter(x=>x.d>0).sort((x,y)=>y.d-x.d).slice(0,8).map(x=>x.a);
+  const L4=seen.filter(a=>a.pop).sort((a,b)=>b.pop-a.pop).slice(0,8);
+  const row=(a,i,big,sub)=>`<button class="rrow" data-open="${a.id}" style="--d:${i*55}ms"><span class="rnum num">${big}</span>${img(a,"mini")}<span class="rt"><b>${esc(a.t)}</b><small>${sub}</small></span><span class="rme num">${a.s?"★ "+a.s:"—"}</span></button>`;
+  const panel=(t,p,L,f)=>`<div class="panel box rpanel" data-r><h3>${t}</h3><p>${p}</p><div class="rlist">${L.length?L.map(f).join(""):`<small style="color:var(--muted)">Nothing to show yet.</small>`}</div></div>`;
+  box.innerHTML=
+    panel("Highest ranked on AniList","My titles with the best all-time AniList rating rank.",L1,(a,i)=>row(a,i,"#"+fmtN(a.rr),`Highest rated all time · AniList ${(a.avg/10).toFixed(1)}`))+
+    panel("Hidden gems","Rated 7.2+ on AniList but watched by very few people.",L2,(a,i)=>row(a,i,kfmt(a.pop),`members only · AniList ${(a.avg/10).toFixed(1)}`))+
+    panel("Most underrated","Where I score a title far above the AniList crowd.",L3,(a,i)=>row(a,i,"+"+((a.s*10-a.avg)/10).toFixed(1),`Me ${a.s} vs AniList ${(a.avg/10).toFixed(1)}`))+
+    panel("Most popular on my list","The titles with the most AniList members.",L4,(a,i)=>row(a,i,kfmt(a.pop),`members${a.prk?` · #${fmtN(a.prk)} most popular all time`:""}`));
+}
+
+/* ================= wrapped ================= */
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const PERS={Comedy:["The Comedy Connoisseur","If it's funny, it's on your list."],Action:["The Adrenaline Chaser","Fights, explosions and power-ups, every time."],Romance:["The Hopeless Romantic","You're here for the confessions."],
+  Fantasy:["The World Hopper","Isekai trucks fear you."],Drama:["The Feels Collector","You watch with tissues nearby."],"Slice of Life":["The Cozy Watcher","Tea, blankets, gentle stories."],"Sci-Fi":["The Future Seeker","Mechs, space and big ideas."],
+  Mystery:["The Case Cracker","You guessed the twist. Probably."],Psychological:["The Mind Bender","You like your stories twisted."],Sports:["The Team Player","Training arcs are your cardio."],Supernatural:["The Spirit Seeker","Ghosts, curses and demons welcome."],
+  Adventure:["The Explorer","Always looking for the next journey."],Horror:["The Fearless One","Lights off, volume up."],Music:["The Melody Maker","Your watchlist has a soundtrack."],Mecha:["The Pilot","Get in the robot."],Thriller:["The Edge Sitter","You live for the suspense."],Ecchi:["The Fan Service Fan","No judgement here."]};
+const finY=a=>a.ca?Math.floor(a.ca/10000):(a.st==="C"&&a.u?new Date(a.u*1000).getFullYear():0);
+const finM=a=>a.ca&&Math.floor(a.ca/100)%100?Math.floor(a.ca/100)%100:(a.u?new Date(a.u*1000).getMonth()+1:0);
+function wrapYears(){return[...new Set(ALL.filter(a=>a.st==="C").map(finY).filter(Boolean))].sort((a,b)=>b-a)}
+function wrapData(Y){
+  const fin=ALL.filter(a=>a.st==="C"&&finY(a)===Y),an=fin.filter(a=>a.kind==="anime"),mg=fin.filter(a=>a.kind!=="anime");
+  const eps=an.reduce((s,a)=>s+(a.ep||a.p||0),0),days=an.reduce((s,a)=>s+(a.ep||a.p||0)*(MIN[a.f]||24),0)/1440,ch=mg.reduce((s,a)=>s+(a.p||a.ep||0),0);
+  const months=Array(12).fill(0);fin.forEach(a=>{const m=finM(a);if(m)months[m-1]++});const bm=months.indexOf(Math.max(...months));
+  const G=genreCounts(fin).slice(0,5),top=[...an.length?an:fin].sort((a,b)=>b.s-a.s||b.avg-a.avg).slice(0,5);
+  const gem=fin.filter(a=>a.pop&&a.avg>=70).sort((a,b)=>a.pop-b.pop)[0]||null;
+  const hot=fin.filter(a=>a.s&&a.avg).sort((a,b)=>Math.abs(b.s*10-b.avg)-Math.abs(a.s*10-a.avg))[0]||null;
+  const rated=fin.filter(a=>a.s),mean=rated.length?rated.reduce((s,a)=>s+a.s,0)/rated.length:0,crowd=rated.length?rated.reduce((s,a)=>s+a.avg,0)/rated.length/10:0;
+  const pers=(G[0]&&PERS[G[0][0]])||["The Anime Omnivore","A bit of everything, all of it good."];
+  const topM=[...mg].sort((a,b)=>b.s-a.s||b.avg-a.avg).slice(0,4);
+  return{Y,fin,an,mg,eps,days,ch,months,bm,G,top,gem,hot,mean,crowd,pers,topM};
+}
+const W={Y:0,i:0,slides:[],timer:null,dur:6500,paused:false,D:null};
+const wi=(s,i)=>`style="--i:${i}"`;
+function wrapSlides(D){
+  const S=[],name=DISPLAY,cv=a=>a&&a.covX?`<img src="${esc(a.covX)}" alt="" crossorigin="anonymous">`:"";
+  S.push({t:"dark",h:`<div class="wbg rain">${D.top.concat(D.fin.slice(0,10)).slice(0,12).map((a,i)=>a.covX?`<img src="${esc(a.covX)}" alt="" style="--x:${(i*37)%100}%;--d:${(i*.37)%3}s;--r:${(i%5-2)*7}deg">`:"").join("")}</div>
+    <div class="wc"><p class="wk wi" ${wi(0,0)}>${esc(name)}'s</p><div class="wyear wi" ${wi(0,1)}>${D.Y}</div><p class="wk wi" ${wi(0,2)}>Wrapped</p><p class="ws wi" ${wi(0,3)}>Your year in anime, manga and manhwa. Tap to start.</p></div>`});
+  S.push({t:"light",h:`<div class="wbg blobs"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>In ${D.Y} you finished</p><div class="wnum num wi" ${wi(0,1)} data-count="${D.fin.length}">0</div><p class="wh wi" ${wi(0,2)}>titles</p>
+    <div class="wrow wi" ${wi(0,3)}><span><b class="num" data-count="${D.an.length}">0</b>anime</span><span><b class="num" data-count="${D.mg.length}">0</b>manga &amp; manhwa</span></div>
+    ${D.eps?`<p class="ws wi" ${wi(0,4)}>That's <b class="num">${fmtN(D.eps)}</b> episodes, about <b class="num">${Math.round(D.days)}</b> days of anime.</p>`:""}</div>`});
+  if(Math.max(...D.months)>0){const mx=Math.max(...D.months);S.push({t:"dark",h:`<div class="wbg rings"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Your busiest month</p><div class="wh2 wi" ${wi(0,1)}>${MONTHS[D.bm]}</div><p class="ws wi" ${wi(0,2)}>${D.months[D.bm]} titles finished in ${MONTHS[D.bm]} alone.</p>
+    <div class="wmonths wi" ${wi(0,3)}>${D.months.map((n,i)=>`<div class="${i===D.bm?"on":""}"><i style="height:${n/mx*100}%;animation-delay:${.6+i*.06}s"></i><span>${MONTHS[i][0]}</span></div>`).join("")}</div></div>`})}
+  if(D.G.length){const gm=D.G[0][1];S.push({t:"light",h:`<div class="wbg blobs b2"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Your number one genre</p><div class="wh2 wi" ${wi(0,1)}>${esc(D.G[0][0])}</div>
+    <div class="wbars">${D.G.map(([g,n],i)=>`<div class="wi" ${wi(0,2+i)}><span>${i+1}. ${esc(g)}</span><i style="--w:${n/gm*100}%"></i><b class="num">${n}</b></div>`).join("")}</div></div>`})}
+  if(D.top.length){S.push({t:"dark",h:`<div class="wbg blobs"><i></i><i></i><i></i></div><div class="wc wide"><p class="wk wi" ${wi(0,0)}>Your top ${D.top.length} of ${D.Y}</p>
+    <div class="wtop">${D.top.map((a,i)=>`<div class="wi" ${wi(0,1+i)}><b class="num">${i+1}</b>${cv(a)}<span><strong>${esc(a.t)}</strong><small>${a.s?"★ "+a.s+" · ":""}${esc(a.f)}</small></span></div>`).join("")}</div></div>`})}
+  if(D.gem){S.push({t:"light",h:`<div class="wbg rings"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Your hidden gem</p><div class="wcover wi" ${wi(0,1)}>${cv(D.gem)}</div><div class="wh3 wi" ${wi(0,2)}>${esc(D.gem.t)}</div>
+    <p class="ws wi" ${wi(0,3)}>Only <b>${kfmt(D.gem.pop)}</b> people on AniList have it on their list, and it's rated <b>${(D.gem.avg/10).toFixed(1)}</b>.</p></div>`})}
+  if(D.hot){const d=D.hot.s*10-D.hot.avg;S.push({t:"dark",h:`<div class="wbg blobs b2"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Your hottest take</p><div class="wcover wi" ${wi(0,1)}>${cv(D.hot)}</div><div class="wh3 wi" ${wi(0,2)}>${esc(D.hot.t)}</div>
+    <div class="wvs wi" ${wi(0,3)}><span><b class="num">${D.hot.s}</b>${esc(name)}</span><em>vs</em><span><b class="num">${(D.hot.avg/10).toFixed(1)}</b>AniList</span></div><p class="ws wi" ${wi(0,4)}>${d>0?"You loved it way more than everyone else.":"Everyone else liked it way more than you."}</p></div>`})}
+  if(D.mg.length){S.push({t:"light",h:`<div class="wbg rings"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Off the screen</p><div class="wnum num wi" ${wi(0,1)} data-count="${D.ch}">0</div><p class="wh wi" ${wi(0,2)}>chapters read</p>
+    <div class="wfan wi" ${wi(0,3)}>${D.topM.map((a,i)=>`<span style="--k:${i-(D.topM.length-1)/2}">${cv(a)}</span>`).join("")}</div><p class="ws wi" ${wi(0,4)}>${D.mg.length} manga &amp; manhwa finished${D.topM[0]?`, led by ${esc(D.topM[0].t)}`:""}.</p></div>`})}
+  S.push({t:"dark",h:`<div class="wbg rings"><i></i><i></i><i></i></div><div class="wc"><p class="wk wi" ${wi(0,0)}>Your ${D.Y} anime personality</p><div class="wh2 wi pers" ${wi(0,1)}>${esc(D.pers[0])}</div><p class="ws wi" ${wi(0,2)}>${esc(D.pers[1])}</p>
+    ${D.mean?`<p class="ws wi" ${wi(0,3)}>Your average score was <b>${D.mean.toFixed(1)}</b> vs AniList's <b>${D.crowd.toFixed(1)}</b>. ${D.mean-D.crowd>.8?"A generous critic.":D.mean-D.crowd<-.4?"A tough critic.":"Right in line with the crowd."}</p>`:""}</div>`});
+  S.push({t:"card",h:`<div class="wbg blobs"><i></i><i></i><i></i></div><div class="wc wide"><div class="wsum wi" ${wi(0,0)}><div class="wch"><small>${esc(name)}'s</small><b>${D.Y} Wrapped</b></div>
+    <div class="wcg"><div><b class="num">${D.fin.length}</b><small>titles finished</small></div><div><b class="num">${fmtN(D.eps)}</b><small>episodes</small></div><div><b class="num">${fmtN(D.ch)}</b><small>chapters</small></div><div><b>${esc(D.G[0]?D.G[0][0]:"—")}</b><small>top genre</small></div></div>
+    <div class="wcc">${D.top.slice(0,5).map(a=>cv(a)).join("")}</div><div class="wcp">${esc(D.pers[0])}</div></div>
+    <div class="wbtns wi" ${wi(0,1)}><button class="dark" type="button" id="wSave">Save image</button><button class="ghost" type="button" id="wShare">Share link</button><button class="ghost" type="button" id="wReplay">Replay</button></div></div>`});
+  return S;
+}
+function openWrapped(Y){
+  const ys=wrapYears();if(!ys.length){toast("No finished titles with dates yet");return}
+  if(!Y||!ys.includes(+Y))Y=ys[0];Y=+Y;W.Y=Y;W.D=wrapData(Y);W.slides=wrapSlides(W.D);W.i=0;
+  const el=$("#wrap");el.hidden=false;document.body.style.overflow="hidden";
+  $("#wyears").innerHTML=ys.map(y=>`<button type="button" data-wy="${y}" aria-pressed="${y===Y}">${y}</button>`).join("");
+  $("#wprog").innerHTML=W.slides.map(()=>`<span><i></i></span>`).join("");
+  const u=new URL(location.href);u.searchParams.set("wrapped",Y);history.replaceState(null,"",u);
+  requestAnimationFrame(()=>el.classList.add("on"));showSlide(0);
+}
+function closeWrapped(){const el=$("#wrap");clearTimeout(W.timer);el.classList.remove("on");setTimeout(()=>{el.hidden=true;$("#wstage").innerHTML=""},450);document.body.style.overflow="";
+  const u=new URL(location.href);u.searchParams.delete("wrapped");history.replaceState(null,"",u)}
+function showSlide(i){
+  if(i<0)i=0;if(i>=W.slides.length){return}
+  W.i=i;const s=W.slides[i],st=$("#wstage");clearTimeout(W.timer);
+  const old=st.querySelector(".wslide");if(old){old.classList.add("out");setTimeout(()=>old.remove(),600)}
+  const d=document.createElement("div");d.className=`wslide t-${s.t}`;d.innerHTML=s.h;st.appendChild(d);
+  $("#wrap").dataset.theme=s.t;
+  [...$("#wprog").children].forEach((p,k)=>{p.className=k<i?"done":k===i?"now":"";p.querySelector("i").style.animationDuration=W.dur+"ms"});
+  d.querySelectorAll("[data-count]").forEach(el=>setTimeout(()=>countTo(el,+el.dataset.count),500));
+  if(i===W.slides.length-1){$("#wprog").lastElementChild.className="done";wireCard();confetti()}
+  else W.timer=setTimeout(()=>{if(!W.paused)showSlide(W.i+1)},W.dur);
+}
+function wireCard(){$("#wSave").onclick=saveWrapImage;$("#wReplay").onclick=()=>showSlide(0);
+  $("#wShare").onclick=async()=>{const u=new URL(SNAP?LIVE:location.href);u.searchParams.set("wrapped",W.Y);if(!IS_OWNER)u.searchParams.set("user",USER);const url=u.toString();
+    try{if(navigator.share){await navigator.share({title:`${DISPLAY}'s ${W.Y} Wrapped`,url});return}}catch(e){return}try{await navigator.clipboard.writeText(url);toast("Wrapped link copied")}catch(e){toast(url)}}}
+async function saveWrapImage(){
+  const D=W.D,c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
+  toast("Making your image…");
+  const g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,"#151515");g.addColorStop(1,"#030303");x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  const cone=x.createLinearGradient(0,0,0,900);cone.addColorStop(0,"rgba(255,255,255,.22)");cone.addColorStop(1,"rgba(255,255,255,0)");x.fillStyle=cone;x.beginPath();x.moveTo(470,0);x.lineTo(610,0);x.lineTo(900,900);x.lineTo(180,900);x.closePath();x.fill();
+  await document.fonts?.ready;
+  const serif='"Lora",Georgia,serif',sans='"DM Sans",system-ui,sans-serif';
+  x.fillStyle="#a8a8a8";x.font=`600 30px ${sans}`;x.textAlign="center";x.fillText(`${DISPLAY.toUpperCase()}'S`,540,120);
+  x.fillStyle="#fff";x.font=`700 150px ${serif}`;x.fillText(String(D.Y),540,265);x.font=`italic 500 64px ${serif}`;x.fillText("Wrapped",540,345);
+  const stats=[[D.fin.length,"titles finished"],[fmtN(D.eps),"episodes"],[fmtN(D.ch),"chapters"],[D.G[0]?D.G[0][0]:"—","top genre"]];
+  stats.forEach(([v,l],i)=>{const cx=150+i*260;x.fillStyle="#fff";x.font=`600 ${String(v).length>8?40:56}px ${serif}`;x.fillText(String(v),cx,470);x.fillStyle="#9a9a9a";x.font=`500 24px ${sans}`;x.fillText(l,cx,510)});
+  const load=u=>new Promise(r=>{if(!u)return r(null);const im=new Image();im.crossOrigin="anonymous";im.onload=()=>r(im);im.onerror=()=>r(null);im.src=u});
+  const ims=await Promise.all(D.top.slice(0,5).map(a=>load(a.covX)));
+  const cw=176,ch=250,gap=22,sx=(1080-(cw*5+gap*4))/2;
+  ims.forEach((im,i)=>{const X0=sx+i*(cw+gap),Y0=590;x.save();x.beginPath();x.roundRect?x.roundRect(X0,Y0,cw,ch,14):x.rect(X0,Y0,cw,ch);x.clip();
+    if(im){const r=Math.max(cw/im.width,ch/im.height),w=im.width*r,h=im.height*r;x.drawImage(im,X0+(cw-w)/2,Y0+(ch-h)/2,w,h)}else{x.fillStyle="#222";x.fillRect(X0,Y0,cw,ch)}x.restore();
+    x.fillStyle="#fff";x.font=`700 30px ${serif}`;x.textAlign="left";x.fillText(String(i+1),X0+12,Y0+ch-14);x.textAlign="center"});
+  x.fillStyle="#fff";x.font=`600 30px ${sans}`;const tl=D.top[0]?D.top[0].t:"";x.fillText(tl.length>40?tl.slice(0,39)+"…":tl,540,900);x.fillStyle="#9a9a9a";x.font=`500 24px ${sans}`;x.fillText("Number one of the year",540,940);
+  x.strokeStyle="#333";x.lineWidth=2;x.beginPath();x.moveTo(140,1010);x.lineTo(940,1010);x.stroke();
+  x.fillStyle="#9a9a9a";x.font=`600 24px ${sans}`;x.fillText("ANIME PERSONALITY",540,1070);x.fillStyle="#fff";x.font=`italic 600 62px ${serif}`;x.fillText(D.pers[0],540,1150);
+  x.fillStyle="#777";x.font=`500 24px ${sans}`;x.fillText(`Presented by Ananth · ${LIVE.replace(/^https:\/\/|\/$/g,"")}`,540,1290);
+  let blob;try{blob=await new Promise(r=>c.toBlob(r,"image/png"))}catch(e){blob=null}
+  if(!blob){toast("Couldn't make the image here");return}
+  const name=`${DISPLAY}-${D.Y}-wrapped.png`;
+  if(SNAP)return snapSave(name,blob);
+  const file=new File([blob],name,{type:"image/png"});
+  try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:`${DISPLAY}'s ${D.Y} Wrapped`});return}}catch(e){if(e.name==="AbortError")return}
+  download(name,blob,"image/png");toast("Image saved");
 }
 
 /* ================= reveal ================= */
@@ -1068,10 +1464,11 @@ function setupReveal(){
 function observe(){if(!io){drawDonut();return}document.querySelectorAll("[data-r]").forEach((el,i)=>{el.style.transitionDelay=(el.matches(".gcard")?(i%3)*.08:0)+"s";io.observe(el)})}
 
 /* ================= all ================= */
+function updatePromo(){const ys=wrapYears(),b=$("#wPromo");b.hidden=!ys.length;if(ys.length)$("#wPromoT").textContent=`${IS_OWNER?"My":DISPLAY+"’s"} ${ys[0]} Wrapped`}
 function renderAll(){
   A=rowsOf(mode);state.genre="";state.fmt="";state.tab="all";state.q="";$("#q").value="";
   $("#q").placeholder=`Search ${modeObj().label.toLowerCase()} by English or romaji title`;
-  renderHero();renderNow();marquee();renderTabs();renderFilters();resetGrid();genreSection();insights();CMP.limit=40;CMP.sort="diff";CMP.view="both";renderCompare();observe();
+  renderHero();renderNow();marquee();renderTabs();renderFilters();resetGrid();genreSection();rankSection();insights();CMP.limit=40;CMP.sort="diff";CMP.view="all";CMP.f={fmt:"",genre:"",year:"",season:""};renderCompare();updatePromo();observe();
   if(!io)drawDonut();
 }
 
@@ -1086,7 +1483,7 @@ function openSheet(id,src){
   const w=done(a),pc=a.ep?Math.min(1,w/a.ep):(a.st==="C"?1:0);
   $("#sheet").innerHTML=`<div class="ban"><div class="bi ${a.ban?"":"blur"}" id="bi"></div><button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
    <div class="stop">${a.covX?`<img class="pimg" id="pimg" src="${esc(a.covX)}" alt="">`:`<span class="pimg"></span>`}<div class="stxt"><div class="eyebrow">${stLabel(a.st,m)} · ${esc(a.f)} · ${a.y||"?"}</div><h2 id="sTitle">${esc(a.t)}</h2><div class="ro">${esc(a.ro)}</div>
-    <div class="gen">${a.g.map((g,i)=>`<span style="animation-delay:${.2+i*.05}s">${esc(g)}</span>`).join("")}</div></div></div>
+    <div class="gen">${a.g.map((g,i)=>`<span style="animation-delay:${.2+i*.05}s">${esc(g)}</span>`).join("")}</div>${a.rk&&a.rk.length?`<div class="rks">${a.rk.map((r,i)=>`<span class="${r.a?"":"o"}" style="animation-delay:${.35+i*.06}s">${esc(rkLabel(r))}</span>`).join("")}</div>`:""}${a.pop?`<div class="ro" style="margin-top:8px">${fmtN(a.pop)} AniList members</div>`:""}</div></div>
    <div class="sgrid"><div class="sstat">${ring(a.s/10,52,a.s||"—")}<div><small>My score</small><strong class="num">${a.s?a.s+"/10":"Unrated"}</strong></div></div>
     <div class="sstat">${ring(a.avg/100,52,(a.avg/10).toFixed(1))}<div><small>AniList average</small><strong class="num">${a.avg}%</strong></div></div>
     <div class="sstat">${ring(pc,52,Math.round(pc*100)+"%")}<div><small>${m.units[0].toUpperCase()+m.units.slice(1)}</small><strong class="num">${fmtN(w)} / ${a.ep||"?"}</strong></div></div></div>
@@ -1262,10 +1659,14 @@ document.addEventListener("click",e=>{
   const t=e.target.closest(".tab");if(t){state.tab=t.dataset.tab;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));moveTab();resetGrid();return}
   const g=e.target.closest("[data-genre]");if(g){state.genre=g.dataset.genre;renderFilters();resetGrid();if(g.matches(".grow,.gcard"))$("#shelf").scrollIntoView({behavior:reduce?"auto":"smooth"});return}
   const oa=e.target.closest("[data-open-any]");if(oa){openAny(oa.dataset.openAny);return}
-  const cv=e.target.closest("[data-cview]");if(cv){CMP.view=cv.dataset.cview;CMP.limit=40;CMP.sort=CMP.view==="both"?"diff":CMP.view==="me"?"mine":"theirs";renderCompare();return}
+  const cv=e.target.closest("[data-cview]");if(cv){CMP.view=cv.dataset.cview;CMP.limit=40;CMP.sort=CMP.view==="all"?"diff":"group";renderCompare();return}
+  const rm=e.target.closest("[data-rm]");if(rm){removePerson(+rm.dataset.rm);return}
+  if(e.target.closest("[data-addme]")){CMP.people.unshift(ownerPerson());syncURL();renderCompare(true);return}
   if(e.target.closest("#cmpMore")){CMP.limit+=40;renderCompare();return}
-  if(e.target.closest("#cmpShare")){const u=new URL(location.href);u.searchParams.set("compare",CMP.user);const url=u.toString();
-    (async()=>{try{if(navigator.share){await navigator.share({title:`${DISPLAY} vs ${CMP.user}`,url});return}}catch(err){return}try{await navigator.clipboard.writeText(url);toast("Comparison link copied")}catch(err){toast(url)}})();return}
+  if(e.target.closest("#cfClear")){CMP.f={fmt:"",genre:"",year:"",season:""};CMP.limit=40;renderCompare();return}
+  if(e.target.closest("#cmpShare")){syncURL();const url=SNAP?LIVE:location.href;
+    (async()=>{try{if(navigator.share){await navigator.share({title:`AniList compare: ${CMP.people.map(p=>p.label).join(" vs ")}`,url});return}}catch(err){return}try{await navigator.clipboard.writeText(url);toast("Comparison link copied")}catch(err){toast(url)}})();return}
+  const wy=e.target.closest("[data-wy]");if(wy){openWrapped(+wy.dataset.wy);return}
   const xs=e.target.closest("[data-xscope]");if(xs){X.scope=xs.dataset.xscope;renderExport();return}
   const xt=e.target.closest("[data-xstat]");if(xt){X.st=xt.dataset.xstat;renderExport();return}
 });
@@ -1273,8 +1674,16 @@ $("#q").addEventListener("input",e=>{state.q=e.target.value;resetGrid()});
 $("#sort").addEventListener("change",e=>{state.sort=e.target.value;resetGrid()});
 $("#fmt").addEventListener("change",e=>{state.fmt=e.target.value;resetGrid()});
 $("#more").addEventListener("click",appendMore);
-$("#cmpForm").addEventListener("submit",e=>{e.preventDefault();runCompare($("#cmpIn").value)});
-document.addEventListener("change",e=>{if(e.target.id==="cmpSort"){CMP.sort=e.target.value;renderCompare()}});
+$("#cmpForm").addEventListener("submit",e=>{e.preventDefault();addPerson($("#cmpIn").value)});
+document.addEventListener("change",e=>{const id=e.target.id,v=e.target.value,map={cfYear:"year",cfSeason:"season",cfFmt:"fmt",cfGenre:"genre"};
+  if(map[id]){CMP.f[map[id]]=v;CMP.limit=40;renderCompare();return}if(id==="cmpSort"){CMP.sort=v;renderCompare();return}if(id==="cfGroup"){CMP.group=v;CMP.limit=40;renderCompare()}});
+$("#wNav").addEventListener("click",()=>openWrapped());$("#wPromo").addEventListener("click",()=>openWrapped());
+$("#wclose").addEventListener("click",closeWrapped);
+$("#wNext").addEventListener("click",()=>{if(W.i<W.slides.length-1)showSlide(W.i+1)});$("#wPrev").addEventListener("click",()=>showSlide(W.i-1));
+(function(){let hold;const box=$("#wrap");box.addEventListener("pointerdown",()=>{hold=setTimeout(()=>{W.paused=true},250)});
+  box.addEventListener("pointerup",()=>{clearTimeout(hold);if(W.paused){W.paused=false;clearTimeout(W.timer);if(W.i<W.slides.length-1)W.timer=setTimeout(()=>showSlide(W.i+1),2500)}});
+  let sx=null;box.addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});box.addEventListener("touchend",e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(d)>60)showSlide(Math.min(W.slides.length-1,W.i+(d<0?1:-1)))})})();
+addEventListener("keydown",e=>{if($("#wrap").hidden)return;if(e.key==="ArrowRight")showSlide(Math.min(W.slides.length-1,W.i+1));if(e.key==="ArrowLeft")showSlide(W.i-1);if(e.key==="Escape")closeWrapped()});
 $("#pickBtn").addEventListener("click",pick);
 $("#cmpNav").addEventListener("click",e=>{e.preventDefault();const s=$("#compare");s.scrollIntoView({behavior:reduce?"auto":"smooth"});s.classList.remove("flash");void s.offsetWidth;s.classList.add("flash");setTimeout(()=>$("#cmpIn").focus({preventScroll:true}),reduce?0:700)});
 $("#exportBtn").addEventListener("click",()=>{lastFocus=document.activeElement;X.scope=mode;renderExport();show("#xsheet");setTimeout(()=>$("#xsheet .x").focus(),60)});
@@ -1323,7 +1732,9 @@ if(matchMedia("(pointer:fine)").matches&&!reduce){
   setInterval(()=>{if(live)setSync("live")},60000);
   setInterval(()=>{if(!document.hidden)refresh()},5*60*1000);
   document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-synced>90000)refresh()});
-  const cq=params.get("compare");if(cq){$("#cmpIn").value=cq;runCompare(cq)}
+  const cq=params.get("compare");if(cq){const names=cq.split(",").map(s=>s.trim()).filter(Boolean);initCompare();if(params.get("me")==="0")CMP.people=CMP.people.filter(p=>!p.own);renderPeople();
+    (async()=>{for(const n of names.slice(0,4))await addPerson(n,true)})()}
+  const wq=params.get("wrapped");if(wq)setTimeout(()=>openWrapped(+wq),introGone?0:2200);
 })();
 let started=false,started_snap=false;
 function start(){started=true;if(SNAP&&!started_snap){started_snap=true}if(!rowsOf(mode).length)mode=MODES.find(m=>rowsOf(m.k).length)?.k||"anime";renderModes();setupReveal();renderAll();document.fonts?.ready.then(()=>{moveModeSlide();moveTab()});}
