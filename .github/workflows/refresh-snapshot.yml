@@ -19,7 +19,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json, time, urllib.request
-          Q = """query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name avatar{medium}}lists{entries{
+          Q = """query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name avatar{large medium}}lists{entries{
            status score(format:POINT_10_DECIMAL) progress progressVolumes updatedAt completedAt{year month day}
            media{id siteUrl title{romaji english} genres averageScore popularity season episodes chapters volumes seasonYear startDate{year}
             format countryOfOrigin coverImage{extraLarge large color} bannerImage rankings{rank type allTime year season context}}}}}}"""
