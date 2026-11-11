@@ -417,6 +417,13 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 .clist{display:grid;gap:8px}
 @media (max-width:700px){.vs{grid-template-columns:1fr 1fr}.vs .mid{grid-column:1/-1;order:-1}.crow,.chead{grid-template-columns:40px minmax(0,1fr) 54px 54px}.crow .df,.chead span:last-child{display:none}.crow .mini{width:40px;height:56px}.ctab{min-width:0;flex:1}}
 
+#compare.flash .cmpform .field{animation:flashb 1.2s ease 2}
+@keyframes flashb{50%{border-color:var(--ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--ink) 12%,transparent)}}
+
+@media (max-width:460px){.hbtn span{display:none}}
+.snapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--btn);color:var(--btn-ink);border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px}
+.snapbar a{color:var(--btn);background:var(--btn-ink);border-radius:8px;padding:6px 12px;font-weight:700;text-decoration:none;white-space:nowrap}
+
 /* print report */
 #report{display:none}
 @media print{
@@ -444,13 +451,16 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 @media (max-width:980px){.hero{grid-template-columns:1fr}.c5,.c7,.c6{grid-column:span 12}}
 @media (max-width:700px){
   .spot{grid-template-columns:1fr;min-height:0}
-  .flow{min-height:250px;order:-1;margin-top:46px}
+  .flow{min-height:290px;order:-1;margin-top:48px}
+  .flow .it{width:min(44%,170px)}
   .hcopy{padding:8px 22px 24px}
   .tag{left:22px;right:22px}
   .top .wrap{gap:10px}
   .modes{order:3;width:100%;overflow-x:auto}
   .mode{flex:1}
   .sync{display:none}
+  .hbtn{padding:9px 11px}
+  .brand h1{font-size:17px}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .body{padding:10px 11px 2px}
   .body h3{font-size:15px}
@@ -487,7 +497,8 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
   <div class="wrap">
     <a class="brand" href="#" id="brand"><i>A</i><h1 id="siteName">Ananth's Anime Shelf</h1></a>
     <span class="sync" id="sync"><b></b><span>Connecting…</span></span>
-    <button class="ghost" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Export</button>
+    <a class="ghost hbtn" href="#compare" id="cmpNav" aria-label="Compare with a friend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6M16 12l3 3 3-3M19 15V4"/></svg><span>Compare</span></a>
+    <button class="ghost hbtn" id="exportBtn" aria-label="Export list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Export</span></button>
     <div class="modes" id="modes" role="group" aria-label="Library"><span class="mslide" id="mslide"></span></div>
   </div>
 </header>
@@ -498,7 +509,7 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
       <canvas id="rays"></canvas>
       <div class="tag"><span id="heroTag">AniList</span><span class="num" id="since"></span></div>
       <div class="hcopy">
-        <div class="eyebrow" id="heroEyebrow">Presented by Ananth Krishna J</div>
+        <div class="eyebrow" id="heroEyebrow">Presented by Ananth</div>
         <h2 id="heroH"></h2>
         <p id="heroLine"></p>
       </div>
@@ -524,6 +535,16 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
     <div class="strip" id="strip"></div>
   </section>
 
+  <section id="compare">
+    <div class="sechead" data-r><div><div class="eyebrow">Compare</div><h2>Compare lists with a friend</h2><p>Type any AniList username to see what you both have, what only you have, and what only they have.</p></div></div>
+    <form class="cmpform" id="cmpForm" data-r>
+      <label class="field" for="cmpIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11l2 2 4-4"/></svg>
+        <input id="cmpIn" placeholder="Friend's AniList username" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+      <button class="dark" type="submit" id="cmpGo">Compare</button>
+    </form>
+    <div id="cmpOut"></div>
+  </section>
+
   <section id="shelf">
     <div class="sechead" data-r>
       <div><div class="eyebrow">The shelf</div><h2 id="shelfH">Browse the list</h2></div>
@@ -543,16 +564,6 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
     <div class="count num" id="count"></div>
     <div class="grid" id="grid"></div>
     <div class="more"><button class="ghost" id="more" hidden>Show more</button></div>
-  </section>
-
-  <section id="compare">
-    <div class="sechead" data-r><div><div class="eyebrow">Compare</div><h2>Compare lists with a friend</h2><p>Type any AniList username to see what you both have, what only you have, and what only they have.</p></div></div>
-    <form class="cmpform" id="cmpForm" data-r>
-      <label class="field" for="cmpIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11l2 2 4-4"/></svg>
-        <input id="cmpIn" placeholder="Friend's AniList username" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
-      <button class="dark" type="submit" id="cmpGo">Compare</button>
-    </form>
-    <div id="cmpOut"></div>
   </section>
 
   <section id="genres">
@@ -608,6 +619,8 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 <script>
 "use strict";
 /* ================= config ================= */
+const SNAP = window.__SNAP || null;
+const LIVE = "https://anime-shelf-seven.vercel.app/";
 const DEFAULT_USER = "AnanthKrishna";
 const OWNER_NAME = "Ananth";
 const params = new URLSearchParams(location.search);
@@ -632,7 +645,7 @@ const stLabel = (st,m) => ({W:m.verb,C:"Completed",P:"Planning",D:"Dropped",H:"P
 
 document.title = `${DISPLAY}'s Anime Shelf`;
 $("#siteName").textContent = `${DISPLAY}'s Anime Shelf`;
-$("#heroEyebrow").textContent = IS_OWNER ? "Presented by Ananth Krishna J" : `AniList · ${USER}`;
+$("#heroEyebrow").textContent = IS_OWNER ? "Presented by Ananth" : `AniList · ${USER}`;
 
 /* ================= data ================= */
 const QUERY = `query($u:String,$t:MediaType){MediaListCollection(userName:$u,type:$t){user{name}lists{entries{
@@ -665,8 +678,17 @@ function normalize(col,type){
 }
 const CK="shelf:v2:"+USER.toLowerCase();
 let ALL=[],synced=0,live=false;
+async function loadSnap(){
+  ALL=[...normalize(SNAP.raw.ANIME,"ANIME"),...normalize(SNAP.raw.MANGA,"MANGA")];synced=SNAP.t;
+  const map={};
+  await Promise.race([Promise.all(SNAP.chunks.map(u=>fetch(u).then(r=>r.json()).then(j=>Object.assign(map,j)).catch(()=>{}))),new Promise(r=>setTimeout(r,12000))]);
+  const toUrl=b=>{try{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return URL.createObjectURL(new Blob([u],{type:"image/webp"}))}catch(e){return null}};
+  for(const a of ALL){const b=map[a.id];const u=b?toUrl(b):null;a.cov=u;a.covX=u;a.ban=null}
+  setSync("snap");return true;
+}
 async function load(){
-  const cached=store.get(CK,null);
+  if(SNAP)return loadSnap();
+  const cached=SNAP?null:store.get(CK,null);
   if(cached&&cached.rows&&cached.rows.length){ALL=cached.rows;synced=cached.t;setSync("cached")}
   try{
     setSync("busy");
@@ -682,7 +704,9 @@ async function load(){
   }
 }
 function ago(t){const s=(Date.now()-t)/1000;if(s<60)return"just now";if(s<3600)return Math.round(s/60)+" min ago";if(s<86400)return Math.round(s/3600)+" h ago";return new Date(t).toLocaleDateString()}
-function setSync(k){const el=$("#sync");el.className="sync "+(k==="live"?"live":k==="busy"?"busy":"");
+function setSync(k){if(k==="snap"){const el=$("#sync");el.className="sync";el.querySelector("span").textContent=`Snapshot · ${new Date(synced).toLocaleDateString()}`;
+    $("#footNote").textContent=`Snapshot of AniList user ${USER} from ${new Date(synced).toLocaleDateString()}. The live site updates on its own.`;return}
+  const el=$("#sync");el.className="sync "+(k==="live"?"live":k==="busy"?"busy":"");
   el.querySelector("span").textContent=k==="live"?`Live from AniList · ${ago(synced)}`:k==="busy"?(ALL.length?"Refreshing from AniList…":"Connecting to AniList…"):k==="snapshot"?"Showing saved copy":`Saved copy · ${ago(synced)}`;
   $("#footNote").textContent=k==="live"?`Live from AniList user ${USER}. Updates every time the page opens.`:`AniList couldn't be reached, showing the copy from ${synced?ago(synced):"the last save"}.`}
 function showError(err){
@@ -878,6 +902,7 @@ const CMP={user:"",rows:null,view:"both",sort:"diff",limit:40};
 async function runCompare(name){
   name=name.trim();if(!name)return;
   if(name.toLowerCase()===USER.toLowerCase()){toast("Pick someone other than this shelf's owner");return}
+  if(SNAP){const url=`${LIVE}?compare=${encodeURIComponent(name)}`;$("#cmpOut").innerHTML=`<div class="panel box" style="margin-top:16px"><h3>Compare with ${esc(name)} on the live site</h3><p style="margin:6px 0 14px;color:var(--muted)">This snapshot can't reach AniList, so comparisons run on the live site. Your friend's list loads there in a second.</p><a class="dark" href="${esc(url)}" target="_blank" rel="noopener">Compare with ${esc(name)} ↗</a></div>`;return}
   const out=$("#cmpOut");out.innerHTML=`<div class="vs panel"><div class="skel" style="aspect-ratio:auto;height:60px;grid-column:1/-1"></div></div>`;
   $("#cmpGo").disabled=true;
   try{
@@ -1038,6 +1063,48 @@ async function toPDF(){
   closeAll();setTimeout(()=>window.print(),150);
 }
 
+/* ---- export inside the Claude artifact ---- */
+async function snapSave(filename,data){
+  const dl=window.claude&&window.claude.use?await window.claude.use("downloads"):null;
+  if(!dl){toast("Downloads aren't available here. Use the live site.");return}
+  try{const r=await dl.save({filename,data});if(r.status==="saved")toast("Saved "+filename)}catch(e){if(e.code!=="declined")toast(e.code==="rate_limited"?"Another save is still open":"Couldn't save the file")}
+}
+function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+async function snapPDF(){
+  const L=exportRows();if(!L.length){toast("Nothing to export with those choices");return}
+  toast("Building your PDF…");
+  try{if(!window.jspdf)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+    if(!window.jspdf.jsPDF.API.autoTable)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js")}
+  catch(e){toast("Couldn't load the PDF maker. Try the live site.");return}
+  const cov=$("#xcov").checked,clean=s=>String(s??"").normalize("NFKD").replace(/[̀-ͯ]/g,"").replace(/[^\x20-\xff]/g,"*");
+  const thumbs={};
+  if(cov){const c=document.createElement("canvas");c.width=60;c.height=86;const x=c.getContext("2d");
+    for(const a of L){if(!a.cov)continue;try{const im=new Image();im.src=a.cov;await im.decode();x.fillStyle="#fff";x.fillRect(0,0,60,86);
+      const r=Math.max(60/im.width,86/im.height),w=im.width*r,hh=im.height*r;x.drawImage(im,(60-w)/2,(86-hh)/2,w,hh);thumbs[a.id]=c.toDataURL("image/jpeg",.7)}catch(e){}}}
+  const {jsPDF}=window.jspdf,doc=new jsPDF({unit:"pt",format:"a4"}),W=doc.internal.pageSize.getWidth();
+  const groups=X.scope==="all"?MODES.filter(m=>L.some(a=>a.kind===m.k)):[MODES.find(m=>m.k===X.scope)],order=["W","C","H","P","D"];
+  doc.setFont("times","bold");doc.setFontSize(22);doc.text(clean(`${DISPLAY}'s ${scopeLabel()} list`),40,52);
+  doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(90);doc.text(clean(`Presented by Ananth · AniList user ${USER} · snapshot ${new Date(synced).toLocaleDateString()} · ${L.length} titles`),40,68);doc.setTextColor(0);
+  let y=84;
+  for(const m of groups){const G=L.filter(a=>a.kind===m.k),rated=G.filter(a=>a.s>0);
+    if(y>740){doc.addPage();y=50}
+    if(X.scope==="all"){doc.setFont("times","bold");doc.setFontSize(16);doc.text(m.label,40,y+14);y+=22}
+    doc.setFont("helvetica","normal");doc.setFontSize(9);
+    doc.text(`${G.length} titles  ·  ${G.filter(a=>a.st==="C").length} completed  ·  ${fmtN(G.filter(a=>a.st!=="P").reduce((s,a)=>s+done(a),0))} ${m.units}  ·  mean ${rated.length?(rated.reduce((s,a)=>s+a.s,0)/rated.length).toFixed(1):"-"}  ·  ${rated.filter(a=>a.s>=10).length} perfect 10s`,40,y+10);y+=20;
+    for(const st of order){const R=G.filter(a=>a.st===st).sort((a,b)=>b.s-a.s||a.t.localeCompare(b.t));if(!R.length)continue;
+      if(y>760){doc.addPage();y=50}
+      doc.setFont("times","bold");doc.setFontSize(12);doc.text(clean(`${stLabel(st,m)} · ${R.length}`),40,y+12);y+=16;
+      doc.autoTable({startY:y,margin:{left:40,right:40},theme:"plain",styles:{fontSize:8,cellPadding:3,valign:"middle",lineColor:220,lineWidth:{bottom:.5}},headStyles:{fontSize:7,textColor:90,fontStyle:"bold"},
+        head:[[...(cov?[""]:[]),"Title","Format","Year","Me","AniList",m.units[0].toUpperCase()+m.units.slice(1),"Genres"]],
+        body:R.map(a=>[...(cov?[""]:[]),clean(a.t)+(a.ro!==a.t?"\n"+clean(a.ro):""),clean(a.f),a.y||"",a.s||"-",(a.avg/10).toFixed(1),`${fmtN(done(a))}/${a.ep||"?"}`,clean(a.g.slice(0,3).join(", "))]),
+        columnStyles:cov?{0:{cellWidth:26,minCellHeight:36},1:{cellWidth:170,fontStyle:"bold"},4:{halign:"right"},5:{halign:"right"},6:{halign:"right"}}:{0:{cellWidth:190,fontStyle:"bold"},3:{halign:"right"},4:{halign:"right"},5:{halign:"right"}},
+        didDrawCell:d=>{if(cov&&d.section==="body"&&d.column.index===0){const a=R[d.row.index],t=thumbs[a.id];if(t)doc.addImage(t,"JPEG",d.cell.x+2,d.cell.y+2,22,32)}}});
+      y=doc.lastAutoTable.finalY+14}
+  }
+  const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFontSize(7);doc.setTextColor(140);doc.text(`Ananth's Anime Shelf · page ${i} of ${n}`,W/2,820,{align:"center"})}
+  await snapSave(fname("pdf"),doc.output("blob"));
+}
+
 /* ================= fx ================= */
 const fx=$("#fx"),fctx=fx.getContext("2d");let parts=[],fxOn=false;
 const PAL=["#111111","#3a3a3a","#6e6e6e","#9e9e9e","#c8c8c8","#ffffff"];
@@ -1090,15 +1157,17 @@ $("#more").addEventListener("click",appendMore);
 $("#cmpForm").addEventListener("submit",e=>{e.preventDefault();runCompare($("#cmpIn").value)});
 document.addEventListener("change",e=>{if(e.target.id==="cmpSort"){CMP.sort=e.target.value;renderCompare()}});
 $("#pickBtn").addEventListener("click",pick);
+$("#cmpNav").addEventListener("click",e=>{e.preventDefault();const s=$("#compare");s.scrollIntoView({behavior:reduce?"auto":"smooth"});s.classList.remove("flash");void s.offsetWidth;s.classList.add("flash");setTimeout(()=>$("#cmpIn").focus({preventScroll:true}),reduce?0:700)});
 $("#exportBtn").addEventListener("click",()=>{lastFocus=document.activeElement;X.scope=mode;renderExport();show("#xsheet");setTimeout(()=>$("#xsheet .x").focus(),60)});
-$("#xpdf").addEventListener("click",toPDF);
-$("#xcsv").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");download(fname("csv"),toCSV(),"text/csv;charset=utf-8");toast(`Saved ${L.length} titles as CSV`)});
-$("#xjson").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");download(fname("json"),JSON.stringify({user:USER,exported:new Date().toISOString(),count:L.length,titles:L},null,2),"application/json");toast(`Saved ${L.length} titles as JSON`)});
+$("#xpdf").addEventListener("click",()=>SNAP?snapPDF():toPDF());
+$("#xcsv").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");if(SNAP)return snapSave(fname("csv"),toCSV());download(fname("csv"),toCSV(),"text/csv;charset=utf-8");toast(`Saved ${L.length} titles as CSV`)});
+$("#xjson").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");if(SNAP)return snapSave(fname("json"),JSON.stringify({user:USER,exported:new Date().toISOString(),count:L.length,titles:L.map(({cov,covX,...r})=>r)},null,2));download(fname("json"),JSON.stringify({user:USER,exported:new Date().toISOString(),count:L.length,titles:L},null,2),"application/json");toast(`Saved ${L.length} titles as JSON`)});
 $("#scrim").addEventListener("click",()=>closeAll());
 $("#totop").addEventListener("click",()=>scrollTo({top:0,behavior:reduce?"auto":"smooth"}));
 $("#brand").addEventListener("click",e=>{e.preventDefault();scrollTo({top:0,behavior:reduce?"auto":"smooth"})});
-$("#friend").addEventListener("submit",e=>{e.preventDefault();const v=$("#friendIn").value.trim();if(v)location.href="?user="+encodeURIComponent(v)});
-$("#shareBtn").addEventListener("click",async()=>{const url=location.href;try{if(navigator.share){await navigator.share({title:document.title,url});return}}catch(e){return}
+$("#friend").addEventListener("submit",e=>{e.preventDefault();const v=$("#friendIn").value.trim();if(!v)return;const url="?user="+encodeURIComponent(v);
+  if(SNAP){toast("Opening on the live site");const a=document.createElement("a");a.href=LIVE+url;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}location.href=url});
+$("#shareBtn").addEventListener("click",async()=>{const url=SNAP?LIVE:location.href;try{if(navigator.share){await navigator.share({title:document.title,url});return}}catch(e){return}
   try{await navigator.clipboard.writeText(url);toast("Link copied")}catch(e){toast(url)}});
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
 addEventListener("resize",()=>{moveModeSlide();moveTab()});
@@ -1113,22 +1182,22 @@ if(matchMedia("(pointer:fine)").matches&&!reduce){
   document.addEventListener("pointermove",e=>{const b=e.target.closest(".dark,.ghost");document.querySelectorAll(".mag").forEach(x=>{if(x!==b){x.style.translate="";x.classList.remove("mag")}});
     if(b){const r=b.getBoundingClientRect();b.classList.add("mag");b.style.translate=`${(e.clientX-r.left-r.width/2)*.18}px ${(e.clientY-r.top-r.height/2)*.25}px`}},{passive:true});
 }
-if("IntersectionObserver"in window)new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting&&!$("#more").hidden)appendMore()}),{rootMargin:"600px"}).observe($("#more"));
 
 /* ================= boot ================= */
 (async function boot(){
   intro();
   const t0=performance.now();
-  const cached=store.get(CK,null);
+  const cached=SNAP?null:store.get(CK,null);
   if(cached&&cached.rows&&cached.rows.length){ALL=cached.rows;synced=cached.t;start();setSync("cached")}
+  if(SNAP){const b=document.createElement("div");b.className="snapbar";b.innerHTML=`<span>This is a saved snapshot of the list. The live site updates on its own and has friend compare.</span><a href="${LIVE}" target="_blank" rel="noopener">Open live site ↗</a>`;$("#view").prepend(b)}
   const ok=await load();if(!ok)return;
   if(!started)start();else{renderModes();renderAll()}
   const wait=Math.max(0,1100-(performance.now()-t0));setTimeout(hideIntro,wait);
   setInterval(()=>{if(live)setSync("live")},60000);
   const cq=params.get("compare");if(cq){$("#cmpIn").value=cq;runCompare(cq)}
 })();
-let started=false;
-function start(){started=true;if(!rowsOf(mode).length)mode=MODES.find(m=>rowsOf(m.k).length)?.k||"anime";renderModes();setupReveal();renderAll();document.fonts?.ready.then(()=>{moveModeSlide();moveTab()});if(store.get(CK,null))setTimeout(hideIntro,700)}
+let started=false,started_snap=false;
+function start(){started=true;if(SNAP&&!started_snap){started_snap=true}if(!rowsOf(mode).length)mode=MODES.find(m=>rowsOf(m.k).length)?.k||"anime";renderModes();setupReveal();renderAll();document.fonts?.ready.then(()=>{moveModeSlide();moveTab()});if(!SNAP&&store.get(CK,null))setTimeout(hideIntro,700)}
 </script>
 </body>
 </html>
