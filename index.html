@@ -872,11 +872,11 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
     <div><div class="eyebrow" style="margin-bottom:8px">Which statuses</div><div class="choices" id="xstat"></div></div>
     <label class="check"><input type="checkbox" id="xcov" checked> Include cover thumbnails in the PDF</label>
     <div class="xbtns">
-      <button class="dark" id="xpdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14h6M9 18h4"/></svg>Save as PDF</button>
+      <button class="dark" id="xpdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14h6M9 18h4"/></svg>Download PDF</button>
       <button class="ghost" id="xcsv">Download CSV</button>
       <button class="ghost" id="xjson">Download JSON</button>
     </div>
-    <p style="font-size:13px">Save as PDF opens your browser's print screen. Pick "Save as PDF" as the printer.</p>
+    <p style="font-size:13px">The PDF is built right here and saved to your downloads. Big lists with covers can take a few seconds.</p>
   </div>
 </div>
 <div class="done" id="done" role="dialog" aria-modal="true" aria-labelledby="doneT"></div>
@@ -1579,21 +1579,27 @@ async function snapSave(filename,data){
   try{const r=await dl.save({filename,data});if(r.status==="saved")toast("Saved "+filename)}catch(e){if(e.code!=="declined")toast(e.code==="rate_limited"?"Another save is still open":"Couldn't save the file")}
 }
 function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
-async function snapPDF(){
+async function makePDF(){
   const L=exportRows();if(!L.length){toast("Nothing to export with those choices");return}
   toast("Building your PDF…");
   try{if(!window.jspdf)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
     if(!window.jspdf.jsPDF.API.autoTable)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js")}
-  catch(e){toast("Couldn't load the PDF maker. Try the live site.");return}
+  catch(e){if(SNAP){toast("Couldn't load the PDF maker. Try the live site.");return}toast("Couldn't load the PDF maker, opening print instead");return toPDF()}
   const cov=$("#xcov").checked,clean=s=>String(s??"").normalize("NFKD").replace(/[̀-ͯ]/g,"").replace(/[^\x20-\xff]/g,"*");
   const thumbs={};
   if(cov){const c=document.createElement("canvas");c.width=60;c.height=86;const x=c.getContext("2d");
-    for(const a of L){if(!a.cov)continue;try{const im=new Image();im.src=a.cov;await im.decode();x.fillStyle="#fff";x.fillRect(0,0,60,86);
-      const r=Math.max(60/im.width,86/im.height),w=im.width*r,hh=im.height*r;x.drawImage(im,(60-w)/2,(86-hh)/2,w,hh);thumbs[a.id]=c.toDataURL("image/jpeg",.7)}catch(e){}}}
+    const loadImg=u=>new Promise(r=>{const im=new Image(),local=/^(blob|data):/.test(u);if(!local)im.crossOrigin="anonymous";
+      const t=setTimeout(()=>r(null),8000);im.onload=()=>{clearTimeout(t);r(im)};im.onerror=()=>{clearTimeout(t);r(null)};im.src=local?u:u+(u.includes("?")?"&":"?")+"pdf=1"});
+    const todo=L.filter(a=>a.cov);let done=0;
+    for(let i=0;i<todo.length;i+=24){const batch=todo.slice(i,i+24),ims=await Promise.all(batch.map(a=>loadImg(a.cov)));
+      batch.forEach((a,k)=>{const im=ims[k];if(!im)return;try{x.fillStyle="#fff";x.fillRect(0,0,60,86);const r=Math.max(60/im.width,86/im.height),w=im.width*r,hh=im.height*r;
+        x.drawImage(im,(60-w)/2,(86-hh)/2,w,hh);thumbs[a.id]=c.toDataURL("image/jpeg",.7)}catch(err){}});
+      done+=batch.length;toast(`Adding covers… ${done}/${todo.length}`)}}
+  toast("Building your PDF…");
   const {jsPDF}=window.jspdf,doc=new jsPDF({unit:"pt",format:"a4"}),W=doc.internal.pageSize.getWidth();
   const groups=X.scope==="all"?MODES.filter(m=>L.some(a=>a.kind===m.k)):[MODES.find(m=>m.k===X.scope)],order=["W","C","H","P","D"];
   doc.setFont("times","bold");doc.setFontSize(22);doc.text(clean(`${DISPLAY}'s ${scopeLabel()} list`),40,52);
-  doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(90);doc.text(clean(`Presented by Ananth · AniList user ${USER} · snapshot ${new Date(synced).toLocaleDateString()} · ${L.length} titles`),40,68);doc.setTextColor(0);
+  doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(90);doc.text(clean(`Presented by Ananth · AniList user ${USER} · ${SNAP?"snapshot "+new Date(synced).toLocaleDateString():"exported "+new Date().toLocaleDateString()} · ${L.length} titles`),40,68);doc.setTextColor(0);
   let y=84;
   for(const m of groups){const G=L.filter(a=>a.kind===m.k),rated=G.filter(a=>a.s>0);
     if(y>740){doc.addPage();y=50}
@@ -1605,13 +1611,15 @@ async function snapPDF(){
       doc.setFont("times","bold");doc.setFontSize(12);doc.text(clean(`${stLabel(st,m)} · ${R.length}`),40,y+12);y+=16;
       doc.autoTable({startY:y,margin:{left:40,right:40},theme:"plain",styles:{fontSize:8,cellPadding:3,valign:"middle",lineColor:220,lineWidth:{bottom:.5}},headStyles:{fontSize:7,textColor:90,fontStyle:"bold"},
         head:[[...(cov?[""]:[]),"Title","Format","Year","Me","AniList",m.units[0].toUpperCase()+m.units.slice(1),"Genres"]],
-        body:R.map(a=>[...(cov?[""]:[]),clean(a.t)+(a.ro!==a.t?"\n"+clean(a.ro):""),clean(a.f),a.y||"",a.s||"-",(a.avg/10).toFixed(1),`${fmtN(done(a))}/${a.ep||"?"}`,clean(a.g.slice(0,3).join(", "))]),
+        body:R.map(a=>[...(cov?[{content:"",_id:a.id}]:[]),clean(a.t)+(a.ro!==a.t?"\n"+clean(a.ro):""),clean(a.f),a.y||"",a.s||"-",(a.avg/10).toFixed(1),`${fmtN(done(a))}/${a.ep||"?"}`,clean(a.g.slice(0,3).join(", "))]),
         columnStyles:cov?{0:{cellWidth:26,minCellHeight:36},1:{cellWidth:170,fontStyle:"bold"},4:{halign:"right"},5:{halign:"right"},6:{halign:"right"}}:{0:{cellWidth:190,fontStyle:"bold"},3:{halign:"right"},4:{halign:"right"},5:{halign:"right"}},
-        didDrawCell:d=>{if(cov&&d.section==="body"&&d.column.index===0){const a=R[d.row.index],t=thumbs[a.id];if(t)doc.addImage(t,"JPEG",d.cell.x+2,d.cell.y+2,22,32)}}});
+        rowPageBreak:"avoid",didDrawCell:d=>{if(cov&&d.section==="body"&&d.column.index===0){const id=d.cell.raw&&d.cell.raw._id,t=id&&thumbs[id];if(t)doc.addImage(t,"JPEG",d.cell.x+2,d.cell.y+2,22,32)}}});
       y=doc.lastAutoTable.finalY+14}
   }
   const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFontSize(7);doc.setTextColor(140);doc.text(`Ananth's Anime Shelf · page ${i} of ${n}`,W/2,820,{align:"center"})}
-  await snapSave(fname("pdf"),doc.output("blob"));
+  const blob=doc.output("blob");
+  if(SNAP)return snapSave(fname("pdf"),blob);
+  download(fname("pdf"),blob,"application/pdf");toast(`PDF downloaded · ${L.length} titles`);
 }
 
 /* ================= fx ================= */
@@ -1708,7 +1716,7 @@ addEventListener("keydown",e=>{if($("#wrap").hidden)return;if(e.key==="ArrowRigh
 $("#pickBtn").addEventListener("click",pick);
 $("#cmpNav").addEventListener("click",e=>{e.preventDefault();const s=$("#compare");s.scrollIntoView({behavior:reduce?"auto":"smooth"});s.classList.remove("flash");void s.offsetWidth;s.classList.add("flash");setTimeout(()=>$("#cmpIn").focus({preventScroll:true}),reduce?0:700)});
 $("#exportBtn").addEventListener("click",()=>{lastFocus=document.activeElement;X.scope=mode;renderExport();show("#xsheet");setTimeout(()=>$("#xsheet .x").focus(),60)});
-$("#xpdf").addEventListener("click",()=>SNAP?snapPDF():toPDF());
+$("#xpdf").addEventListener("click",async e=>{const b=e.currentTarget;if(b.disabled)return;b.disabled=true;try{await makePDF()}finally{b.disabled=false}});
 $("#xcsv").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");if(SNAP)return snapSave(fname("csv"),toCSV());download(fname("csv"),toCSV(),"text/csv;charset=utf-8");toast(`Saved ${L.length} titles as CSV`)});
 $("#xjson").addEventListener("click",()=>{const L=exportRows();if(!L.length)return toast("Nothing to export with those choices");if(SNAP)return snapSave(fname("json"),JSON.stringify({user:USER,exported:new Date().toISOString(),count:L.length,titles:L.map(({cov,covX,...r})=>r)},null,2));download(fname("json"),JSON.stringify({user:USER,exported:new Date().toISOString(),count:L.length,titles:L},null,2),"application/json");toast(`Saved ${L.length} titles as JSON`)});
 $("#scrim").addEventListener("click",()=>closeAll());
