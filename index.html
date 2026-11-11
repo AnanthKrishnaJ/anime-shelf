@@ -430,14 +430,43 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 .crow .mini{width:46px;height:64px}
 .crow b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow small{color:var(--muted);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.crow .sc{text-align:center;border:1px solid var(--line);border-radius:8px;padding:4px 0;font-size:12px}
+.crow .scs{display:contents}
+.crow .sc{text-align:center;border:1px solid var(--line);border-radius:8px;padding:4px 4px;font-size:12px;min-width:0}
+.crow .sc .nm{display:none}
+.crow .sc em{font-style:normal;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctab .lbl{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chead span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs .ring{flex:none}
 .crow .sc strong{display:block;font-size:16px;font-family:var(--serif)}
 .crow .sc.me{background:var(--sel);border-color:var(--sel-line)}
 .crow .df{text-align:right;font-weight:700;font-size:13px}
 .chead{display:grid;grid-template-columns:46px minmax(0,1fr) 92px 92px 64px;gap:12px;padding:0 12px 6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .chead span{text-align:center}.chead span:last-child{text-align:right}
 .clist{display:grid;gap:8px}
-@media (max-width:700px){.vs{grid-template-columns:1fr 1fr}.vs .mid{grid-column:1/-1;order:-1}.crow,.chead{grid-template-columns:40px minmax(0,1fr) 54px 54px}.crow .df,.chead span:last-child{display:none}.crow .mini{width:40px;height:56px}.ctab{min-width:0;flex:1}}
+@media (max-width:700px){
+  .vs{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:16px;gap:12px}.vs .mid{grid-column:1/-1;order:-1}
+  .vs .who b{font-size:18px}
+  .ctabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .ctab{min-width:0;padding:10px;font-size:13px}
+  .ctab strong{font-size:20px}
+  .ctab small{display:none}
+  .ctab .lbl{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere;line-height:1.25}
+  .ctools{flex-wrap:nowrap}
+  .ctools select{flex:1;min-width:0}
+  .ctools .ghost{flex:none;padding:10px 12px}
+  .ctools .ghost span{display:none}
+  .chead{display:none}
+  .crow{grid-template-columns:44px minmax(0,1fr);grid-template-areas:"img t" "img s";gap:8px 12px;align-items:start;padding:10px}
+  .crow .mini{grid-area:img;width:44px;height:62px}
+  .crow .ct{grid-area:t;min-width:0}
+  .crow .scs{grid-area:s;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px;align-items:center;min-width:0}
+  .crow .sc{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:6px;text-align:left;padding:5px 8px;min-width:0}
+  .crow .sc .nm{display:block;grid-column:1/-1;font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .crow .sc strong{font-size:16px}
+  .crow .sc em{font-size:11px;color:var(--muted);min-width:0}
+  .crow .df{display:block;font-size:12px;min-width:0}
+  .crow:hover{transform:none}
+}
 
 #compare.flash .cmpform .field{animation:flashb 1.2s ease 2}
 @keyframes flashb{50%{border-color:var(--ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--ink) 12%,transparent)}}
@@ -1000,21 +1029,21 @@ function renderCompare(){
     avg:(x,y)=>((y.a||y.b).avg)-((x.a||x.b).avg),az:(x,y)=>(x.a||x.b).t.localeCompare((y.a||y.b).t),recent:(x,y)=>((y.b||y.a).u)-((x.b||x.a).u)};
   if(CMP.view!=="both"&&CMP.sort==="diff")CMP.sort=CMP.view==="me"?"mine":"theirs";
   const L=[...lists[CMP.view]].sort(S[CMP.sort]);
-  const cell=(x,who)=>{if(!x)return`<div class="sc"><strong>—</strong>not on list</div>`;return`<div class="sc ${who==="me"?"me":""}"><strong class="num">${x.s||"—"}</strong>${esc(stLabel(x.st,m))}</div>`};
+  const cell=(x,who)=>{const nm=`<span class="nm">${esc(who==="me"?me:them)}</span>`;if(!x)return`<div class="sc">${nm}<strong>—</strong><em>Not on list</em></div>`;return`<div class="sc ${who==="me"?"me":""}">${nm}<strong class="num">${x.s||"—"}</strong><em>${esc(stLabel(x.st,m))}</em></div>`};
   const rowH=({a,b},i)=>{const x=a||b,d=a&&b&&a.s&&b.s?a.s-b.s:null;
-    return `<button class="crow" data-open-any="${x.id}" style="animation-delay:${Math.min(i,20)*30}ms">${img(x,"mini")}<div><b>${esc(x.t)}</b><small>${esc(x.f)} · ${x.y||"?"} · AniList ${(x.avg/10).toFixed(1)}</small></div>${cell(a,"me")}${cell(b,"them")}<span class="df num">${d==null?"":d>0?"+"+d:d}</span></button>`};
+    return `<button class="crow" data-open-any="${x.id}" style="animation-delay:${Math.min(i,20)*30}ms">${img(x,"mini")}<div class="ct"><b>${esc(x.t)}</b><small>${esc(x.f)} · ${x.y||"?"} · AniList ${(x.avg/10).toFixed(1)}</small></div><div class="scs">${cell(a,"me")}${cell(b,"them")}<span class="df num">${d==null?"":d>0?"+"+d:d}</span></div></button>`};
   $("#cmpOut").innerHTML=`<div class="vs panel"><div class="who"><small>This shelf</small><b>${esc(me)}</b><small class="num">${A.filter(a=>a.st!=="P").length} ${m.label.toLowerCase()} ${verb}</small></div>
     <div class="mid">${D.compat==null?ring(0,84,"—"):ring(D.compat/100,84,D.compat+"%")}<small>${D.compat==null?"No shared scores yet":`Taste match across ${D.rated.length} titles you both scored`}</small></div>
     <div class="who r"><small>Compared with</small><b>${esc(them)}</b><small class="num">${D.theirCount} ${m.label.toLowerCase()} ${verb}</small></div></div>
    <div class="ctabs">
-    <button class="ctab" data-cview="both" aria-pressed="${CMP.view==="both"}"><strong class="num">${D.both.length}</strong>Both ${verb}<small>Shared titles, with both scores</small></button>
-    <button class="ctab" data-cview="them" aria-pressed="${CMP.view==="them"}"><strong class="num">${D.onlyThem.length}</strong>Only ${esc(them)}<small>${esc(me)} hasn't ${verb} these</small></button>
-    <button class="ctab" data-cview="me" aria-pressed="${CMP.view==="me"}"><strong class="num">${D.onlyMe.length}</strong>Only ${esc(me)}<small>${esc(them)} hasn't ${verb} these</small></button>
+    <button class="ctab" data-cview="both" aria-pressed="${CMP.view==="both"}"><strong class="num">${D.both.length}</strong><span class="lbl">Both ${verb}</span><small>Shared titles, with both scores</small></button>
+    <button class="ctab" data-cview="them" aria-pressed="${CMP.view==="them"}"><strong class="num">${D.onlyThem.length}</strong><span class="lbl" title="Only ${esc(them)}">Only ${esc(them)}</span><small>${esc(me)} hasn't ${verb} these</small></button>
+    <button class="ctab" data-cview="me" aria-pressed="${CMP.view==="me"}"><strong class="num">${D.onlyMe.length}</strong><span class="lbl">Only ${esc(me)}</span><small>${esc(them)} hasn't ${verb} these</small></button>
    </div>
-   <div class="tools"><select id="cmpSort" aria-label="Sort comparison">
+   <div class="tools ctools"><select id="cmpSort" aria-label="Sort comparison">
      ${CMP.view==="both"?`<option value="diff">Biggest disagreement</option>`:""}<option value="mine">${esc(me)}'s score</option><option value="theirs">${esc(them)}'s score</option>
      <option value="avg">AniList score</option><option value="recent">Recently updated</option><option value="az">Title A–Z</option></select>
-     <button class="ghost" type="button" id="cmpShare">Share this comparison</button></div>
+     <button class="ghost" type="button" id="cmpShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Share comparison</span></button></div>
    <div class="chead"><span></span><span style="text-align:left">Title</span><span>${esc(me)}</span><span>${esc(them)}</span><span>Diff</span></div>
    <div class="clist">${L.length?L.slice(0,CMP.limit).map(rowH).join(""):`<div class="empty"><h3>Nothing here</h3>No titles in this group for ${m.label.toLowerCase()}.</div>`}</div>
    ${L.length>CMP.limit?`<div class="more"><button class="ghost" id="cmpMore">Show more (${L.length-CMP.limit} left)</button></div>`:""}`;
