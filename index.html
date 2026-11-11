@@ -369,7 +369,7 @@ svg text{fill:var(--ink)}
 /* overlays */
 .scrim{position:fixed;inset:0;z-index:70;background:rgba(10,10,14,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .35s;pointer-events:none}
 .scrim.on{opacity:1;pointer-events:auto}
-.sheet{position:fixed;z-index:80;left:50%;top:50%;width:min(720px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;background:var(--card);border-radius:20px;box-shadow:0 40px 90px -20px rgba(0,0,0,.6);
+.sheet{position:fixed;z-index:80;left:50%;top:50%;width:min(720px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;background:var(--card);border-radius:20px;box-shadow:0 40px 90px -20px rgba(0,0,0,.6);
   transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.2,.9,.2,1),opacity .4s}
 .sheet.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
 .ban{height:200px;position:relative;overflow:hidden;background:linear-gradient(var(--cover),var(--cover-2))}
@@ -380,9 +380,13 @@ svg text{fill:var(--ink)}
 .x{position:absolute;top:14px;right:14px;z-index:3;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#111;display:grid;place-items:center;transition:transform .3s}
 .x:hover{transform:rotate(90deg)}
 .x svg{width:18px;height:18px}
-.stop{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:0 26px;margin-top:-110px;position:relative;z-index:1}
+.stop{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:start;padding:0 26px;margin-top:-110px;position:relative;z-index:1}
 .stop .pimg{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:12px;border:4px solid var(--card);box-shadow:0 22px 36px -14px rgba(0,0,0,.7);background:#222;display:block}
-.stxt{padding-top:118px;min-width:0}
+.stxt{min-width:0;padding-top:118px}
+.smeta{padding:16px 26px 0;display:grid;gap:10px;min-width:0}
+.smeta .rks{margin-top:0}
+.smeta .gen span,.smeta .rks span{max-width:100%;overflow-wrap:anywhere}
+.smem{margin:0!important}
 .stxt h2{font-size:clamp(22px,3.4vw,30px);line-height:1.12}
 .stxt .ro{color:var(--muted);font-size:14px;margin:4px 0 10px}
 .gen{display:flex;flex-wrap:wrap;gap:6px}
@@ -772,9 +776,15 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   .fmt{left:9px;bottom:7px;font-size:10px}
   .takes{grid-template-columns:minmax(0,1fr)}
   .grow{grid-template-columns:86px 1fr 58px}
-  .stop{grid-template-columns:110px 1fr;gap:14px;padding:0 18px;margin-top:-84px}
-  .stxt{padding-top:88px}
-  .sgrid{grid-template-columns:1fr;padding:18px 18px 0}
+  .stop{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:0 16px;margin-top:-70px}
+  .stxt{padding-top:78px}
+  .stxt h2{font-size:21px}
+  .smeta{padding:14px 16px 0}
+  .sgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:16px 16px 0}
+  .sstat{flex-direction:column;text-align:center;gap:6px;padding:10px 6px}
+  .sstat strong{font-size:16px;white-space:nowrap}
+  .sstat small{font-size:11px}
+  .sdesc{padding:14px 16px 0}
   .sdesc{padding:14px 18px 0}.sfoot{padding:16px 18px 20px}
   .xsheet .xin{padding:20px}
   .stats strong{font-size:26px}
@@ -1627,7 +1637,8 @@ function openSheet(id,src){
   const w=done(a),pc=a.ep?Math.min(1,w/a.ep):(a.st==="C"?1:0);
   $("#sheet").innerHTML=`<div class="ban"><div class="bi ${a.ban?"":"blur"}" id="bi"></div><button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
    <div class="stop">${a.covX?`<img class="pimg" id="pimg" src="${esc(a.covX)}" alt="">`:`<span class="pimg"></span>`}<div class="stxt"><div class="eyebrow">${stLabel(a.st,m)} · ${esc(a.f)} · ${a.y||"?"}</div><h2 id="sTitle">${esc(a.t)}</h2><div class="ro">${esc(a.ro)}</div>
-    <div class="gen">${a.g.map((g,i)=>`<span style="animation-delay:${.2+i*.05}s">${esc(g)}</span>`).join("")}</div>${a.rk&&a.rk.length?`<div class="rks">${a.rk.map((r,i)=>`<span class="${r.a?"":"o"}" style="animation-delay:${.35+i*.06}s">${esc(rkLabel(r))}</span>`).join("")}</div>`:""}${a.pop?`<div class="ro" style="margin-top:8px">${fmtN(a.pop)} AniList members</div>`:""}</div></div>
+    </div></div>
+   <div class="smeta"><div class="gen">${a.g.map((g,i)=>`<span style="animation-delay:${.2+i*.05}s">${esc(g)}</span>`).join("")}</div>${a.rk&&a.rk.length?`<div class="rks">${a.rk.map((r,i)=>`<span class="${r.a?"":"o"}" style="animation-delay:${.35+i*.06}s">${esc(rkLabel(r))}</span>`).join("")}</div>`:""}${a.pop?`<div class="ro smem">${fmtN(a.pop)} AniList members</div>`:""}</div>
    <div class="sgrid"><div class="sstat">${ring(a.s/10,52,a.s||"—")}<div><small>My score</small><strong class="num">${a.s?a.s+"/10":"Unrated"}</strong></div></div>
     <div class="sstat">${ring(a.avg/100,52,(a.avg/10).toFixed(1))}<div><small>AniList average</small><strong class="num">${a.avg}%</strong></div></div>
     <div class="sstat">${ring(pc,52,Math.round(pc*100)+"%")}<div><small>${m.units[0].toUpperCase()+m.units.slice(1)}</small><strong class="num">${fmtN(w)} / ${a.ep||"?"}</strong></div></div></div>
