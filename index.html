@@ -670,6 +670,61 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
 #compare.flash .cmpform .field{animation:flashb 1.2s ease 2}
 @keyframes flashb{50%{border-color:var(--ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--ink) 12%,transparent)}}
 
+
+/* watch orders + search */
+.ogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.ocard{display:flex;gap:16px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px;min-width:0;transition:transform .35s var(--ease),border-color .3s,box-shadow .35s;animation:rise .6s var(--ease) both;animation-delay:var(--d)}
+.ocard:hover{transform:translateY(-4px);border-color:var(--ink);box-shadow:0 18px 30px -18px rgba(0,0,0,.5)}
+.ostack{position:relative;width:72px;height:98px;flex:none}
+.ostack img,.ostack>i{position:absolute;left:8px;top:4px;width:58px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;background:linear-gradient(var(--cover),var(--cover-2));box-shadow:0 8px 16px -8px rgba(0,0,0,.6);transition:transform .45s var(--ease);transform:rotate(calc((var(--k,0) - 1) * 7deg)) translateX(calc((var(--k,0) - 1) * 5px))}
+.ostack img:nth-child(1){z-index:3}.ostack img:nth-child(2){z-index:2}.ostack img:nth-child(3){z-index:1}
+.ostack img:only-child{transform:none}
+.ocard:hover .ostack img{transform:rotate(calc((var(--k,0) - 1) * 14deg)) translateX(calc((var(--k,0) - 1) * 12px)) translateY(-3px)}
+.otxt{min-width:0;flex:1;display:grid;gap:3px}
+.otxt b{font-family:var(--serif);font-size:19px;line-height:1.15;overflow-wrap:anywhere}
+.otxt small{color:var(--muted);font-size:12px}
+.obar{display:block;height:5px;border-radius:9px;background:var(--soft);overflow:hidden;margin-top:6px}
+.obar i{display:block;height:100%;background:var(--ink);border-radius:9px;transform-origin:left;animation:grow 1.1s var(--ease) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.oform{margin:0 0 18px}
+.osheet .xin,.ssheet .xin{gap:14px}
+.oload{display:flex;align-items:center;gap:10px;color:var(--muted);padding:18px 0}
+.ohead{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.ohead b{display:block;font-weight:600;overflow-wrap:anywhere}.ohead small{color:var(--muted);font-size:13px}.ohead>div{min-width:0}
+.otabs{display:flex;gap:8px;flex-wrap:wrap}
+.ogroup{display:grid}
+.ogroup>.eyebrow{margin:6px 0 4px}
+.orow{display:grid;grid-template-columns:26px 44px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:10px 6px;border-radius:0;animation:rise .5s var(--ease) both;animation-delay:var(--d);transition:background .25s}
+.orow:hover{background:var(--soft)}
+.orow:hover .mini{transform:scale(1.06) rotate(-3deg)}
+.onum{font-family:var(--serif);font-size:18px;color:var(--muted);text-align:center}
+.ot{min-width:0;display:grid;gap:2px}
+.ot b{font-weight:600;font-size:15px;overflow-wrap:anywhere}
+.ot small{color:var(--muted);font-size:12px}
+.ot em{font-style:normal;font-size:12px;color:var(--ink);opacity:.8}
+.ost{font-size:12px;font-weight:600;color:var(--muted);text-align:right;display:grid;gap:3px;justify-items:end}
+.ost strong{background:var(--btn);color:var(--btn-ink);border-radius:999px;padding:2px 9px;font-size:11px;animation:pop .6s var(--ease) .4s both}
+.orow.done .ost{color:var(--ink)}
+.orow.done .onum{color:var(--ink)}
+.orow.done .mini{filter:none}
+.orow.none .mini,.orow.plan .mini{filter:grayscale(1);opacity:.75}
+.orow.next{background:color-mix(in srgb,var(--ink) 5%,transparent);box-shadow:inset 3px 0 0 var(--ink)}
+.srow{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:8px 0;animation:rise .5s var(--ease) both;animation-delay:var(--d)}
+.sopen{display:flex;align-items:center;gap:12px;flex:1;min-width:0;text-align:left;border:0;background:none;padding:2px;border-radius:8px}
+.sopen:hover .mini{transform:scale(1.06) rotate(-3deg)}
+.sopen em{font-style:normal;font-size:12px;color:var(--muted)}.sopen em.on{color:var(--ink);font-weight:600}
+.sord{flex:none;padding:8px 12px;font-size:13px}
+.shint{display:grid;gap:8px;padding:10px 0;justify-items:start}.shint small{color:var(--muted)}
+.shint .people{min-height:0}
+#sres{min-height:120px}
+@media (max-width:560px){
+  .orow{grid-template-columns:22px 40px minmax(0,1fr);gap:10px}
+  .orow .mini{width:40px;height:56px}
+  .ost{grid-column:3;justify-items:start;text-align:left;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .srow{flex-wrap:wrap}.sord{margin-left:56px}
+  .osheet .xin,.ssheet .xin{padding:22px 16px}
+}
+@media (max-width:400px){.brand h1{display:none}.top .wrap{gap:8px}.hbtn{padding:9px 10px}}
 @media (max-width:460px){.hbtn span{display:none}}
 .snapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--btn);color:var(--btn-ink);border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px}
 .snapbar a{color:var(--btn);background:var(--btn-ink);border-radius:8px;padding:6px 12px;font-weight:700;text-decoration:none;white-space:nowrap}
@@ -814,6 +869,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   <div class="wrap">
     <a class="brand" href="#" id="brand"><i>A</i><h1 id="siteName">Ananth's Anime Shelf</h1></a>
     <span class="sync" id="sync"><b></b><span>Connecting…</span></span>
+    <button class="ghost hbtn" type="button" id="searchBtn" aria-label="Search all anime"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></button>
     <button class="ghost hbtn acct" type="button" id="acctBtn" aria-label="Switch AniList account"><span class="aav" id="acctAv"></span><span>Switch</span></button>
     <button class="ghost hbtn" type="button" id="wNav" aria-label="Open Wrapped"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.6L20 9.5l-4.5 3.9L17 19l-5-3-5 3 1.5-5.6L4 9.5l5.8-.9z"/></svg><span>Wrapped</span></button>
     <a class="ghost hbtn" href="#compare" id="cmpNav" aria-label="Compare with a friend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6M16 12l3 3 3-3M19 15V4"/></svg><span>Compare</span></a>
@@ -866,6 +922,16 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
       </form>
     </div>
     <div id="cmpOut"></div>
+  </section>
+
+  <section id="orders">
+    <div class="sechead" data-r><div><div class="eyebrow">Watch orders</div><h2>Where do I start?</h2><p>The right order for tangled franchises like Fate and Monogatari, with what's already been watched ticked off. Search any anime to build its order from AniList.</p></div></div>
+    <form class="cmpform oform" id="oForm" data-r>
+      <label class="field" for="oIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="oIn" placeholder="Any anime, e.g. Gintama or Index" autocomplete="off" spellcheck="false"></label>
+      <button class="dark" type="submit">Find order</button>
+    </form>
+    <div class="ogrid" id="ogrid"></div>
   </section>
 
   <section id="shelf">
@@ -958,6 +1024,19 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
     <p class="aerr" id="aErr" role="alert" hidden></p>
     <div id="arecent"></div>
     <div class="xbtns"><button class="ghost" id="aHome" type="button">Back to Ananth's shelf</button></div>
+  </div>
+</div>
+<div class="sheet xsheet osheet" id="osheet" role="dialog" aria-modal="true" aria-labelledby="oTitle"></div>
+<div class="sheet xsheet ssheet" id="ssheet" role="dialog" aria-modal="true" aria-labelledby="srTitle">
+  <button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="xin">
+    <div><div class="eyebrow">AniList search</div><h2 id="srTitle">Find anything</h2></div>
+    <form id="sForm" class="cmpform" role="search">
+      <label class="field" for="sIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="sIn" type="search" placeholder="Search every title on AniList" autocomplete="off" spellcheck="false"></label>
+    </form>
+    <div class="otabs"><button type="button" class="chip" data-stype="ANIME" aria-pressed="true">Anime</button><button type="button" class="chip" data-stype="MANGA" aria-pressed="false">Manga, manhwa, manhua</button></div>
+    <div id="sres" aria-live="polite"></div>
   </div>
 </div>
 <div class="ahint" id="ahint" hidden><span class="aav big"></span><div><b>Got an AniList account?</b><small>See your own anime, stats and Wrapped here.</small></div><button class="dark" type="button" id="ahintGo">Try it</button><button class="ahx" type="button" id="ahintX" aria-label="Dismiss">×</button></div>
@@ -1223,7 +1302,7 @@ function card(a,i){
 function setCount(L){$("#count").textContent=`Showing ${Math.min(L.length,state.limit)} of ${L.length} ${L.length===1?"title":"titles"}${state.genre?" · "+state.genre:""}${state.q?` · “${state.q}”`:""}`}
 function renderGrid(){
   const L=filtered(),g=$("#grid");setCount(L);
-  if(!L.length){g.innerHTML=`<div class="empty"><h3>Nothing here</h3>Try another tab, genre or search.</div>`;$("#more").hidden=true;return}
+  if(!L.length){g.innerHTML=`<div class="empty"><h3>Nothing here</h3>Try another tab, genre or search.${state.q.trim().length>1?`<div style="margin-top:14px"><button class="dark" type="button" data-gsearch>Search all of AniList for “${esc(state.q.trim())}”</button></div>`:""}</div>`;$("#more").hidden=true;return}
   g.innerHTML=L.slice(0,state.limit).map(card).join("");wireImgs(g);
   const mb=$("#more");mb.hidden=L.length<=state.limit;mb.textContent=`Show more (${L.length-state.limit} left)`;
 }
@@ -1431,6 +1510,128 @@ async function openAny(id){
   ALL.push({...x,s:0,st:"X",p:0,pv:0,_temp:true});openSheet(id);ALL=ALL.filter(r=>!r._temp);
 }
 
+/* ================= watch orders + search ================= */
+const CURATED={
+  fate:{name:"Fate",seed:10087,note:"Start with Unlimited Blade Works (2014), then the prequel Fate/Zero, then the three Heaven's Feel films. Everything after that is optional and can be watched in any order.",
+    groups:[["Main story",[[19603,"Start here"],[20792,""],[10087,"Prequel set 10 years earlier. Hits hardest after UBW"],[11741,""],[20791,"Heaven's Feel route. Watch after UBW and Zero"],[21718,""],[21719,"Finale of the main story"]]],
+      ["Fate/Grand Order",[[97815,"Start of Grand Order"],[103276,""],[103277,""],[103275,""],[116756,"Grand Order finale"]]],
+      ["Spin-offs and extras",[[356,"Older 2006 version of the first route. Optional"],[98035,"A separate Holy Grail War"],[106918,"Waver's story. Best after Fate/Zero"],[21717,""],[154966,"Watch before strange Fake"],[166617,""],[100855,"Cozy cooking episodes"],[14829,"Magical girl alternate universe"],[10012,"Comedy parody"]]]]},
+  monogatari:{name:"Monogatari",seed:5081,note:"Watch in release order. Kizumonogatari is a prequel that came out later; watching it where it was released keeps the reveals intact.",
+    groups:[["Release order",[[5081,"Start here"],[11597,""],[15689,""],[17074,""],[20593,""],[20918,""],[21262,""],[21520,"Short side stories"],[9260,"Prequel trilogy"],[21399,""],[21400,""],[21745,""],[100815,""],[173533,"Latest season"]]],
+      ["Optional",[[181970,"2024 re-cut of the Kizumonogatari films. Skip it if you watched the trilogy"]]]]}
+};
+Object.values(CURATED).forEach(c=>c.ids=c.groups.flatMap(g=>g[1].map(x=>x[0])));
+const FEATURED=[["fate","Fate",10087],["monogatari","Monogatari",5081],[null,"Steins;Gate",9253],[null,"JoJo's Bizarre Adventure",14719],[null,"Attack on Titan",16498],[null,"Gintama",918],[null,"Haruhi Suzumiya",849],[null,"Re:Zero",21355],[null,"Code Geass",1575],[null,"Evangelion",30],[null,"Jujutsu Kaisen",113415],[null,"Demon Slayer",101922],[null,"The Garden of Sinners",2593]];
+const MEDIA_F="id type format status episodes chapters season seasonYear startDate{year month day} title{romaji english} genres averageScore popularity countryOfOrigin coverImage{extraLarge large color} bannerImage siteUrl";
+const REL_KEEP=new Set(["PREQUEL","SEQUEL","PARENT","SIDE_STORY","SPIN_OFF","ALTERNATIVE","SUMMARY","COMPILATION","CONTAINS"]);
+const MCACHE=new Map();let ALLMAP=new Map();
+const MAINF=new Set(["TV","TV Short","Movie","ONA"]);
+let lastAQ=0;
+async function aq(query,variables){
+  if(SNAP)throw new Error("offline");
+  const gap=700-(Date.now()-lastAQ);if(gap>0)await new Promise(r=>setTimeout(r,gap));lastAQ=Date.now();
+  for(let i=0;i<3;i++){const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),15000);let r;
+    try{r=await fetch("https://graphql.anilist.co",{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({query,variables})})}catch(e){clearTimeout(to);if(i<2)continue;throw new Error("AniList took too long to answer")}
+    clearTimeout(to);
+    if(r.status===429){const w=+r.headers.get("Retry-After")||5;if(w>12||i===2)throw new Error("AniList is busy, try again in a minute");await new Promise(z=>setTimeout(z,w*1000));continue}
+    const j=await r.json();if(j.errors&&!j.data)throw new Error(j.errors[0].message);return j.data}
+  throw new Error("AniList is busy, try again in a minute");
+}
+function rowFrom(m){const sd=m.startDate||{},c=m.countryOfOrigin||"JP",type=m.type||"ANIME";
+  return{id:m.id,kind:type==="ANIME"?"anime":c==="KR"?"manhwa":(c==="CN"||c==="TW")?"manhua":"manga",t:m.title.english||m.title.romaji,ro:m.title.romaji,g:m.genres||[],s:0,st:"X",p:0,pv:0,
+    ep:(type==="ANIME"?m.episodes:m.chapters)||0,vol:0,avg:m.averageScore||0,y:m.seasonYear||sd.year||0,f:FMT[m.format]||m.format||"?",c,u:0,
+    cov:m.coverImage&&m.coverImage.large,covX:m.coverImage&&(m.coverImage.extraLarge||m.coverImage.large),col:m.coverImage&&m.coverImage.color,ban:m.bannerImage,url:m.siteUrl,
+    sea:m.season||null,pop:m.popularity||0,status:m.status,sd:(sd.year||9999)*10000+(sd.month||12)*100+(sd.day||28)}}
+async function fetchMedia(ids){const miss=[...new Set(ids)].filter(i=>!MCACHE.has(i));
+  for(let i=0;i<miss.length;i+=50){const d=await aq(`query($ids:[Int]){Page(perPage:50){media(id_in:$ids){${MEDIA_F}}}}`,{ids:miss.slice(i,i+50)});d.Page.media.forEach(m=>MCACHE.set(m.id,rowFrom(m)))}}
+const FR=new Map();
+async function franchise(root){
+  if(FR.has(root))return FR.get(root);
+  const ck="shelf:fr2:"+root,c=store.get(ck,null);
+  if(c&&Date.now()-c.t<5*864e5){c.rows.forEach(r=>MCACHE.set(r.id,r));c.rows.forEach(r=>FR.set(r.id,c.rows));return c.rows}
+  const seen=new Set([root]);let frontier=[root];const out=[];
+  while(frontier.length&&out.length<90){const batch=frontier.slice(0,50);frontier=frontier.slice(50);
+    const d=await aq(`query($ids:[Int]){Page(perPage:50){media(id_in:$ids,type:ANIME){${MEDIA_F} relations{edges{relationType node{id type format}}}}}}`,{ids:batch});
+    for(const m of d.Page.media){const r=rowFrom(m);MCACHE.set(m.id,r);out.push(r);
+      for(const e of m.relations.edges){const n=e.node;if(n.type==="ANIME"&&REL_KEEP.has(e.relationType)&&n.format!=="MUSIC"&&!seen.has(n.id)){seen.add(n.id);frontier.push(n.id)}}}}
+  out.sort((a,b)=>a.sd-b.sd);store.set(ck,{t:Date.now(),rows:out});out.forEach(r=>FR.set(r.id,out));return out;
+}
+function myStatus(id){const a=ALLMAP.get(id),an=!a||a.kind==="anime";
+  if(!a)return{k:"none",l:"Not watched yet"};
+  if(a.st==="C")return{k:"done",l:`✓ ${an?"Watched":"Read"}${a.s?" · ★ "+a.s:""}`};
+  if(a.st==="W")return{k:"now",l:`${an?"Watching · ep":"Reading · ch"} ${a.p}${a.ep?"/"+a.ep:""}`};
+  if(a.st==="H")return{k:"now",l:"Paused"};if(a.st==="D")return{k:"drop",l:"Dropped"};return{k:"plan",l:"On your plan list"}}
+/* --- section --- */
+async function renderOrders(){
+  const box=$("#ogrid");if(!box)return;ALLMAP=new Map(ALL.map(a=>[a.id,a]));
+  if(SNAP){box.innerHTML=`<div class="panel box" style="grid-column:1/-1"><h3>Watch orders live on the website</h3><p style="margin:6px 0 14px;color:var(--muted)">This snapshot can't reach AniList, so watch orders and search run on the live site.</p><a class="dark" href="${LIVE}#orders" target="_blank" rel="noopener">Open watch orders ↗</a></div>`;return}
+  const card=(f,i)=>{const [key,name,seed]=f,cur=key&&CURATED[key],ids=cur?cur.ids:[seed],rows=ids.map(id=>MCACHE.get(id)).filter(Boolean);
+    const fr=FR.get(seed),pool=cur?cur.groups[0][1].map(x=>x[0]):(fr?fr.filter(r=>MAINF.has(r.f)).map(r=>r.id):null);
+    const w=pool?pool.filter(id=>{const a=ALLMAP.get(id);return a&&a.st==="C"}).length:null;
+    const covs=(cur?cur.groups[0][1].slice(0,3).map(x=>MCACHE.get(x[0])):[MCACHE.get(seed)]).filter(Boolean);
+    return `<button class="ocard" data-oseed="${seed}"${key?` data-ocur="${key}"`:""} style="--d:${i*45}ms"><span class="ostack">${covs.length?covs.map((r,k)=>`<img src="${esc(r.cov)}" alt="" style="--k:${k}" loading="lazy" onerror="this.style.visibility='hidden'">`).join(""):`<i></i>`}</span>
+      <span class="otxt"><b>${esc(name)}</b><small>${cur?"Recommended order":"Release order"}${pool?` · ${pool.length} main entries`:""}</small>
+      ${w!=null?`<span class="obar"><i style="width:${pool.length?w/pool.length*100:0}%"></i></span><small class="num">${w} of ${pool.length} watched</small>`:`<small>Tap to build the order</small>`}</span></button>`};
+  box.innerHTML=FEATURED.map(card).join("");
+  if(!renderOrders.loaded){renderOrders.loaded=true;await new Promise(r=>setTimeout(r,2500));try{await fetchMedia([...FEATURED.map(f=>f[2]),...Object.values(CURATED).flatMap(c=>c.ids)]);renderOrders()}catch(e){renderOrders.loaded=false}}
+}
+/* --- order sheet --- */
+const OS={root:null,cur:null,tab:"main",rows:[]};
+async function openOrder(id,curKey){
+  if(SNAP){const a=document.createElement("a");a.href=LIVE+"#orders";a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}
+  if(!document.querySelector(".sheet.on"))lastFocus=document.activeElement;closeAll(true);id=+id;ALLMAP=new Map(ALL.map(a=>[a.id,a]));
+  const cur=curKey?CURATED[curKey]:Object.values(CURATED).find(c=>c.ids.includes(id))||null;
+  OS.root=id;OS.cur=cur;OS.tab=cur?"rec":"main";
+  $("#osheet").innerHTML=`<button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><div class="xin"><div><div class="eyebrow">Watch order</div><h2 id="oTitle">${esc(cur?cur.name:(MCACHE.get(id)||ALLMAP.get(id)||{t:"Franchise"}).t)}</h2></div><div class="oload"><i class="spin"></i> Building the order from AniList…</div></div>`;
+  show("#osheet");
+  try{OS.rows=await franchise(cur?cur.seed:id);if(cur)await fetchMedia(cur.ids);renderOrder()}
+  catch(e){$("#osheet .oload").innerHTML=`Couldn't build this order: ${esc(e.message)}`}
+}
+function renderOrder(){
+  const cur=OS.cur,rows=OS.rows,root=MCACHE.get(OS.root)||rows[0]||{};
+  let groups;
+  if(OS.tab==="rec"&&cur)groups=cur.groups.map(([g,L])=>[g,L.map(([id,note])=>({r:MCACHE.get(id),note})).filter(x=>x.r)]);
+  else if(OS.tab==="main")groups=[["Release order",rows.filter(r=>MAINF.has(r.f)).map(r=>({r}))]];
+  else groups=[["Main entries",rows.filter(r=>MAINF.has(r.f)).map(r=>({r}))],["OVAs, specials and extras",rows.filter(r=>!MAINF.has(r.f)).map(r=>({r}))]];
+  const list=groups.flatMap(g=>g[1]),mainList=groups[0][1];
+  const done=mainList.filter(x=>{const a=ALLMAP.get(x.r.id);return a&&a.st==="C"}).length;
+  const next=list.find(x=>{const a=ALLMAP.get(x.r.id);return!(a&&a.st==="C")&&x.r.status!=="NOT_YET_RELEASED"});
+  let n=0;
+  const row=(x,i)=>{const r=x.r,s=myStatus(r.id),isNext=next&&next.r.id===r.id;n++;
+    return `<button class="orow ${s.k}${isNext?" next":""}" data-orow="${r.id}" style="--d:${Math.min(i,24)*35}ms"><span class="onum num">${n}</span>${img(r,"mini")}<span class="ot"><b>${esc(r.t)}</b><small>${esc(r.f)} · ${r.sea?SEAS_L[r.sea]+" ":""}${r.y||"TBA"}${r.ep?` · ${r.ep} ep`:""}${r.status==="NOT_YET_RELEASED"?" · Upcoming":r.status==="RELEASING"?" · Airing":""}</small>${x.note?`<em>${esc(x.note)}</em>`:""}</span><span class="ost">${isNext?`<strong>Next up</strong>`:""}${esc(s.l)}</span></button>`};
+  const tabs=[...(cur?[["rec","Recommended"]]:[]),["main","Main story"],["all","Everything"]];
+  $("#osheet .xin").innerHTML=`<div><div class="eyebrow">Watch order</div><h2 id="oTitle">${esc(cur?cur.name:root.t||"Franchise")}</h2>${cur&&OS.tab==="rec"?`<p>${esc(cur.note)}</p>`:`<p>Every connected entry on AniList, sorted by release date. ${OS.tab==="main"?"TV series, films and web series only.":"Includes OVAs, specials and recaps."}</p>`}</div>
+    <div class="ohead">${ring(mainList.length?done/mainList.length:0,64,`${done}/${mainList.length}`)}<div><b>${done===mainList.length&&mainList.length?"All caught up":next?`Next: ${esc(next.r.t)}`:"Nothing released yet"}</b><small>${done} of ${mainList.length} ${OS.tab==="rec"?"main story entries":"entries"} watched</small></div></div>
+    <div class="otabs">${tabs.map(([k,l])=>`<button type="button" class="chip" data-otab="${k}" aria-pressed="${OS.tab===k}">${l}</button>`).join("")}</div>
+    ${groups.filter(g=>g[1].length).map(([g,L])=>`<div class="ogroup"><div class="eyebrow">${esc(g)} · ${L.length}</div>${L.map(row).join("")}</div>`).join("")}`;
+  spin($("#osheet"));
+}
+/* --- search --- */
+const SR={type:"ANIME",q:"",t:null,seq:0};
+function openSearch(q){
+  if(!document.querySelector(".sheet.on"))lastFocus=document.activeElement;closeAll(true);show("#ssheet");SR.type=mode==="anime"?"ANIME":"MANGA";
+  document.querySelectorAll("[data-stype]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.stype===SR.type));
+  if(q!=null){$("#sIn").value=q;runSearch()}else if(!$("#sIn").value)$("#sres").innerHTML=searchHint();
+  setTimeout(()=>$("#sIn").focus({preventScroll:true}),120);
+}
+const searchHint=()=>`<div class="shint"><b>Search all of AniList</b><small>Find any ${SR.type==="ANIME"?"anime":"manga or manhwa"}, see if it's on your list, and open its watch order.</small><div class="people">${["Fate","Monogatari","Gintama","Frieren","Solo Leveling"].map(s=>`<button type="button" class="chip" data-sq="${s}">${s}</button>`).join("")}</div></div>`;
+async function runSearch(){
+  const q=$("#sIn").value.trim();SR.q=q;const box=$("#sres");
+  if(SNAP){box.innerHTML=`<div class="shint"><b>Search runs on the live site</b><a class="dark" href="${LIVE}" target="_blank" rel="noopener">Open live site ↗</a></div>`;return}
+  if(q.length<2){box.innerHTML=searchHint();return}
+  const seq=++SR.seq;box.innerHTML=`<div class="oload"><i class="spin"></i> Searching AniList…</div>`;
+  try{const d=await aq(`query($s:String,$t:MediaType){Page(perPage:20){media(search:$s,type:$t,sort:[SEARCH_MATCH]){${MEDIA_F}}}}`,{s:q,t:SR.type});
+    if(seq!==SR.seq)return;ALLMAP=new Map(ALL.map(a=>[a.id,a]));
+    const L=d.Page.media.map(m=>{const r=rowFrom(m);MCACHE.set(r.id,r);return r});
+    box.innerHTML=L.length?L.map((r,i)=>{const a=ALLMAP.get(r.id),s=a?myStatus(r.id):null;
+      return `<div class="srow" style="--d:${i*30}ms"><button type="button" class="sopen" data-sopen="${r.id}">${img(r,"mini")}<span class="ot"><b>${esc(r.t)}</b><small>${esc(r.f)} · ${r.y||"TBA"}${r.ep?` · ${r.ep} ${SR.type==="ANIME"?"ep":"ch"}`:""}${r.avg?` · ★ ${(r.avg/10).toFixed(1)}`:""}</small><em class="${a?"on":""}">${a?esc(s.l):"Not on your list"}</em></span></button>${SR.type==="ANIME"?`<button type="button" class="ghost sord" data-order="${r.id}">Watch order</button>`:""}</div>`}).join("")
+      :`<div class="shint"><b>No results for “${esc(q)}”</b><small>Try the Japanese or English title.</small></div>`;
+  }catch(e){if(seq===SR.seq)box.innerHTML=`<div class="shint"><b>Search failed</b><small>${esc(e.message)}</small></div>`}
+}
+function openMediaRow(id){id=+id;const lf=document.querySelector(".sheet.on")?lastFocus:document.activeElement;closeAll(true);
+  if(ALL.find(x=>x.id===id))openSheet(id);else{const r=MCACHE.get(id);if(!r)return closeAll();ALL.push({...r,_temp:true});openSheet(id);ALL=ALL.filter(x=>!x._temp)}
+  lastFocus=lf}
+
 /* ================= rankings ================= */
 const rkLabel=r=>`#${fmtN(r.r)} ${r.c}${r.s?` ${SEAS_L[r.s]}`:""}${r.y?` ${r.y}`:""}`;
 const kfmt=n=>n>=1e6?(n/1e6).toFixed(1)+"M":n>=1e3?Math.round(n/1e3)+"k":String(n);
@@ -1622,7 +1823,7 @@ function updatePromo(){const ys=wrapYears(),b=$("#wPromo");b.hidden=!ys.length;i
 function renderAll(){
   A=rowsOf(mode);state.genre="";state.fmt="";state.tab="all";state.q="";$("#q").value="";
   $("#q").placeholder=`Search ${modeObj().label.toLowerCase()} by English or romaji title`;
-  renderHero();renderNow();marquee();renderTabs();renderFilters();resetGrid();genreSection();rankSection();insights();CMP.limit=40;CMP.sort="diff";CMP.view="all";CMP.f={fmt:"",genre:"",year:"",season:""};renderCompare();updatePromo();observe();
+  renderHero();renderNow();marquee();renderTabs();renderFilters();resetGrid();genreSection();rankSection();insights();CMP.limit=40;CMP.sort="diff";CMP.view="all";CMP.f={fmt:"",genre:"",year:"",season:""};renderCompare();renderOrders();updatePromo();observe();
   if(!io)drawDonut();
 }
 
@@ -1643,7 +1844,7 @@ function openSheet(id,src){
     <div class="sstat">${ring(a.avg/100,52,(a.avg/10).toFixed(1))}<div><small>AniList average</small><strong class="num">${a.avg}%</strong></div></div>
     <div class="sstat">${ring(pc,52,Math.round(pc*100)+"%")}<div><small>${m.units[0].toUpperCase()+m.units.slice(1)}</small><strong class="num">${fmtN(w)} / ${a.ep||"?"}</strong></div></div></div>
    <p class="sdesc">${describe(a)}${a.vol?` ${a.pv} of ${a.vol} volumes.`:""}</p>
-   <div class="sfoot"><span class="sp"></span><a class="dark" href="${esc(a.url)}" target="_blank" rel="noopener">Open on AniList</a></div>`;
+   <div class="sfoot">${a.kind==="anime"?`<button type="button" class="ghost" data-order="${a.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Watch order</button>`:""}<span class="sp"></span><a class="dark" href="${esc(a.url)}" target="_blank" rel="noopener">Open on AniList</a></div>`;
   const u=a.ban||a.covX;if(u){const im=new Image();im.onload=()=>{const b=$("#bi");if(b){b.style.backgroundImage=`url("${u}")`;b.classList.add("ok")}};im.src=u}
   show("#sheet");spin($("#sheet"));
   if(src&&!reduce&&a.covX)fly(src,a.covX);
@@ -1657,7 +1858,7 @@ function fly(src,url){
     f.animate([{left:s.left+"px",top:s.top+"px",width:s.width+"px",height:s.height+"px",borderRadius:"10px"},{left:d.left+"px",top:d.top+"px",width:d.width+"px",height:d.height+"px",borderRadius:"12px"}],{duration:620,easing:"cubic-bezier(.2,.8,.2,1)",fill:"forwards"})
       .onfinish=()=>{t.style.visibility="";f.remove()}})}
 function show(sel){$("#scrim").classList.add("on");$(sel).classList.add("on");document.body.style.overflow="hidden"}
-function closeAll(keep){["#sheet","#xsheet","#asheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
+function closeAll(keep){["#sheet","#xsheet","#asheet","#osheet","#ssheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
   if(keep!==true){$("#scrim").classList.remove("on");document.body.style.overflow="";lastFocus?.focus?.()}}
 
 /* ================= pick ================= */
@@ -1821,6 +2022,14 @@ document.addEventListener("click",e=>{
   const o=e.target.closest("[data-open]");if(o){const im=o.querySelector("img")||(o.closest(".card")&&o.closest(".card").querySelector(".cover img"));openSheet(o.dataset.open,im);return}
   const t=e.target.closest(".tab");if(t){state.tab=t.dataset.tab;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));moveTab();resetGrid();return}
   const g=e.target.closest("[data-genre]");if(g){state.genre=g.dataset.genre;renderFilters();resetGrid();if(g.matches(".grow,.gcard"))$("#shelf").scrollIntoView({behavior:reduce?"auto":"smooth"});return}
+  const oc=e.target.closest("[data-oseed]");if(oc){openOrder(oc.dataset.oseed,oc.dataset.ocur);return}
+  const od=e.target.closest("[data-order]");if(od){openOrder(od.dataset.order);return}
+  const orw=e.target.closest("[data-orow]");if(orw){openMediaRow(orw.dataset.orow);return}
+  const so=e.target.closest("[data-sopen]");if(so){openMediaRow(so.dataset.sopen);return}
+  const ot=e.target.closest("[data-otab]");if(ot){OS.tab=ot.dataset.otab;renderOrder();return}
+  const stp=e.target.closest("[data-stype]");if(stp){SR.type=stp.dataset.stype;document.querySelectorAll("[data-stype]").forEach(b=>b.setAttribute("aria-pressed",b===stp));runSearch();return}
+  const sq=e.target.closest("[data-sq]");if(sq){$("#sIn").value=sq.dataset.sq;runSearch();return}
+  const gs=e.target.closest("[data-gsearch]");if(gs){openSearch(state.q);return}
   const oa=e.target.closest("[data-open-any]");if(oa){openAny(oa.dataset.openAny);return}
   const cv=e.target.closest("[data-cview]");if(cv){CMP.view=cv.dataset.cview;CMP.limit=40;CMP.sort=CMP.view==="all"?"diff":"group";renderCompare();return}
   const rm=e.target.closest("[data-rm]");if(rm){removePerson(+rm.dataset.rm);return}
@@ -1850,6 +2059,11 @@ $("#wNext").addEventListener("click",()=>{if(W.i<W.slides.length-1)showSlide(W.i
   let sx=null;box.addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});box.addEventListener("touchend",e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(d)>60)showSlide(Math.min(W.slides.length-1,W.i+(d<0?1:-1)))})})();
 addEventListener("keydown",e=>{if($("#wrap").hidden)return;if(e.key==="ArrowRight")showSlide(Math.min(W.slides.length-1,W.i+1));if(e.key==="ArrowLeft")showSlide(W.i-1);if(e.key==="Escape")closeWrapped()});
 $("#pickBtn").addEventListener("click",pick);
+$("#searchBtn").addEventListener("click",()=>openSearch());
+$("#oForm").addEventListener("submit",e=>{e.preventDefault();openSearch($("#oIn").value.trim())});
+$("#sForm").addEventListener("submit",e=>{e.preventDefault();clearTimeout(SR.t);runSearch()});
+$("#sIn").addEventListener("input",()=>{clearTimeout(SR.t);SR.t=setTimeout(runSearch,450)});
+addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&$("#wrap").hidden){e.preventDefault();openSearch()}});
 $("#cmpNav").addEventListener("click",e=>{e.preventDefault();const s=$("#compare");s.scrollIntoView({behavior:reduce?"auto":"smooth"});s.classList.remove("flash");void s.offsetWidth;s.classList.add("flash");setTimeout(()=>$("#cmpIn").focus({preventScroll:true}),reduce?0:700)});
 $("#exportBtn").addEventListener("click",()=>{lastFocus=document.activeElement;X.scope=mode;renderExport();show("#xsheet");setTimeout(()=>$("#xsheet .x").focus(),60)});
 $("#xpdf").addEventListener("click",async e=>{const b=e.currentTarget;if(b.disabled)return;b.disabled=true;try{await makePDF()}finally{b.disabled=false}});

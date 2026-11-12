@@ -11,6 +11,8 @@ It reads AniList live in the visitor's browser, so the page updates whenever my 
 - Search, sort, status tabs, and genre and format filters
 - Genre radar, my-score-vs-AniList bars, a card per genre, release years, score spread, formats and hot takes
 - **Compare with a friend**: type any AniList username to see what you both have, what only you have and what only they have, plus a taste-match score
+- **Watch orders**: hand-picked orders for Fate and Monogatari, automatic release orders for any other franchise (built from AniList's relations), with what's already watched ticked off
+- **Search all of AniList**: find any anime or manga, see whether it's on the list, and open its details or watch order
 - **Export**: save any part of the list (or everything) as a PDF, CSV or JSON
 - **Switch account**: anyone can tap Switch and enter their own AniList username to make the whole site theirs (remembered on that device), or view anyone's shelf with `?user=<AniList name>`, and share a comparison with `?compare=<name>`
 
