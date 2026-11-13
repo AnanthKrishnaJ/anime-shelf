@@ -16,6 +16,13 @@ It reads AniList live in the visitor's browser, so the page updates whenever my 
 - **Export**: save any part of the list (or everything) as a PDF, CSV or JSON
 - **Switch account**: anyone can tap Switch and enter their own AniList username to make the whole site theirs (remembered on that device), or view anyone's shelf with `?user=<AniList name>`, and share a comparison with `?compare=<name>`
 
+## Get the app
+
+- **Android**: download [anime-shelf.apk](https://github.com/AnanthKrishnaJ/anime-shelf/releases/latest/download/anime-shelf.apk) and open it (Android 10 or newer). The app opens the live shelf full screen, saves exports to Downloads/Anime Shelf, and opens shared shelf links.
+- **iPhone, iPad and desktop**: open the site and use *Add to Home Screen* (Safari) or *Install app* (Chrome and Edge).
+
+The Android project lives in `android/`. Pushing changes there runs `.github/workflows/android.yml`, which builds a signed APK and publishes it as a new release. The signing key is stored in the repository's Actions secrets (`KEYSTORE_B64`, `KEYSTORE_PASS`).
+
 ## Run it
 
 It's a single static file, so open `index.html` or deploy the folder to any static host (it's set up for Vercel).

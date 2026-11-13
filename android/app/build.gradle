@@ -1,0 +1,50 @@
+plugins {
+    id "com.android.application"
+}
+
+def ks = System.getenv("KEYSTORE_PATH")
+
+android {
+    namespace "com.ananth.animeshelf"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.ananth.animeshelf"
+        minSdk 29
+        targetSdk 34
+        versionCode Integer.parseInt(System.getenv("VERSION_CODE") ?: "1")
+        versionName "1.0." + (System.getenv("VERSION_CODE") ?: "1")
+    }
+
+    signingConfigs {
+        release {
+            if (ks) {
+                storeFile file(ks)
+                storePassword System.getenv("KEYSTORE_PASS")
+                keyAlias "shelf"
+                keyPassword System.getenv("KEYSTORE_PASS")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig ks ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

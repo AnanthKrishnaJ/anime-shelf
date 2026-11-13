@@ -8,6 +8,12 @@
 <meta property="og:title" content="Ananth's Anime Shelf">
 <meta property="og:description" content="Every anime, manga and manhwa on my AniList, live from AniList.">
 <meta name="theme-color" content="#0b0b0b">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Anime Shelf">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Cpath d='M22 8h20l14 48H8z' fill='%23fff' opacity='.18'/%3E%3Ctext x='32' y='44' font-family='Georgia' font-size='34' font-weight='700' fill='%23fff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -725,6 +731,16 @@ footer input{border:1px solid var(--line);background:var(--card);border-radius:1
   .osheet .xin,.ssheet .xin{padding:22px 16px}
 }
 @media (max-width:400px){.brand h1{display:none}.top .wrap{gap:8px}.hbtn{padding:9px 10px}}
+
+/* app */
+.aphead{display:flex;align-items:center;gap:16px}
+.aphead img{border-radius:18px;box-shadow:0 16px 30px -14px rgba(0,0,0,.6);animation:float 3s ease-in-out infinite;flex:none}
+.apopt{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px;justify-items:start;animation:rise .5s var(--ease) both}
+.apopt:nth-of-type(2){animation-delay:.06s}.apopt:nth-of-type(3){animation-delay:.12s}
+.apopt small{color:var(--muted);font-size:13px}.apopt small strong{color:var(--ink)}
+.apopt .dark,.apopt .ghost{margin-top:6px}
+.apopt .dark{text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:normal}
+.in-app #appBtn,.standalone #appBtn{display:none}
 @media (max-width:460px){.hbtn span{display:none}}
 .snapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--btn);color:var(--btn-ink);border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px}
 .snapbar a{color:var(--btn);background:var(--btn-ink);border-radius:8px;padding:6px 12px;font-weight:700;text-decoration:none;white-space:nowrap}
@@ -984,6 +1000,7 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
   <footer class="page">
     <span id="footNote">Live data from AniList.</span>
     <button class="ghost" id="footAcct" type="button">See your own shelf</button>
+    <button class="ghost" id="appBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Get the app</button>
     <button class="ghost" id="shareBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
   </footer>
 </main>
@@ -1039,6 +1056,24 @@ body:not(.r-wait) .sechead h2,.sechead.r-done h2{background-size:100% 2px}
     <div id="sres" aria-live="polite"></div>
   </div>
 </div>
+<div class="sheet xsheet appsheet" id="appsheet" role="dialog" aria-modal="true" aria-labelledby="apTitle">
+  <button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="xin">
+    <div class="aphead"><img src="/icons/icon-192.png" alt="" width="72" height="72"><div><div class="eyebrow">Get the app</div><h2 id="apTitle">Anime Shelf on your phone</h2></div></div>
+    <p>Same shelf, full screen, one tap from your home screen. It still syncs with AniList on its own.</p>
+    <div class="apopt" id="apAndroid">
+      <b>Android</b><small>Download the app and open the file. If Android asks, allow installs from your browser or Files app.</small>
+      <a class="dark" id="apApk" href="https://github.com/AnanthKrishnaJ/anime-shelf/releases/latest/download/anime-shelf.apk" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download for Android (APK)</a>
+    </div>
+    <div class="apopt" id="apInstall" hidden>
+      <b>Install from this browser</b><small>Adds the shelf as an app without downloading a file.</small>
+      <button class="ghost" type="button" id="apPrompt">Install now</button>
+    </div>
+    <div class="apopt" id="apIos">
+      <b>iPhone and iPad</b><small>Open this site in Safari, tap the Share button, then <strong>Add to Home Screen</strong>.</small>
+    </div>
+  </div>
+</div>
 <div class="ahint" id="ahint" hidden><span class="aav big"></span><div><b>Got an AniList account?</b><small>See your own anime, stats and Wrapped here.</small></div><button class="dark" type="button" id="ahintGo">Try it</button><button class="ahx" type="button" id="ahintX" aria-label="Dismiss">×</button></div>
 <div class="done" id="done" role="dialog" aria-modal="true" aria-labelledby="doneT"></div>
 <div id="report"></div>
@@ -1056,6 +1091,18 @@ const OWNER_NAME = "Ananth";
 const params = new URLSearchParams(location.search);
 const lsGet = k => {try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet = (k,v) => {try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+/* Android app bridge: the app exposes window.ShelfApp for saving and sharing files. */
+const APP = window.ShelfApp || null;
+if (APP) {
+  const b64 = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1] || ""); r.onerror = rej; r.readAsDataURL(b); });
+  window.__appSave = async (name, data, type) => { const b = data instanceof Blob ? data : new Blob([data], {type}); APP.save(name, await b64(b), String(type || b.type || "application/octet-stream").split(";")[0]); };
+  try {
+    Object.defineProperty(navigator, "share", {configurable: true, value: async d => { if (d.files && d.files.length) { const f = d.files[0]; APP.shareFile(f.name, await b64(f), f.type || "application/octet-stream", d.title || ""); } else APP.shareText(d.title || "", d.url || d.text || ""); }});
+    Object.defineProperty(navigator, "canShare", {configurable: true, value: () => true});
+  } catch (e) {}
+  document.documentElement.classList.add("in-app");
+}
+if (matchMedia("(display-mode: standalone)").matches || navigator.standalone) document.documentElement.classList.add("standalone");
 const SAVED_ME = SNAP ? null : lsGet("shelf:me");
 const USER = (params.get("user") || SAVED_ME || DEFAULT_USER).trim();
 const IS_OWNER = USER.toLowerCase() === DEFAULT_USER.toLowerCase();
@@ -1858,7 +1905,7 @@ function fly(src,url){
     f.animate([{left:s.left+"px",top:s.top+"px",width:s.width+"px",height:s.height+"px",borderRadius:"10px"},{left:d.left+"px",top:d.top+"px",width:d.width+"px",height:d.height+"px",borderRadius:"12px"}],{duration:620,easing:"cubic-bezier(.2,.8,.2,1)",fill:"forwards"})
       .onfinish=()=>{t.style.visibility="";f.remove()}})}
 function show(sel){$("#scrim").classList.add("on");$(sel).classList.add("on");document.body.style.overflow="hidden"}
-function closeAll(keep){["#sheet","#xsheet","#asheet","#osheet","#ssheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
+function closeAll(keep){["#sheet","#xsheet","#asheet","#osheet","#ssheet","#appsheet","#done"].forEach(s=>$(s).classList.remove("on"));document.getElementById("flyer")?.remove();
   if(keep!==true){$("#scrim").classList.remove("on");document.body.style.overflow="";lastFocus?.focus?.()}}
 
 /* ================= pick ================= */
@@ -1882,7 +1929,7 @@ function renderExport(){
 }
 function exportRows(){const L=X.scope==="all"?ALL:rowsOf(X.scope);return L.filter(a=>X.st==="all"||a.st===X.st).sort((a,b)=>a.t.localeCompare(b.t))}
 function scopeLabel(){return X.scope==="all"?"anime, manga & manhwa":MODES.find(m=>m.k===X.scope).label.toLowerCase()}
-function download(name,text,type){const b=new Blob([text],{type}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+function download(name,text,type){if(window.__appSave){window.__appSave(name,text,type).catch(()=>toast("Couldn't save the file"));return}const b=new Blob([text],{type}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
 const fname=ext=>`${DISPLAY}-${X.scope==="all"?"everything":X.scope}-list-${new Date().toISOString().slice(0,10)}.${ext}`;
 function toCSV(){const L=exportRows(),h=["Title","Romaji","Type","Format","Country","Year","Status","My score","Progress","Total","Volumes read","AniList score","Genres","AniList link"];
   const q=v=>{v=String(v??"");return /[",\n]/.test(v)?`"${v.replace(/"/g,'""')}"`:v};
@@ -2060,6 +2107,16 @@ $("#wNext").addEventListener("click",()=>{if(W.i<W.slides.length-1)showSlide(W.i
 addEventListener("keydown",e=>{if($("#wrap").hidden)return;if(e.key==="ArrowRight")showSlide(Math.min(W.slides.length-1,W.i+1));if(e.key==="ArrowLeft")showSlide(W.i-1);if(e.key==="Escape")closeWrapped()});
 $("#pickBtn").addEventListener("click",pick);
 $("#searchBtn").addEventListener("click",()=>openSearch());
+let installEvt=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();installEvt=e;$("#apInstall").hidden=false});
+addEventListener("appinstalled",()=>{installEvt=null;$("#apInstall").hidden=true;toast("Installed. Find Anime Shelf on your home screen")});
+$("#appBtn").addEventListener("click",()=>{if(SNAP){const a=document.createElement("a");a.href=LIVE+"#app";a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();return}
+  lastFocus=document.activeElement;const ua=navigator.userAgent,ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),and=/Android/.test(ua);
+  $("#apIos").hidden=and;$("#apAndroid").hidden=ios;$("#apInstall").hidden=!installEvt;show("#appsheet");setTimeout(()=>$("#appsheet .x").focus(),60)});
+$("#apPrompt").addEventListener("click",async()=>{if(!installEvt)return;installEvt.prompt();try{await installEvt.userChoice}catch(e){}installEvt=null;$("#apInstall").hidden=true});
+if(!SNAP&&location.hash==="#app")setTimeout(()=>$("#appBtn").click(),1200);
+if(!SNAP&&"serviceWorker" in navigator&&location.protocol==="https:")addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+window.appBack=()=>{if(!$("#wrap").hidden){closeWrapped();return true}if(document.querySelector(".sheet.on,.done.on")){closeAll();return true}return false};
 $("#oForm").addEventListener("submit",e=>{e.preventDefault();openSearch($("#oIn").value.trim())});
 $("#sForm").addEventListener("submit",e=>{e.preventDefault();clearTimeout(SR.t);runSearch()});
 $("#sIn").addEventListener("input",()=>{clearTimeout(SR.t);SR.t=setTimeout(runSearch,450)});
