@@ -55,3 +55,13 @@ jobs:
             --title "Anime Shelf for Android 1.0.${{ github.run_number }}" \
             --notes "Install anime-shelf.apk on an Android phone (Android 10 or newer). The app opens the live shelf full screen, so it updates whenever the website does." \
             --latest
+
+      - name: Update the APK the website serves
+        run: |
+          mkdir -p download
+          cp "$RUNNER_TEMP/anime-shelf.apk" download/anime-shelf.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add download/anime-shelf.apk
+          git diff --cached --quiet || git commit -m "Update Android app to 1.0.${{ github.run_number }}"
+          git pull --rebase origin main && git push origin HEAD:main

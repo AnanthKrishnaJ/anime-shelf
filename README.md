@@ -18,10 +18,10 @@ It reads AniList live in the visitor's browser, so the page updates whenever my 
 
 ## Get the app
 
-- **Android**: download [anime-shelf.apk](https://github.com/AnanthKrishnaJ/anime-shelf/releases/latest/download/anime-shelf.apk) and open it (Android 10 or newer). The app opens the live shelf full screen, saves exports to Downloads/Anime Shelf, and opens shared shelf links.
+- **Android**: download [anime-shelf.apk](https://anime-shelf-seven.vercel.app/download/anime-shelf.apk) (also in this repo at [`download/anime-shelf.apk`](download/anime-shelf.apk) and on the [Releases page](https://github.com/AnanthKrishnaJ/anime-shelf/releases/latest)) and open it (Android 10 or newer). The app opens the live shelf full screen, saves exports to Downloads/Anime Shelf, and opens shared shelf links.
 - **iPhone, iPad and desktop**: open the site and use *Add to Home Screen* (Safari) or *Install app* (Chrome and Edge).
 
-The Android project lives in `android/`. Pushing changes there runs `.github/workflows/android.yml`, which builds a signed APK and publishes it as a new release. The signing key is stored in the repository's Actions secrets (`KEYSTORE_B64`, `KEYSTORE_PASS`).
+The Android project lives in `android/`. Pushing changes there runs `.github/workflows/android.yml`, which builds a signed APK, publishes it as a new release and commits it to `download/anime-shelf.apk` so the website's download button always serves the newest version. The signing key is stored in the repository's Actions secrets (`KEYSTORE_B64`, `KEYSTORE_PASS`).
 
 ## Run it
 
